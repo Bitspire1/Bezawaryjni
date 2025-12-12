@@ -1,76 +1,63 @@
-export default function FAQ() {
-    const items: { q: string; a: string; icon: IconName }[] = [
-        {
-            q: "Czy mogę wynająć stanowisko samoobsługowe na godziny?",
-            a: "Tak. Wynajem rozliczamy godzinowo. Na miejscu otrzymasz podnośnik i podstawowe narzędzia ręczne.",
-            icon: "clock",
-        },
-        {
-            q: "Czy pomagacie w trakcie pracy na stanowisku?",
-            a: "Zapewniamy krótki instruktaż BHP i wsparcie pracownika. W razie potrzeby możemy też przejąć naprawę w ramach serwisu mechanicznego.",
-            icon: "support",
-        },
-        {
-            q: "Czy na miejscu kupię części i materiały eksploatacyjne?",
-            a: "Tak, pomagamy w doborze części i materiałów. Jeśli czegoś brakuje, zamawiamy na bieżąco.",
-            icon: "cart",
-        },
-        {
-            q: "Jak zarezerwować termin?",
-            a: "Najprościej telefonicznie lub e‑mailem. Możesz też wypełnić formularz w sekcji Kontakt – oddzwonimy z potwierdzeniem.",
-            icon: "calendar",
-        },
-        {
-            q: "Jakie usługi serwisu mechanicznego wykonujecie?",
-            a: "Diagnostyka komputerowa, serwis olejowy, hamulce, zawieszenie, klimatyzacja, wymiany opon, przeglądy okresowe i naprawy silników.",
-            icon: "wrench",
-        },
-        {
-            q: "Czy udzielacie gwarancji?",
-            a: "Na większość usług serwisowych udzielamy 12 miesięcy gwarancji. Gwarancja nie obejmuje prac wykonanych samodzielnie przez klienta.",
-            icon: "shield",
-        },
-        {
-            q: "Jakie płatności akceptujecie?",
-            a: "Gotówka i karta. W przypadku większych napraw możliwe są zaliczki.",
-            icon: "payment",
-        },
-        {
-            q: "Co powinienem zabrać ze sobą?",
-            a: "Zalecamy rękawice robocze i ubranie ochronne. Narzędzia podstawowe zapewniamy na miejscu.",
-            icon: "bag",
-        },
-    ];
+type IconName = "clock" | "wrench" | "cart" | "calendar" | "shield" | "payment" | "bag" | "support";
 
+interface FAQProps {
+    data: {
+        faq: {
+            heading: string;
+            items: Array<{
+                question: string;
+                answer: string;
+                icon: IconName;
+            }>;
+        };
+    };
+}
+
+export default function FAQ({ data }: FAQProps) {
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: items.map((it) => ({
+        mainEntity: data.faq.items.map((it) => ({
             '@type': 'Question',
-            name: it.q,
-            acceptedAnswer: { '@type': 'Answer', text: it.a },
+            name: it.question,
+            acceptedAnswer: { '@type': 'Answer', text: it.answer },
         })),
     };
 
     return (
         <section id="faq" className="py-16 bg-[#0b0b0b] text-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-bold text-center wrap-balance">FAQ – najczęstsze pytania</h2>
+                <h2 
+                    className="text-3xl font-bold text-center wrap-balance"
+                    data-tina-field={data.faq.heading}
+                >
+                    {data.faq.heading}
+                </h2>
                 <div className="mt-8 divide-y divide-white/10 rounded-lg ring-1 ring-white/10 bg-[#111]">
-                    {items.map((it) => (
-                        <details key={it.q} className="group open:bg-[#141414]">
+                    {data.faq.items.map((it, index) => (
+                        <details key={it.question} className="group open:bg-[#141414]">
                             <summary className="list-none cursor-pointer select-none px-4 sm:px-5 py-3.5 sm:py-4 flex items-center justify-between gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300/30">
                                 <span className="flex items-center gap-3 sm:gap-4 min-w-0">
                                     <span className="inline-flex flex-none h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-md bg-yellow-400/10 text-yellow-400 ring-1 ring-yellow-400/30" aria-hidden>
                                         <Icon name={it.icon} className="h-5 w-5 sm:h-6 sm:w-6" />
                                     </span>
-                                    <span className="font-medium text-white/90 leading-snug break-words wrap-balance">{it.q}</span>
+                                    <span 
+                                        className="font-medium text-white/90 leading-snug break-words wrap-balance"
+                                        data-tina-field={data.faq.items[index].question}
+                                    >
+                                        {it.question}
+                                    </span>
                                 </span>
                                 <span className="flex-none">
                                     <ChevronDownIcon className="h-4 w-4 text-white/60 transition-transform group-open:rotate-180" />
                                 </span>
                             </summary>
-                            <div className="px-5 pb-5 text-white/80 text-sm leading-relaxed">{it.a}</div>
+                            <div 
+                                className="px-5 pb-5 text-white/80 text-sm leading-relaxed"
+                                data-tina-field={data.faq.items[index].answer}
+                            >
+                                {it.answer}
+                            </div>
                         </details>
                     ))}
                 </div>
@@ -82,8 +69,6 @@ export default function FAQ() {
         </section>
     );
 }
-
-type IconName = "clock" | "wrench" | "cart" | "calendar" | "shield" | "payment" | "bag" | "support";
 
 function Icon({ name, className }: { name: IconName; className?: string }) {
     switch (name) {

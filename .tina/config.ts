@@ -1,176 +1,252 @@
-import { defineConfig, RouteMappingPlugin } from 'tinacms';
+import { defineConfig } from 'tinacms';
+
 export default defineConfig({
-    branch: 'main',
-    clientId: "",
-    token: "",
+    branch: 'Nowy',
+    clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
+    token: process.env.TINA_TOKEN || "",
     build: {
         outputFolder: 'admin',
         publicFolder: 'public',
     },
-    cmsCallback: (cms) => {
-        // Map Tina documents to site routes for Visual Editing
-        cms.plugins.add(
-            new RouteMappingPlugin((collection, document) => {
-                if (collection.name === 'page') {
-                    const filename = (document as any)._sys?.basename || (document as any)._sys?.relativePath?.replace(/\.md$/, '');
-                    const slug = (document as any).slug || filename;
-                    // Always route to homepage since that's the only editable page
-                    return '/';
-                }
-                return undefined;
-            })
-        );
-        return cms;
+    media: {
+        tina: {
+            mediaRoot: '',
+            publicFolder: 'public',
+        },
     },
     schema: {
         collections: [
             {
-                name: 'page',
-                label: 'Strona główna',
-                path: 'content',
-                format: 'json',
-                ui: { allowedActions: { create: false, delete: false } },
-                match: { include: 'home' },
+                name: 'pages',
+                label: 'Pages',
+                path: 'content/pages',
+                format: 'mdx',
                 fields: [
                     {
+                        name: 'title',
+                        label: 'Title',
+                        type: 'string',
+                        required: true,
+                    },
+                    {
                         name: 'hero',
-                        label: 'Sekcja Hero',
+                        label: 'Hero Section',
                         type: 'object',
                         fields: [
-                            { name: 'tagline', label: 'Tagline (mały tekst)', type: 'string' },
-                            { name: 'heading', label: 'Główny nagłówek', type: 'string' },
-                            { name: 'description', label: 'Opis', type: 'string', ui: { component: 'textarea' } },
+                            {
+                                name: 'tagline',
+                                label: 'Tagline',
+                                type: 'string',
+                            },
+                            {
+                                name: 'heading',
+                                label: 'Heading',
+                                type: 'string',
+                            },
+                            {
+                                name: 'description',
+                                label: 'Description',
+                                type: 'string',
+                                ui: {
+                                    component: 'textarea',
+                                },
+                            },
+                            {
+                                name: 'ctaPrimary',
+                                label: 'Primary CTA',
+                                type: 'object',
+                                fields: [
+                                    {
+                                        name: 'text',
+                                        label: 'Text',
+                                        type: 'string',
+                                    },
+                                    {
+                                        name: 'url',
+                                        label: 'URL',
+                                        type: 'string',
+                                    },
+                                ],
+                            },
+                            {
+                                name: 'ctaSecondary',
+                                label: 'Secondary CTA',
+                                type: 'object',
+                                fields: [
+                                    {
+                                        name: 'text',
+                                        label: 'Text',
+                                        type: 'string',
+                                    },
+                                    {
+                                        name: 'url',
+                                        label: 'URL',
+                                        type: 'string',
+                                    },
+                                ],
+                            },
                         ],
                     },
                     {
                         name: 'services',
-                        label: 'Usługi',
+                        label: 'Services Section',
                         type: 'object',
                         fields: [
-                            { name: 'heading', label: 'Nagłówek sekcji', type: 'string' },
+                            {
+                                name: 'heading',
+                                label: 'Heading',
+                                type: 'string',
+                            },
                             {
                                 name: 'items',
-                                label: 'Lista usług',
+                                label: 'Service Items',
                                 type: 'object',
                                 list: true,
                                 fields: [
-                                    { name: 'title', label: 'Nazwa usługi', type: 'string' },
-                                    { name: 'image', label: 'Obraz (plik w /public)', type: 'string' },
-                                    { name: 'alt', label: 'Alt tekst', type: 'string' },
-                                    { name: 'description', label: 'Opis usługi', type: 'string', ui: { component: 'textarea' } },
+                                    {
+                                        name: 'title',
+                                        label: 'Title',
+                                        type: 'string',
+                                        required: true,
+                                    },
+                                    {
+                                        name: 'image',
+                                        label: 'Image',
+                                        type: 'image',
+                                    },
+                                    {
+                                        name: 'alt',
+                                        label: 'Alt Text',
+                                        type: 'string',
+                                    },
+                                    {
+                                        name: 'description',
+                                        label: 'Description',
+                                        type: 'string',
+                                        ui: {
+                                            component: 'textarea',
+                                        },
+                                    },
                                 ],
                             },
                         ],
                     },
                     {
-                        name: 'workshop',
-                        label: 'Warsztat samoobsługowy',
+                        name: 'suppliers',
+                        label: 'Suppliers Section',
                         type: 'object',
                         fields: [
-                            { name: 'heading', label: 'Nagłówek', type: 'string' },
-                            { name: 'description', label: 'Opis', type: 'string', ui: { component: 'textarea' } },
                             {
-                                name: 'features',
-                                label: 'Cechy',
-                                type: 'object',
-                                list: true,
-                                fields: [{ name: 'text', label: 'Tekst', type: 'string' }],
+                                name: 'heading',
+                                label: 'Heading',
+                                type: 'string',
                             },
                             {
-                                name: 'steps',
-                                label: 'Jak to działa (kroki)',
-                                type: 'object',
-                                list: true,
-                                fields: [{ name: 'text', label: 'Tekst kroku', type: 'string' }],
+                                name: 'description',
+                                label: 'Description',
+                                type: 'string',
+                                ui: {
+                                    component: 'textarea',
+                                },
                             },
-                        ],
-                    },
-                    {
-                        name: 'lifts',
-                        label: 'Nowe podnośniki',
-                        type: 'object',
-                        fields: [
-                            { name: 'badge', label: 'Znaczek (np. "Nowość")', type: 'string' },
-                            { name: 'heading', label: 'Nagłówek', type: 'string' },
-                            { name: 'description', label: 'Opis', type: 'string', ui: { component: 'textarea' } },
-                        ],
-                    },
-                    {
-                        name: 'about',
-                        label: 'Nasza firma',
-                        type: 'object',
-                        fields: [
-                            { name: 'heading', label: 'Nagłówek', type: 'string' },
-                            { name: 'description1', label: 'Akapit 1', type: 'string', ui: { component: 'textarea' } },
-                            { name: 'description2', label: 'Akapit 2', type: 'string', ui: { component: 'textarea' } },
                             {
-                                name: 'stats',
-                                label: 'Statystyki',
+                                name: 'logos',
+                                label: 'Supplier Logos',
                                 type: 'object',
                                 list: true,
                                 fields: [
-                                    { name: 'value', label: 'Wartość (np. 2018)', type: 'string' },
-                                    { name: 'label', label: 'Etykieta', type: 'string' },
+                                    {
+                                        name: 'name',
+                                        label: 'Name',
+                                        type: 'string',
+                                    },
+                                    {
+                                        name: 'image',
+                                        label: 'Image',
+                                        type: 'image',
+                                    },
+                                    {
+                                        name: 'alt',
+                                        label: 'Alt Text',
+                                        type: 'string',
+                                    },
                                 ],
-                            },
-                            {
-                                name: 'features',
-                                label: 'Co nas wyróżnia',
-                                type: 'object',
-                                list: true,
-                                fields: [{ name: 'text', label: 'Tekst', type: 'string' }],
                             },
                         ],
                     },
                     {
                         name: 'contact',
-                        label: 'Kontakt',
+                        label: 'Contact Section',
                         type: 'object',
                         fields: [
-                            { name: 'heading', label: 'Nagłówek', type: 'string' },
-                            { name: 'description', label: 'Opis', type: 'string' },
-                            { name: 'phone', label: 'Telefon', type: 'string' },
-                            { name: 'email', label: 'Email', type: 'string' },
-                        ],
-                    },
-                    {
-                        name: 'faq',
-                        label: 'FAQ',
-                        type: 'object',
-                        fields: [
-                            { name: 'heading', label: 'Nagłówek', type: 'string' },
                             {
-                                name: 'items',
-                                label: 'Pytania i odpowiedzi',
-                                type: 'object',
-                                list: true,
-                                fields: [
-                                    { name: 'question', label: 'Pytanie', type: 'string' },
-                                    { name: 'answer', label: 'Odpowiedź', type: 'string', ui: { component: 'textarea' } },
-                                ],
+                                name: 'heading',
+                                label: 'Heading',
+                                type: 'string',
+                            },
+                            {
+                                name: 'description',
+                                label: 'Description',
+                                type: 'string',
+                                ui: {
+                                    component: 'textarea',
+                                },
+                            },
+                            {
+                                name: 'phone',
+                                label: 'Phone',
+                                type: 'string',
+                            },
+                            {
+                                name: 'email',
+                                label: 'Email',
+                                type: 'string',
                             },
                         ],
                     },
                     {
-                        name: 'footer',
-                        label: 'Stopka',
+                        name: 'faq',
+                        label: 'FAQ Section',
                         type: 'object',
                         fields: [
-                            { name: 'description', label: 'Opis firmy', type: 'string', ui: { component: 'textarea' } },
-                            { name: 'phone', label: 'Telefon', type: 'string' },
-                            { name: 'email', label: 'Email', type: 'string' },
-                            { name: 'hoursWeekday', label: 'Godziny (Pon-Pt)', type: 'string' },
-                            { name: 'hoursWeekend', label: 'Godziny (Sob-Niedz)', type: 'string' },
+                            {
+                                name: 'heading',
+                                label: 'Heading',
+                                type: 'string',
+                            },
+                            {
+                                name: 'items',
+                                label: 'FAQ Items',
+                                type: 'object',
+                                list: true,
+                                fields: [
+                                    {
+                                        name: 'question',
+                                        label: 'Question',
+                                        type: 'string',
+                                        required: true,
+                                    },
+                                    {
+                                        name: 'answer',
+                                        label: 'Answer',
+                                        type: 'string',
+                                        ui: {
+                                            component: 'textarea',
+                                        },
+                                        required: true,
+                                    },
+                                    {
+                                        name: 'icon',
+                                        label: 'Icon',
+                                        type: 'string',
+                                        options: ['clock', 'wrench', 'cart', 'calendar', 'shield', 'payment', 'bag', 'support'],
+                                    },
+                                ],
+                            },
                         ],
                     },
                 ],
             },
         ],
-
-
-
-
-
     },
-
 });
