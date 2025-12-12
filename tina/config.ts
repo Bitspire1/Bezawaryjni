@@ -132,6 +132,93 @@ export default defineConfig({
                         ],
                     },
                     {
+                        name: 'lifts',
+                        label: 'Lifts Section',
+                        type: 'object',
+                        fields: [
+                            {
+                                name: 'badge',
+                                label: 'Badge',
+                                type: 'string',
+                            },
+                            {
+                                name: 'heading',
+                                label: 'Heading',
+                                type: 'string',
+                            },
+                            {
+                                name: 'description',
+                                label: 'Description',
+                                type: 'string',
+                                ui: {
+                                    component: 'textarea',
+                                },
+                            },
+                        ],
+                    },
+                    {
+                        name: 'aboutUs',
+                        label: 'About Us Section',
+                        type: 'object',
+                        fields: [
+                            {
+                                name: 'heading',
+                                label: 'Heading',
+                                type: 'string',
+                            },
+                            {
+                                name: 'description',
+                                label: 'Description',
+                                type: 'string',
+                                ui: {
+                                    component: 'textarea',
+                                },
+                            },
+                            {
+                                name: 'descriptionSecondary',
+                                label: 'Secondary Description',
+                                type: 'string',
+                                ui: {
+                                    component: 'textarea',
+                                },
+                            },
+                            {
+                                name: 'stats',
+                                label: 'Statistics',
+                                type: 'object',
+                                list: true,
+                                fields: [
+                                    {
+                                        name: 'value',
+                                        label: 'Value',
+                                        type: 'number',
+                                        required: true,
+                                    },
+                                    {
+                                        name: 'label',
+                                        label: 'Label',
+                                        type: 'string',
+                                        required: true,
+                                    },
+                                ],
+                            },
+                            {
+                                name: 'benefits',
+                                label: 'Benefits',
+                                type: 'object',
+                                list: true,
+                                fields: [
+                                    {
+                                        name: 'text',
+                                        label: 'Benefit Text',
+                                        type: 'string',
+                                        required: true,
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
                         name: 'suppliers',
                         label: 'Suppliers Section',
                         type: 'object',

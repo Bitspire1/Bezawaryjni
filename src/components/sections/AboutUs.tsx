@@ -4,7 +4,7 @@ import CountUp from "../features/CountUp";
 
 interface AboutUsProps {
     data: {
-        aboutUs?: {
+        aboutUs: {
             heading: string;
             description: string;
             descriptionSecondary: string;
@@ -21,10 +21,6 @@ interface AboutUsProps {
 }
 
 export default function AboutUs({ data }: AboutUsProps) {
-    if (!data.aboutUs) {
-        return null;
-    }
-
     return (
         <section id="nasza-firma" className="py-20 bg-black text-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

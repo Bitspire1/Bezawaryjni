@@ -30,17 +30,12 @@ interface HomePageData {
             description: string;
         }>;
     };
-    lifts?: {
+    lifts: {
+        badge: string;
         heading: string;
         description: string;
-        items: Array<{
-            title: string;
-            image: string;
-            alt: string;
-            capacity?: string;
-        }>;
     };
-    aboutUs?: {
+    aboutUs: {
         heading: string;
         description: string;
         descriptionSecondary: string;
