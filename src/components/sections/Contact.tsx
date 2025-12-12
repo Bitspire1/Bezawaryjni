@@ -8,6 +8,7 @@ interface ContactProps {
             phone: string;
             email: string;
         };
+        [key: string]: unknown;
     };
 }
 

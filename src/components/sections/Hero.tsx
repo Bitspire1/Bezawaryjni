@@ -13,6 +13,7 @@ interface HeroProps {
                 url: string;
             };
         };
+        [key: string]: unknown;
     };
 }
 

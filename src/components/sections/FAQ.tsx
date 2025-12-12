@@ -10,6 +10,7 @@ interface FAQProps {
                 icon: IconName;
             }>;
         };
+        [key: string]: unknown;
     };
 }
 

@@ -16,6 +16,7 @@ interface OfferProps {
             heading: string;
             items: ServiceItem[];
         };
+        [key: string]: unknown;
     };
 }
 

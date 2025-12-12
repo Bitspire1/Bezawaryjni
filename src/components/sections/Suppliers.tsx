@@ -35,6 +35,7 @@ interface SuppliersProps {
                 alt: string;
             }>;
         };
+        [key: string]: unknown;
     };
 }
 
