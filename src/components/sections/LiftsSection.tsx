@@ -1,6 +1,6 @@
 "use client";
 
-import LightboxImage from "../features/LightboxImage";
+import LightboxImage from "@/components/features/LightboxImage";
 
 interface LiftsSectionProps {
     data: {

@@ -1,25 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 
-function Logo({ src, alt, fallback }: { src: string; alt: string; fallback: string }) {
-    const [errored, setErrored] = useState(false);
+function Logo({ src, alt }: { src: string; alt: string }) {
     return (
         <div className="relative h-full w-full flex items-center justify-center">
-            {!errored ? (
-                <Image
-                    src={src}
-                    alt={alt}
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 640px) 50vw, 33vw"
-                    onError={() => setErrored(true)}
-                    priority={false}
-                />
-            ) : (
-                <div className="text-2xl sm:text-3xl font-bold text-red-600">{fallback}</div>
-            )}
+            <Image
+                src={src}
+                alt={alt}
+                fill
+                className="object-contain"
+                sizes="(max-width: 640px) 50vw, 33vw"
+                priority={false}
+            />
         </div>
     );
 }
@@ -67,7 +60,7 @@ export default function Suppliers({ data }: SuppliersProps) {
                             }} />
                             <div className="relative flex items-center justify-center h-24 sm:h-28">
                                 <div className="relative h-full w-full">
-                                    <Logo src={logo.image} alt={logo.alt} fallback={logo.name.toUpperCase()} />
+                                    <Logo src={logo.image} alt={logo.alt} />
                                 </div>
                             </div>
                         </div>

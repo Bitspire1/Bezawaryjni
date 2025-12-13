@@ -1,4 +1,4 @@
-import ContactForm, { MapEmbed } from "@/components/ContactForm";
+import ContactForm, { MapEmbed } from "../ContactForm";
 
 interface ContactProps {
     data: {

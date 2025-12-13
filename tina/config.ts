@@ -1,9 +1,10 @@
-import { defineConfig } from 'tinacms';
+import { defineConfig, LocalAuthProvider } from 'tinacms';
 
 export default defineConfig({
     branch: 'Nowy',
     clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
     token: process.env.TINA_TOKEN || "",
+    authProvider: new LocalAuthProvider(),
     build: {
         outputFolder: 'admin',
         publicFolder: 'public',
@@ -14,6 +15,10 @@ export default defineConfig({
             publicFolder: 'public',
         },
     },
+    cmsCallback: (cms) => {
+        cms.flags.set('tina-iframe', true);
+        return cms;
+    },
     schema: {
         collections: [
             {
@@ -21,6 +26,14 @@ export default defineConfig({
                 label: 'Pages',
                 path: 'content/pages',
                 format: 'mdx',
+                ui: {
+                    router: ({ document }) => {
+                        if (document._sys.filename === 'home') {
+                            return `/admin/home`;
+                        }
+                        return `/admin/${document._sys.filename}`;
+                    },
+                },
                 fields: [
                     {
                         name: 'title',

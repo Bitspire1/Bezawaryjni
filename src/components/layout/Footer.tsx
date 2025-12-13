@@ -32,7 +32,7 @@ export default function Footer({ footerData, page, field }: FooterProps) {
                     <div className="space-y-3">
                         <Link href="/" aria-label="Bezawaryjni – strona główna" className="inline-flex">
                             <Image
-                                src="/logo%20bezawaryjni.svg"
+                                src="/logo/logo-bezawaryjni.svg"
                                 alt="Bezawaryjni AutoSerwis"
                                 width={160}
                                 height={36}

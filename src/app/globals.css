@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+/* TinaCMS Visual Editing Styles */
+.__tina-quick-editing-enabled [data-tina-field] {
+  outline: 2px dashed rgba(34, 150, 254, 0.5);
+  transition: outline 150ms ease-out, box-shadow 150ms ease-out;
+  cursor: pointer;
+}
+
+.__tina-quick-editing-enabled [data-tina-field]:hover {
+  outline: 2px dashed rgba(34, 150, 254, 1);
+  box-shadow: 0 0 0 4px rgba(34, 150, 254, 0.1);
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AfterHydration from "@/components/AfterHydration";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,6 +46,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* TinaCMS iframe bridge - enables visual editing */}
+        <Script
+          id="tina-iframe"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(){
+                if (window.parent !== window) {
+                  window.parent.postMessage({ type: 'loaded' }, '*');
+                  window.__TINA_IFRAME__ = true;
+                }
+              })();
+            `,
+          }}
+        />
         <Header />
         {/* Non-critical client-only enhancers (lazy after hydration) */}
         <AfterHydration />

@@ -44,7 +44,7 @@ export default function Header() {
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-3 group" aria-label="Bezawaryjni – strona główna">
                         <Image
-                            src="/logo%20bezawaryjni.svg"
+                            src="/logo/logo-bezawaryjni.svg"
                             alt="Bezawaryjni AutoSerwis"
                             width={260}
                             height={64}

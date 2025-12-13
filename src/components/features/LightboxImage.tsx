@@ -2,74 +2,143 @@
 
 import Image, { ImageProps } from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 type Props = Omit<ImageProps, "onClick" | "src"> & {
     enablePreview?: boolean;
     rounded?: boolean;
-    src: string; // enforce string paths from public/
-    fallbackSrc?: string; // optional fallback (e.g., PNG)
+    src: string;
+    fallbackSrc?: string;
 };
 
 export default function LightboxImage({ enablePreview = true, rounded = true, className = "", alt = "", fallbackSrc, src, ...imgProps }: Props) {
     const [open, setOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
-    const frameRef = useRef<HTMLDivElement | null>(null);
     const [scale, setScale] = useState(1);
-    const [tx, setTx] = useState(0);
-    const [ty, setTy] = useState(0);
-    const [drag, setDrag] = useState<{ sx: number; sy: number; tx0: number; ty0: number } | null>(null);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [isDragging, setIsDragging] = useState(false);
+    const [dragStart, setDragStart] = useState({ x: 0, y: 0, posX: 0, posY: 0 });
     const [currentSrc, setCurrentSrc] = useState<string>(src);
-    const prevBodyOverflow = useRef<string | null>(null);
-    const prevBodyTouchAction = useRef<string | null>(null);
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const imageRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
         setMounted(true);
-        const onKey = (e: KeyboardEvent) => {
-            if (e.key === "Escape") setOpen(false);
-        };
+    }, []);
+
+    // Pre-load image when lightbox opens
+    useEffect(() => {
+        if (open && !imageLoaded) {
+            const img = new window.Image();
+            img.src = currentSrc;
+            img.onload = () => setImageLoaded(true);
+        }
+    }, [open, currentSrc, imageLoaded]);
+
+    useEffect(() => {
         if (open) {
-            // Save current body styles and lock scroll
-            const bodyStyle = document.body.style as CSSStyleDeclaration & { touchAction?: string };
-            prevBodyOverflow.current = bodyStyle.overflow;
-            prevBodyTouchAction.current = bodyStyle.touchAction ?? "";
-            document.addEventListener("keydown", onKey);
-            bodyStyle.overflow = "hidden";
-            bodyStyle.touchAction = "none"; // prevent iOS bounce
-            return () => {
-                document.removeEventListener("keydown", onKey);
-                const bs = document.body.style as CSSStyleDeclaration & { touchAction?: string };
-                bs.overflow = prevBodyOverflow.current ?? "";
-                bs.touchAction = prevBodyTouchAction.current ?? "";
-                prevBodyOverflow.current = null;
-                prevBodyTouchAction.current = null;
+            document.body.style.overflow = "hidden";
+            const handleEscape = (e: KeyboardEvent) => {
+                if (e.key === "Escape") handleClose();
             };
-        } else {
-            // Ensure cleanup if state toggled off without unmount
-            const bs = document.body.style as CSSStyleDeclaration & { touchAction?: string };
-            if (prevBodyOverflow.current !== null) bs.overflow = prevBodyOverflow.current ?? "";
-            if (prevBodyTouchAction.current !== null) bs.touchAction = prevBodyTouchAction.current ?? "";
-            prevBodyOverflow.current = null;
-            prevBodyTouchAction.current = null;
+            document.addEventListener("keydown", handleEscape);
+            return () => {
+                document.body.style.overflow = "";
+                document.removeEventListener("keydown", handleEscape);
+            };
         }
     }, [open]);
 
-    // Helpers
-    const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
-    const clampOffsets = (nx: number, ny: number, s: number) => {
-        const rect = frameRef.current?.getBoundingClientRect();
-        const fw = rect?.width ?? 0;
-        const fh = rect?.height ?? 0;
-        const maxX = Math.max(0, (s - 1) * fw * 0.5);
-        const maxY = Math.max(0, (s - 1) * fh * 0.5);
-        return { x: clamp(nx, -maxX, maxX), y: clamp(ny, -maxY, maxY) };
+    const handleClose = () => {
+        setOpen(false);
+        setScale(1);
+        setPosition({ x: 0, y: 0 });
+        setIsDragging(false);
+        setImageLoaded(false);
     };
 
-    const setScaleClamped = (ns: number) => {
-        const s = clamp(ns, 1, 4);
-        const { x, y } = clampOffsets(tx, ty, s);
-        setTx(x);
-        setTy(y);
-        setScale(s);
+    const handleZoomIn = () => {
+        setScale(prev => Math.min(prev + 0.5, 4));
+    };
+
+    const handleZoomOut = () => {
+        const newScale = Math.max(scale - 0.5, 1);
+        setScale(newScale);
+        if (newScale === 1) {
+            setPosition({ x: 0, y: 0 });
+        }
+    };
+
+    const handleReset = () => {
+        setScale(1);
+        setPosition({ x: 0, y: 0 });
+    };
+
+    const handleMouseDown = (e: React.MouseEvent) => {
+        if (scale > 1) {
+            setIsDragging(true);
+            setDragStart({
+                x: e.clientX,
+                y: e.clientY,
+                posX: position.x,
+                posY: position.y
+            });
+        }
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (isDragging && scale > 1) {
+            const dx = e.clientX - dragStart.x;
+            const dy = e.clientY - dragStart.y;
+            setPosition({
+                x: dragStart.posX + dx,
+                y: dragStart.posY + dy
+            });
+        }
+    };
+
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    const handleWheel = (e: React.WheelEvent) => {
+        e.preventDefault();
+        const delta = -e.deltaY / 1000;
+        const newScale = Math.max(1, Math.min(4, scale + delta));
+        setScale(newScale);
+        if (newScale === 1) {
+            setPosition({ x: 0, y: 0 });
+        }
+    };
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        if (scale > 1 && e.touches.length === 1) {
+            const touch = e.touches[0];
+            setIsDragging(true);
+            setDragStart({
+                x: touch.clientX,
+                y: touch.clientY,
+                posX: position.x,
+                posY: position.y
+            });
+        }
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        if (isDragging && scale > 1 && e.touches.length === 1) {
+            const touch = e.touches[0];
+            const dx = touch.clientX - dragStart.x;
+            const dy = touch.clientY - dragStart.y;
+            setPosition({
+                x: dragStart.posX + dx,
+                y: dragStart.posY + dy
+            });
+        }
+    };
+
+    const handleTouchEnd = () => {
+        setIsDragging(false);
     };
 
     return (
@@ -78,93 +147,151 @@ export default function LightboxImage({ enablePreview = true, rounded = true, cl
                 {...imgProps}
                 src={currentSrc}
                 alt={alt}
-                className={`${className} ${enablePreview ? "cursor-zoom-in" : ""}`}
+                className={`${className} ${enablePreview ? "cursor-zoom-in hover:opacity-90 transition-opacity" : ""}`}
                 onClick={() => enablePreview && setOpen(true)}
                 onError={() => {
                     if (fallbackSrc && currentSrc !== fallbackSrc) setCurrentSrc(fallbackSrc);
                 }}
             />
 
-            {mounted && open && (
+            {mounted && open && createPortal(
                 <div
-                    className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+                    className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md animate-in fade-in duration-200"
                     role="dialog"
                     aria-modal="true"
                     aria-label="Podgląd zdjęcia"
-                    onClick={() => {
-                        setOpen(false);
-                        setScale(1); setTx(0); setTy(0);
-                    }}
                 >
-                    <div className="relative max-w-6xl w-full" onClick={(e) => e.stopPropagation()}>
-                        {/* Toolbar */}
-                        <div className="absolute -top-12 left-0 flex items-center gap-2 text-white/90">
-                            <button className="px-3 py-1.5 rounded bg-white/10 hover:bg-white/20" onClick={() => setScaleClamped(scale + 0.25)} aria-label="Powiększ">+</button>
-                            <button className="px-3 py-1.5 rounded bg-white/10 hover:bg-white/20" onClick={() => setScaleClamped(scale - 0.25)} aria-label="Pomniejsz">−</button>
-                            <button className="px-3 py-1.5 rounded bg-white/10 hover:bg-white/20" onClick={() => { setScale(1); setTx(0); setTy(0); }} aria-label="Reset">Reset</button>
-                            <button className="ml-2 px-3 py-1.5 rounded bg-white/10 hover:bg-white/20" onClick={() => { setOpen(false); setScale(1); setTx(0); setTy(0); }} aria-label="Zamknij">Zamknij ✕</button>
+                    {/* Top bar with controls */}
+                    <div className="absolute top-0 left-0 right-0 flex items-center justify-between p-4 bg-gradient-to-b from-black/50 to-transparent z-10">
+                        <div className="flex items-center gap-2">
+                            {/* Zoom controls */}
+                            <div className="flex items-center gap-1 bg-black/70 backdrop-blur-sm rounded-lg p-1 border border-white/10">
+                                <button
+                                    onClick={handleZoomOut}
+                                    disabled={scale <= 1}
+                                    className="w-10 h-10 flex items-center justify-center rounded-md text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                                    aria-label="Pomniejsz"
+                                >
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                                    </svg>
+                                </button>
+                                <div className="px-3 text-sm font-medium text-white/80 min-w-[3rem] text-center">
+                                    {Math.round(scale * 100)}%
+                                </div>
+                                <button
+                                    onClick={handleZoomIn}
+                                    disabled={scale >= 4}
+                                    className="w-10 h-10 flex items-center justify-center rounded-md text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                                    aria-label="Powiększ"
+                                >
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            {/* Reset button */}
+                            <button
+                                onClick={handleReset}
+                                disabled={scale === 1}
+                                className="h-10 px-4 flex items-center gap-2 bg-black/70 backdrop-blur-sm rounded-lg border border-white/10 text-white text-sm font-medium hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                                aria-label="Resetuj"
+                            >
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                Reset
+                            </button>
                         </div>
 
-                        {/* Viewer */}
+                        {/* Close button */}
+                        <button
+                            onClick={handleClose}
+                            className="w-12 h-12 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-300 text-black transition-all hover:scale-105 active:scale-95 shadow-lg"
+                            aria-label="Zamknij"
+                        >
+                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    {/* Image container */}
+                    <div
+                        ref={containerRef}
+                        className="absolute inset-0 flex items-center justify-center p-4 pt-20 pb-8"
+                        onClick={(e) => {
+                            if (e.target === e.currentTarget && scale === 1) {
+                                handleClose();
+                            }
+                        }}
+                    >
                         <div
-                            ref={frameRef}
-                            className={`${rounded ? "rounded-lg" : ""} overflow-hidden ring-1 ring-white/10 bg-black h-[75vh]`}
-                            onWheel={(e) => {
-                                e.preventDefault();
-                                const delta = -e.deltaY / 500; // smooth
-                                setScaleClamped(scale + delta);
+                            className={`relative w-full h-full ${scale > 1 ? 'cursor-grab active:cursor-grabbing' : 'cursor-default'}`}
+                            onMouseDown={handleMouseDown}
+                            onMouseMove={handleMouseMove}
+                            onMouseUp={handleMouseUp}
+                            onMouseLeave={handleMouseUp}
+                            onWheel={handleWheel}
+                            onTouchStart={handleTouchStart}
+                            onTouchMove={handleTouchMove}
+                            onTouchEnd={handleTouchEnd}
+                            onDoubleClick={() => {
+                                if (scale === 1) {
+                                    handleZoomIn();
+                                } else {
+                                    handleReset();
+                                }
                             }}
-                            onDoubleClick={() => setScaleClamped(scale === 1 ? 2 : 1)}
-                            onMouseDown={(e) => {
-                                if (scale <= 1) return;
-                                setDrag({ sx: e.clientX, sy: e.clientY, tx0: tx, ty0: ty });
-                            }}
-                            onMouseMove={(e) => {
-                                if (!drag) return;
-                                const dx = e.clientX - drag.sx;
-                                const dy = e.clientY - drag.sy;
-                                const { x, y } = clampOffsets(drag.tx0 + dx, drag.ty0 + dy, scale);
-                                setTx(x);
-                                setTy(y);
-                            }}
-                            onMouseUp={() => setDrag(null)}
-                            onMouseLeave={() => setDrag(null)}
-                            onTouchStart={(e) => {
-                                if (scale <= 1) return;
-                                const t = e.touches[0];
-                                setDrag({ sx: t.clientX, sy: t.clientY, tx0: tx, ty0: ty });
-                            }}
-                            onTouchMove={(e) => {
-                                if (!drag) return;
-                                const t = e.touches[0];
-                                const dx = t.clientX - drag.sx;
-                                const dy = t.clientY - drag.sy;
-                                const { x, y } = clampOffsets(drag.tx0 + dx, drag.ty0 + dy, scale);
-                                setTx(x);
-                                setTy(y);
-                            }}
-                            onTouchEnd={() => setDrag(null)}
                         >
                             <div
-                                className="relative w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
-                                style={{ transform: `translate3d(${tx}px, ${ty}px, 0) scale(${scale})`, transition: drag ? "none" : "transform 120ms ease-out" }}
+                                className="relative w-full h-full flex items-center justify-center"
+                                style={{
+                                    transform: `translate3d(${position.x}px, ${position.y}px, 0) scale(${scale})`,
+                                    transition: isDragging ? 'none' : 'transform 0.15s cubic-bezier(0.33, 1, 0.68, 1)',
+                                    transformOrigin: 'center center',
+                                    willChange: 'transform',
+                                    backfaceVisibility: 'hidden',
+                                    perspective: 1000
+                                }}
                             >
-                                <Image
-                                    src={currentSrc}
-                                    alt={alt}
-                                    fill
-                                    className="object-contain select-none"
-                                    sizes="100vw"
-                                    priority
-                                    draggable={false}
-                                    onError={() => {
-                                        if (fallbackSrc && currentSrc !== fallbackSrc) setCurrentSrc(fallbackSrc);
-                                    }}
-                                />
+                                {imageLoaded ? (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img
+                                        ref={imageRef}
+                                        src={currentSrc}
+                                        alt={alt}
+                                        className={`max-w-full max-h-full w-auto h-auto object-contain select-none pointer-events-none ${rounded ? 'rounded-lg' : ''}`}
+                                        style={{
+                                            imageRendering: scale > 1 ? 'crisp-edges' : 'auto'
+                                        }}
+                                        draggable={false}
+                                        onError={() => {
+                                            if (fallbackSrc && currentSrc !== fallbackSrc) setCurrentSrc(fallbackSrc);
+                                        }}
+                                    />
+                                ) : (
+                                    <div className="flex items-center justify-center">
+                                        <div className="w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin"></div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
-                </div>
+
+                    {/* Bottom hint */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-black/70 backdrop-blur-sm rounded-full text-white/60 text-sm border border-white/10">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span className="hidden sm:inline">Scroll aby powiększyć • Przeciągnij aby przesunąć • Kliknij ESC aby zamknąć</span>
+                            <span className="sm:hidden">Dotknij 2x aby powiększyć</span>
+                        </div>
+                    </div>
+                </div>,
+                document.body
             )}
         </>
     );
