@@ -1,10 +1,9 @@
-import { defineConfig, LocalAuthProvider } from 'tinacms';
+import { defineConfig } from 'tinacms';
 
 export default defineConfig({
     branch: 'Nowy',
     clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
     token: process.env.TINA_TOKEN || "",
-    authProvider: new LocalAuthProvider(),
     build: {
         outputFolder: 'admin',
         publicFolder: 'public',
