@@ -1,0 +1,96 @@
+fragment PagesParts on Pages {
+  __typename
+  title
+  hero {
+    __typename
+    tagline
+    heading
+    description
+    ctaPrimary {
+      __typename
+      text
+      url
+    }
+    ctaSecondary {
+      __typename
+      text
+      url
+    }
+  }
+  services {
+    __typename
+    heading
+    items {
+      __typename
+      title
+      image
+      alt
+      description
+    }
+  }
+  lifts {
+    __typename
+    badge
+    heading
+    description
+  }
+  aboutUs {
+    __typename
+    heading
+    description
+    descriptionSecondary
+    stats {
+      __typename
+      value
+      label
+    }
+    benefits {
+      __typename
+      text
+    }
+  }
+  suppliers {
+    __typename
+    heading
+    description
+    logos {
+      __typename
+      name
+      image
+      alt
+    }
+  }
+  contact {
+    __typename
+    heading
+    description
+    phone
+    email
+  }
+  faq {
+    __typename
+    heading
+    items {
+      __typename
+      question
+      answer
+      icon
+    }
+  }
+  metaTitle
+  metaDescription
+  lastUpdate
+  heading
+  tableOfContents {
+    __typename
+    label
+    href
+  }
+  policySections {
+    __typename
+    id
+    n
+    title
+    content
+  }
+}
