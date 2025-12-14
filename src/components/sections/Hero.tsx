@@ -28,7 +28,7 @@ export default function Hero({ data }: HeroProps) {
                     className="absolute inset-0 -z-10 h-full w-full object-cover" />
             </picture>
             <div className="pointer-events-none absolute inset-0 -z-10 bg-black/65" />
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-36 min-h-[60vh] sm:min-h-[70vh] flex flex-col justify-center text-white text-center md:text-left" data-animate>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-36 min-h-[60vh] sm:min-h-[70vh] flex flex-col justify-center text-white text-center md:text-left">
                 <p 
                     className="text-yellow-400 font-semibold tracking-widest uppercase text-sm mb-4"
                     data-tina-field={tinaField(data.hero, 'tagline')}

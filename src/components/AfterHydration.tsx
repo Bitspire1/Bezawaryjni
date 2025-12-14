@@ -1,10 +1,8 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import ScrollReveal from "./features/ScrollReveal";
 
 // Load non-critical UI enhancers after hydration to avoid blocking initial render
-const ScrollReveal = dynamic(() => import("./features/ScrollReveal"), { ssr: false });
-
 export default function AfterHydration() {
     return (
         <>
