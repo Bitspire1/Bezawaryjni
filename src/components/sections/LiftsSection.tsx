@@ -51,8 +51,9 @@ export default function LiftsSection({ data }: LiftsSectionProps) {
                                     <LightboxImage
                                         src="/podnosnik.avif"
                                         alt="Podnosniki w warsztacie Bezawaryjni"
-                                        width={1280}
-                                        height={720}
+                                        width={800}
+                                        height={450}
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
                                         className="w-full h-full object-contain drop-shadow-2xl"
                                         priority={false}
                                         loading="lazy"

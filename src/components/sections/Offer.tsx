@@ -54,8 +54,16 @@ export default function Offer({ data }: OfferProps) {
                 <div className="absolute inset-[8px] hex overflow-hidden bg-gradient-to-b from-[#151515] to-[#0e0e0e] ring-1 ring-white/10 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.55)]">
                     <div className="flex h-full w-full items-center justify-center">
                         <div className="w-1/2 sm:w-2/5 lg:w-1/2">
-                            <Image src={encodeURI(item.image)} alt={item.alt} width={512} height={512} draggable={false} loading="lazy"
-                                className="w-full h-auto aspect-square object-contain select-none pointer-events-none drop-shadow-[0_8px_22px_rgba(250,204,21,0.3)] transition-transform duration-300 ease-out group-hover:scale-[1.06]" />
+                            <Image 
+                                src={encodeURI(item.image)} 
+                                alt={item.alt} 
+                                width={256} 
+                                height={256}
+                                sizes="(max-width: 640px) 96px, (max-width: 1024px) 128px, 160px"
+                                draggable={false} 
+                                loading="lazy"
+                                className="w-full h-auto aspect-square object-contain select-none pointer-events-none drop-shadow-[0_8px_22px_rgba(250,204,21,0.3)] transition-transform duration-300 ease-out group-hover:scale-[1.06]" 
+                            />
                         </div>
                     </div>
                 </div>
