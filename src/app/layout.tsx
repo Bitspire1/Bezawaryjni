@@ -70,7 +70,9 @@ export default function RootLayout({
         <Header />
         {/* Non-critical client-only enhancers (lazy after hydration) */}
         <AfterHydration />
-        {children}
+        <main>
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
