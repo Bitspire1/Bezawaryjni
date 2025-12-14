@@ -1,6 +1,12 @@
 "use client";
 
-import LightboxImage from "@/components/features/LightboxImage";
+import dynamic from "next/dynamic";
+
+// Lazy load heavy lightbox component
+const LightboxImage = dynamic(() => import("@/components/features/LightboxImage"), {
+    ssr: false,
+    loading: () => null,
+});
 
 interface LiftsSectionProps {
     data: {

@@ -9,11 +9,15 @@ import Script from "next/script";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -32,6 +36,19 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Upgrade any http subresource URLs to https in supporting browsers */}
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+        
+        {/* Preconnect to external domains for faster resource loading */}
+        <link rel="preconnect" href="https://smartarget.online" />
+        <link rel="preconnect" href="https://smartarget-sp-cache.fra1.digitaloceanspaces.com" />
+        <link rel="dns-prefetch" href="https://smartarget.online" />
+        <link rel="dns-prefetch" href="https://smartarget-sp-cache.fra1.digitaloceanspaces.com" />
+        
+        {/* Inline critical styles for fastest first paint */}
+        <style dangerouslySetInnerHTML={{__html: `
+          body{background:#0a0a0a;color:#ededed;margin:0;font-family:system-ui,-apple-system,sans-serif}
+          .sr-prep{opacity:0}
+        `}} />
+        
         {/* Preload hero image to improve LCP */}
         <link
           rel="preload"
@@ -42,10 +59,10 @@ export default function RootLayout({
           fetchPriority="high"
         />
         <link rel="preload" as="image" href="/hero-garage.jpg" imageSizes="100vw" />
-        {/*smartarget whatsapp plugin*/}
+        {/*smartarget whatsapp plugin - lazy loaded after page is fully interactive*/}
         <Script
           src="https://smartarget.online/loader.js?u=8705cb06caa7e2c4f47bcda0a93affaeabad47ef"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
 
       </head>
