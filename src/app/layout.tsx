@@ -42,6 +42,12 @@ export default function RootLayout({
           fetchPriority="high"
         />
         <link rel="preload" as="image" href="/hero-garage.jpg" imageSizes="100vw" />
+        {/*smartarget whatsapp plugin*/}
+        <Script
+          src="https://smartarget.online/loader.js?u=8705cb06caa7e2c4f47bcda0a93affaeabad47ef"
+          strategy="afterInteractive"
+        />
+
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { policyHref } from "@/lib/paths";
 import Image from "next/image";
 
 interface FooterProps {
@@ -89,9 +88,7 @@ export default function Footer({ footerData, page, field }: FooterProps) {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/60">
                     <div>© {year} Bezawaryjni AutoSerwis. Wszelkie prawa zastrzeżone.</div>
                     <div className="flex items-center gap-4">
-                        <Link href={policyHref("privacy")} className="link-visible hover:text-yellow-400">Polityka prywatności</Link>
-                        <span className="hidden sm:inline opacity-30">•</span>
-                        <Link href={policyHref("cookies")} className="link-visible hover:text-yellow-400">Polityka cookies</Link>
+                        <Link href="/polityka-prywatnosci" className="link-visible hover:text-yellow-400">Polityka prywatności</Link>
                     </div>
                 </div>
             </div>
