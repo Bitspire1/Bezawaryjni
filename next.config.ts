@@ -18,8 +18,6 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
   experimental: {
-    // Disable legacy polyfills - modern browsers only
-    legacyBrowsers: false,
     // Optimize module splitting
     optimizePackageImports: ['react-icons'],
   },
