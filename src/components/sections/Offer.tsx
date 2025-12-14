@@ -73,7 +73,7 @@ export default function Offer({ data }: OfferProps) {
 
     return (
         <>
-            <section id="uslugi" className="relative py-12 sm:py-16 lg:py-20 bg-[#0b0b0b] text-white overflow-hidden" data-animate>
+            <section id="uslugi" className="relative py-12 sm:py-16 lg:py-20 bg-[#0b0b0b] text-white overflow-hidden">
                 <div aria-hidden className="pointer-events-none absolute inset-0 deco-dots" />
                 <div aria-hidden className="pointer-events-none absolute inset-0 deco-vignette" />
 
@@ -137,7 +137,7 @@ export default function Offer({ data }: OfferProps) {
                             {data.services.heading}
                         </h2>
                     </div>
-                    <div className="mt-6 sm:mt-10 relative z-10" data-animate data-animate-delay="100ms">
+                    <div className="mt-6 sm:mt-10 relative z-10">
                         {/* Mobile - vertical stack */}
                         <div className="sm:hidden flex flex-col items-center gap-6">
                             {services.map((item, i) => renderHex(item, i, i))}

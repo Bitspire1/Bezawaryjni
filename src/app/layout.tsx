@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import AfterHydration from "@/components/AfterHydration";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -46,7 +45,6 @@ export default function RootLayout({
         {/* Inline critical styles for fastest first paint */}
         <style dangerouslySetInnerHTML={{__html: `
           body{background:#0a0a0a;color:#ededed;margin:0;font-family:system-ui,-apple-system,sans-serif}
-          .sr-prep{opacity:0}
         `}} />
         
         {/* Preload hero image to improve LCP */}
@@ -85,8 +83,6 @@ export default function RootLayout({
           }}
         />
         <Header />
-        {/* Non-critical client-only enhancers (lazy after hydration) */}
-        <AfterHydration />
         <main>
           {children}
         </main>

@@ -26,7 +26,7 @@ export default function LiftsSection({ data }: LiftsSectionProps) {
             <div className="h-16 sm:h-24 bg-gradient-to-b from-[#0b0b0b] via-[#060606] to-[#0b0b0b]"></div>
 
             {/* NOWE PODNOSNIKI */}
-            <section id="stanowiska" className="py-10 sm:py-14 lg:py-16 bg-[#0b0b0b] text-white overflow-hidden" data-animate>
+            <section id="stanowiska" className="py-10 sm:py-14 lg:py-16 bg-[#0b0b0b] text-white overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                         <div className="text-center lg:text-left">

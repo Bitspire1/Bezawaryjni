@@ -14,7 +14,7 @@ interface ContactProps {
 
 export default function Contact({ data }: ContactProps) {
     return (
-        <section id="kontakt" className="py-16 bg-black text-white" data-animate>
+        <section id="kontakt" className="py-16 bg-black text-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 
                     className="text-3xl sm:text-4xl font-bold wrap-balance text-center"
