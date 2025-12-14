@@ -1,7 +1,7 @@
 import { defineConfig } from 'tinacms';
 
 export default defineConfig({
-    branch: 'Nowy',
+    branch: 'Nowszy',
     clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
     token: process.env.TINA_TOKEN || "",
     build: {
