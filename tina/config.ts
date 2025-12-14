@@ -344,6 +344,82 @@ export default defineConfig({
                             },
                         ],
                     },
+                    {
+                        name: 'metaTitle',
+                        label: 'Meta Title',
+                        type: 'string',
+                    },
+                    {
+                        name: 'metaDescription',
+                        label: 'Meta Description',
+                        type: 'string',
+                        ui: {
+                            component: 'textarea',
+                        },
+                    },
+                    {
+                        name: 'lastUpdate',
+                        label: 'Last Update',
+                        type: 'string',
+                    },
+                    {
+                        name: 'heading',
+                        label: 'Page Heading',
+                        type: 'string',
+                    },
+                    {
+                        name: 'tableOfContents',
+                        label: 'Table of Contents',
+                        type: 'object',
+                        list: true,
+                        fields: [
+                            {
+                                name: 'label',
+                                label: 'Label',
+                                type: 'string',
+                            },
+                            {
+                                name: 'href',
+                                label: 'Href',
+                                type: 'string',
+                            },
+                        ],
+                    },
+                    {
+                        name: 'policySections',
+                        label: 'Policy Sections',
+                        type: 'object',
+                        list: true,
+                        fields: [
+                            {
+                                name: 'id',
+                                label: 'Section ID',
+                                type: 'string',
+                                required: true,
+                            },
+                            {
+                                name: 'n',
+                                label: 'Number',
+                                type: 'number',
+                                required: true,
+                            },
+                            {
+                                name: 'title',
+                                label: 'Title',
+                                type: 'string',
+                                required: true,
+                            },
+                            {
+                                name: 'content',
+                                label: 'Content (HTML)',
+                                type: 'string',
+                                ui: {
+                                    component: 'textarea',
+                                },
+                                required: true,
+                            },
+                        ],
+                    },
                 ],
             },
         ],
