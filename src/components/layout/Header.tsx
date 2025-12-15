@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+// Force reload - updated version
 type NavItem = {
     label: string;
     href?: string;
@@ -12,9 +13,8 @@ type NavItem = {
 
 const navItems: NavItem[] = [
     { label: "Strona Główna", href: "/#home" },
-    { label: "Samoobsługa", href: "/#samoobsluga" },
     { label: "Usługi", href: "/#uslugi" },
-    { label: "Dlaczego my", href: "/#dlaczego" },
+    { label: "Dlaczego my", href: "/#nasza-firma" },
     { label: "FAQ", href: "/#faq" },
     { label: "Kontakt", href: "/#kontakt" },
 ];
@@ -24,25 +24,38 @@ export default function Header() {
     const [openDropdown, setOpenDropdown] = useState<number | null>(null);
     const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
-    // Make the closed mobile menu non-focusable and non-interactive for a11y
-    useEffect(() => {
-        const el = mobileMenuRef.current as unknown as { inert?: boolean } | null;
-        if (!el) return;
-        // Apply the inert property when menu is closed; remove when open
-        if (!mobileOpen) {
-            el.inert = true;
-        } else {
-            // Some browsers require deleting the property to restore interaction
-            delete el.inert;
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        if (href.startsWith("/#")) {
+            e.preventDefault();
+            const id = href.substring(2);
+            const element = document.getElementById(id);
+            if (element) {
+                setMobileOpen(false);
+                const headerOffset = 80;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
         }
-    }, [mobileOpen]);
+    };
+
+
 
     return (
         <header className="sticky top-0 z-50 shadow-lg">
             <div className="bg-black/95 backdrop-blur supports-[backdrop-filter]:bg-black/85 text-white border-b border-white/5">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 grid grid-cols-[auto_1fr_auto] items-center gap-3 sm:gap-4">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-3 group" aria-label="Bezawaryjni – strona główna">
+                    <Link 
+                        href="/#home" 
+                        className="flex items-center gap-3 group" 
+                        aria-label="Bezawaryjni – strona główna"
+                        onClick={(e) => handleNavClick(e, "/#home")}
+                    >
                         <Image
                             src="/logo/logo-bezawaryjni.svg"
                             alt="Bezawaryjni AutoSerwis"
@@ -71,7 +84,11 @@ export default function Header() {
                                             </svg>
                                         </div>
                                     ) : (
-                                        <Link href={item.href ?? "#"} className="group/nav font-semibold hover:text-yellow-400 relative after:absolute after:left-0 after:-bottom-1 after:h-1 after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap">
+                                        <Link 
+                                            href={item.href ?? "#"} 
+                                            className="group/nav font-semibold hover:text-yellow-400 relative after:absolute after:left-0 after:-bottom-1 after:h-1 after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
+                                            onClick={(e) => handleNavClick(e, item.href ?? "#")}
+                                        >
                                             <span className="whitespace-nowrap">{item.label}</span>
                                         </Link>
                                     )}
@@ -162,7 +179,7 @@ export default function Header() {
                                 <Link
                                     href={item.href ?? "#"}
                                     className="block px-2.5 py-2.5 rounded hover:bg-white/10 font-medium"
-                                    onClick={() => setMobileOpen(false)}
+                                    onClick={(e) => handleNavClick(e, item.href ?? "#")}
                                 >
                                     {item.label}
                                 </Link>

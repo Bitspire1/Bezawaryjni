@@ -179,7 +179,7 @@ type PagesPolicySections {
   id: String!
   n: Float!
   title: String!
-  content: String!
+  content: JSON!
 }
 
 type Pages implements Node & Document {
@@ -314,11 +314,17 @@ input PagesTableOfContentsFilter {
   href: StringFilter
 }
 
+input RichTextFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+}
+
 input PagesPolicySectionsFilter {
   id: StringFilter
   n: NumberFilter
   title: StringFilter
-  content: StringFilter
+  content: RichTextFilter
 }
 
 input PagesFilter {
@@ -460,7 +466,7 @@ input PagesPolicySectionsMutation {
   id: String
   n: Float
   title: String
-  content: String
+  content: JSON
 }
 
 input PagesMutation {

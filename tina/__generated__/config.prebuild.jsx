@@ -1,7 +1,7 @@
 // tina/config.ts
 import { defineConfig } from "tinacms";
 var config_default = defineConfig({
-  branch: "Nowy",
+  branch: "Nowszy",
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
   token: process.env.TINA_TOKEN || "",
   build: {
@@ -411,11 +411,8 @@ var config_default = defineConfig({
               },
               {
                 name: "content",
-                label: "Content (HTML)",
-                type: "string",
-                ui: {
-                  component: "textarea"
-                },
+                label: "Content",
+                type: "rich-text",
                 required: true
               }
             ]

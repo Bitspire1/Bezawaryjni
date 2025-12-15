@@ -4,13 +4,15 @@ import PolicySection from "@/components/sections/PolicySection";
 interface TableOfContentsItem {
     label: string;
     href: string;
+    [key: string]: unknown;
 }
 
 interface PolicySectionData {
     id: string;
     n: number;
     title: string;
-    content: string;
+    content: any;
+    [key: string]: unknown;
 }
 
 interface PrivacyPolicyData {
@@ -61,6 +63,7 @@ export default function PrivacyPolicyWrapper({ data }: PrivacyPolicyWrapperProps
                                                     <a 
                                                         className="hover:text-yellow-400" 
                                                         href={item.href}
+                                                        data-tina-field={tinaField(data.tableOfContents![index], 'label')}
                                                     >
                                                         {item.label}
                                                     </a>
@@ -75,7 +78,7 @@ export default function PrivacyPolicyWrapper({ data }: PrivacyPolicyWrapperProps
                         {/* Content */}
                         <div className={`${data.tableOfContents && data.tableOfContents.length > 0 ? 'lg:col-span-8' : 'lg:col-span-12'} space-y-5`}>
                             {data.policySections?.map((section, index) => (
-                                <PolicySection key={section.id || index} data={section} />
+                                <PolicySection key={section.id || index} data={data} index={index} />
                             ))}
                         </div>
                     </div>

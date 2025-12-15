@@ -48,9 +48,8 @@ export default function Footer({ footerData, page, field }: FooterProps) {
                         <ul className="mt-3 space-y-2 text-sm">
                             {[
                                 { label: "Strona Główna", href: "/#home" },
-                                { label: "Samoobsługa", href: "/#samoobsluga" },
                                 { label: "Usługi", href: "/#uslugi" },
-                                { label: "Dlaczego my", href: "/#dlaczego" },
+                                { label: "Dlaczego my", href: "/#nasza-firma" },
                                 { label: "FAQ", href: "/#faq" },
                                 { label: "Kontakt", href: "/#kontakt" },
                             ].map((i) => (

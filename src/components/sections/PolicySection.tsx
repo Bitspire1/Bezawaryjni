@@ -1,36 +1,48 @@
 import { tinaField } from "tinacms/dist/react";
-import SectionCard from "@/components/ui/SectionCard";
+import { TinaMarkdown } from "tinacms/dist/rich-text";
 
 interface PolicySectionProps {
     data: {
-        id: string;
-        n: number;
-        title: string;
-        content: string;
+        policySections: Array<{
+            id: string;
+            n: number;
+            title: string;
+            content: any;
+        }>;
+        [key: string]: unknown;
     };
+    index: number;
 }
 
-export default function PolicySection({ data }: PolicySectionProps) {
+export default function PolicySection({ data, index }: PolicySectionProps) {
+    const section = data.policySections[index];
+    
     return (
-        <SectionCard 
-            id={data.id} 
-            n={data.n} 
-            title={data.title}
-            data-tina-field={tinaField(data, 'title')}
-        >
+        <section id={section.id} className="rounded-xl bg-[#121212] ring-1 ring-white/10 p-4 sm:p-5">
+            <div className="flex items-baseline gap-3">
+                <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-yellow-400/15 text-yellow-300 ring-1 ring-yellow-400/30 text-xs font-semibold">
+                    {section.n}
+                </span>
+                <h2 
+                    className="text-lg font-semibold text-white"
+                    data-tina-field={tinaField(data.policySections[index], 'title')}
+                >
+                    {section.title}
+                </h2>
+            </div>
             <div 
-                className="prose prose-invert max-w-none
+                className="mt-3 prose prose-invert max-w-none
                     [&>p]:text-white/80 [&>p]:leading-relaxed [&>p]:mb-3
-                    [&>ul]:space-y-2 [&>ul]:mt-3 [&>ul]:ml-0 [&>ul]:list-none
-                    [&>ul>li]:text-white/80 [&>ul>li]:pl-6 [&>ul>li]:relative
-                    [&>ul>li]:before:content-['•'] [&>ul>li]:before:absolute [&>ul>li]:before:left-2
-                    [&>ul>li]:before:text-yellow-400 [&>ul>li]:before:font-bold
+                    [&>ul]:space-y-2 [&>ul]:mt-3 [&>ul]:ml-0 [&>ul]:list-disc [&>ul]:pl-6
+                    [&>ul>li]:text-white/80 [&>ul>li]:pl-2
+                    [&>ul>li]:marker:text-yellow-400
                     [&_strong]:text-yellow-400 [&_strong]:font-semibold
                     [&_a]:text-yellow-400 [&_a]:underline [&_a]:decoration-yellow-400/30
                     [&_a:hover]:text-yellow-300 [&_a:hover]:decoration-yellow-300"
-                data-tina-field={tinaField(data, 'content')}
-                dangerouslySetInnerHTML={{ __html: data.content }}
-            />
-        </SectionCard>
+                data-tina-field={tinaField(data.policySections[index], 'content')}
+            >
+                <TinaMarkdown content={section.content} />
+            </div>
+        </section>
     );
 }

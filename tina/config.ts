@@ -411,11 +411,8 @@ export default defineConfig({
                             },
                             {
                                 name: 'content',
-                                label: 'Content (HTML)',
-                                type: 'string',
-                                ui: {
-                                    component: 'textarea',
-                                },
+                                label: 'Content',
+                                type: 'rich-text',
                                 required: true,
                             },
                         ],
