@@ -3,8 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
-// Force reload - updated version
 type NavItem = {
     label: string;
     href?: string;
@@ -23,14 +23,45 @@ export default function Header() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState<number | null>(null);
     const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+    const pathname = usePathname();
+    const router = useRouter();
+
+    // Obsługa scrollowania do sekcji po załadowaniu strony
+    useEffect(() => {
+        const hash = window.location.hash;
+        if (hash && pathname === "/home") {
+            setTimeout(() => {
+                const id = hash.substring(1);
+                const element = document.getElementById(id);
+                if (element) {
+                    const headerOffset = 80;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            }, 100);
+        }
+    }, [pathname]);
 
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         if (href.startsWith("/#")) {
             e.preventDefault();
+            setMobileOpen(false);
+            
+            // Jeśli nie jesteśmy na stronie głównej, przekieruj tam
+            if (pathname !== "/home" && pathname !== "/") {
+                router.push("/home" + href.substring(1)); // /home#section
+                return;
+            }
+            
+            // Jeśli jesteśmy na home, scroll do sekcji
             const id = href.substring(2);
             const element = document.getElementById(id);
             if (element) {
-                setMobileOpen(false);
                 const headerOffset = 80;
                 const elementPosition = element.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.scrollY - headerOffset;
