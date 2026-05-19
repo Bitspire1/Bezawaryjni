@@ -25,11 +25,12 @@ export default function WhatsAppButton() {
         return () => clearTimeout(timer);
     }, [mounted, phone]);
 
-    // Handle Enter key
+    // Handle Enter / Escape key
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "Enter" && isChatOpen) {
-                handleSend();
+            if (e.key === "Enter" && isChatOpen && message.trim()) {
+                window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
+                setMessage("");
             }
             if (e.key === "Escape" && isChatOpen) {
                 setIsChatOpen(false);
@@ -37,7 +38,7 @@ export default function WhatsAppButton() {
         };
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [isChatOpen, message]);
+    }, [isChatOpen, message, phone]);
 
     if (!mounted || !phone) return null;
 
@@ -139,7 +140,7 @@ export default function WhatsAppButton() {
 
                         <div style={{ position: "relative" }}>
                             <img
-                                src="/Kacper.avif"
+                                src="/images/Kacper.avif"
                                 alt="Kacper Nowosielski"
                                 width={50}
                                 height={50}
@@ -166,7 +167,13 @@ export default function WhatsAppButton() {
 
                         <div>
                             <div style={{ fontWeight: 600, fontSize: 16 }}>Kacper Nowosielski</div>
-                            <div style={{ fontSize: 13, color: "rgba(255,255,255,0.8)", marginTop: 2 }}>
+                            <div
+                                style={{
+                                    fontSize: 13,
+                                    color: "rgba(255,255,255,0.8)",
+                                    marginTop: 2,
+                                }}
+                            >
                                 Zwykle odpowiadam w parę minut
                             </div>
                         </div>
@@ -209,13 +216,27 @@ export default function WhatsAppButton() {
                                     borderBottom: "8px solid transparent",
                                 }}
                             />
-                            <div style={{ fontSize: 13, fontWeight: 600, color: "rgba(0,0,0,0.4)", marginBottom: 4 }}>
+                            <div
+                                style={{
+                                    fontSize: 13,
+                                    fontWeight: 600,
+                                    color: "rgba(0,0,0,0.4)",
+                                    marginBottom: 4,
+                                }}
+                            >
                                 Kacper Nowosielski
                             </div>
                             <div style={{ fontSize: 14, lineHeight: 1.4, wordBreak: "break-word" }}>
                                 Cześć! 👋 W czym mogę Ci pomóc?
                             </div>
-                            <div style={{ fontSize: 11, color: "rgba(0,0,0,0.45)", textAlign: "right", marginTop: 4 }}>
+                            <div
+                                style={{
+                                    fontSize: 11,
+                                    color: "rgba(0,0,0,0.45)",
+                                    textAlign: "right",
+                                    marginTop: 4,
+                                }}
+                            >
                                 {currentTime}
                             </div>
                         </div>
@@ -326,7 +347,7 @@ export default function WhatsAppButton() {
                         <div style={{ position: "relative", flexShrink: 0 }}>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
-                                src="/Kacper.avif"
+                                src="/images/Kacper.avif"
                                 alt="Kacper Nowosielski"
                                 width={48}
                                 height={48}
@@ -351,13 +372,27 @@ export default function WhatsAppButton() {
                         </div>
 
                         <div style={{ paddingRight: 16 }}>
-                            <div style={{ fontWeight: 700, fontSize: 15, color: "#1a1a1a", lineHeight: 1.3 }}>
+                            <div
+                                style={{
+                                    fontWeight: 700,
+                                    fontSize: 15,
+                                    color: "#1a1a1a",
+                                    lineHeight: 1.3,
+                                }}
+                            >
                                 Kacper Nowosielski
                             </div>
                             <div style={{ fontSize: 12, color: "#888", marginTop: 1 }}>
                                 Właściciel
                             </div>
-                            <div style={{ fontSize: 14, color: "#444", marginTop: 6, lineHeight: 1.4 }}>
+                            <div
+                                style={{
+                                    fontSize: 14,
+                                    color: "#444",
+                                    marginTop: 6,
+                                    lineHeight: 1.4,
+                                }}
+                            >
                                 Cześć! Zapraszam do kontaktu.
                             </div>
                         </div>
@@ -399,7 +434,8 @@ export default function WhatsAppButton() {
                     cursor: "pointer",
                     boxShadow: "0 4px 14px rgba(37,211,102,0.4)",
                     transition: "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
-                    animation: !isChatOpen && !showPopup && !dismissed ? "waPulse 2s infinite" : "none",
+                    animation:
+                        !isChatOpen && !showPopup && !dismissed ? "waPulse 2s infinite" : "none",
                     transform: isChatOpen ? "scale(0.9)" : "scale(1)",
                 }}
                 onMouseEnter={(e) => {

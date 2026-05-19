@@ -16,7 +16,7 @@ services:
   heading: Nasze usługi
   items:
     - title: Diagnostyka komputerowa
-      image: /offer/diagnostyka.avif
+      image: /offer/diagnostyka.svg
       alt: Diagnostyka komputerowa
       description: >
         Szybko i precyzyjnie wykrywamy usterki w Twoim aucie!
@@ -35,20 +35,20 @@ services:
 
         ✅ Profesjonalny raport usterek
     - title: Naprawa układu hamulcowego
-      image: /offer/układ.avif
+      image: /offer/uklad.svg
       alt: Naprawa układu hamulcowego
       description: >-
         Oferujemy kompleksową naprawę i serwis hamulców: wymianę klocków, tarcz,
         płynu hamulcowego, regenerację zacisków oraz diagnozę całego układu.
     - title: Mechanika pojazdowa
-      image: /offer/mechanika.avif
+      image: /offer/mechanika.svg
       alt: Mechanika pojazdowa
       description: >-
         Kompleksowe usługi mechaniczne dla Twojego auta. Wykonujemy naprawy
         bieżące i zaawansowane, usuwamy usterki silnika, zawieszenia, układu
         kierowniczego, wydechowego i chłodzenia.
     - title: Wymiana płynów i oleju
-      image: /offer/olej.avif
+      image: /offer/olej.svg
       alt: Wymiana płynów i oleju
       description: >-
         Oferujemy profesjonalną wymianę oleju silnikowego oraz wszystkich
@@ -56,7 +56,7 @@ services:
         wspomagania i płynu do spryskiwaczy. Pracujemy na wysokiej jakości
         produktach i zawsze zgodnie z zaleceniami producenta.
     - title: Serwis zawieszenia
-      image: /offer/serwis.avif
+      image: /offer/serwis.svg
       alt: Serwis zawieszenia
       description: >-
         Oferujemy kompleksową diagnostykę oraz naprawy układów zawieszenia:

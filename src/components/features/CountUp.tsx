@@ -54,7 +54,7 @@ export default function CountUp({
                     }
                 });
             },
-            { root: null, threshold: 0.35, rootMargin: "0px 0px -10% 0px" }
+            { root: null, threshold: 0.35, rootMargin: "0px 0px -10% 0px" },
         );
         observer.observe(el);
         return () => {
@@ -101,7 +101,7 @@ export default function CountUp({
         <span
             ref={ref}
             className={[
-                "inline-block will-change-transform transition-transform duration-300",
+                "inline-block transition-transform duration-300 will-change-transform",
                 active ? "scale-[1.02]" : "",
                 className ?? "",
             ].join(" ")}

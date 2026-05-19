@@ -11,7 +11,15 @@ type Props = Omit<ImageProps, "onClick" | "src"> & {
     fallbackSrc?: string;
 };
 
-export default function LightboxImage({ enablePreview = true, rounded = true, className = "", alt = "", fallbackSrc, src, ...imgProps }: Props) {
+export default function LightboxImage({
+    enablePreview = true,
+    rounded = true,
+    className = "",
+    alt = "",
+    fallbackSrc,
+    src,
+    ...imgProps
+}: Props) {
     const [open, setOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
     const [scale, setScale] = useState(1);
@@ -36,20 +44,6 @@ export default function LightboxImage({ enablePreview = true, rounded = true, cl
         }
     }, [open, currentSrc, imageLoaded]);
 
-    useEffect(() => {
-        if (open) {
-            document.body.style.overflow = "hidden";
-            const handleEscape = (e: KeyboardEvent) => {
-                if (e.key === "Escape") handleClose();
-            };
-            document.addEventListener("keydown", handleEscape);
-            return () => {
-                document.body.style.overflow = "";
-                document.removeEventListener("keydown", handleEscape);
-            };
-        }
-    }, [open]);
-
     const handleClose = () => {
         setOpen(false);
         setScale(1);
@@ -59,7 +53,7 @@ export default function LightboxImage({ enablePreview = true, rounded = true, cl
     };
 
     const handleZoomIn = () => {
-        setScale(prev => Math.min(prev + 0.5, 4));
+        setScale((prev) => Math.min(prev + 0.5, 4));
     };
 
     const handleZoomOut = () => {
@@ -82,7 +76,7 @@ export default function LightboxImage({ enablePreview = true, rounded = true, cl
                 x: e.clientX,
                 y: e.clientY,
                 posX: position.x,
-                posY: position.y
+                posY: position.y,
             });
         }
     };
@@ -93,7 +87,7 @@ export default function LightboxImage({ enablePreview = true, rounded = true, cl
             const dy = e.clientY - dragStart.y;
             setPosition({
                 x: dragStart.posX + dx,
-                y: dragStart.posY + dy
+                y: dragStart.posY + dy,
             });
         }
     };
@@ -120,7 +114,7 @@ export default function LightboxImage({ enablePreview = true, rounded = true, cl
                 x: touch.clientX,
                 y: touch.clientY,
                 posX: position.x,
-                posY: position.y
+                posY: position.y,
             });
         }
     };
@@ -132,7 +126,7 @@ export default function LightboxImage({ enablePreview = true, rounded = true, cl
             const dy = touch.clientY - dragStart.y;
             setPosition({
                 x: dragStart.posX + dx,
-                y: dragStart.posY + dy
+                y: dragStart.posY + dy,
             });
         }
     };
@@ -147,152 +141,210 @@ export default function LightboxImage({ enablePreview = true, rounded = true, cl
                 {...imgProps}
                 src={currentSrc}
                 alt={alt}
-                className={`${className} ${enablePreview ? "cursor-zoom-in hover:opacity-90 transition-opacity" : ""}`}
+                className={`${className} ${enablePreview ? "cursor-zoom-in transition-opacity hover:opacity-90" : ""}`}
                 onClick={() => enablePreview && setOpen(true)}
                 onError={() => {
                     if (fallbackSrc && currentSrc !== fallbackSrc) setCurrentSrc(fallbackSrc);
                 }}
             />
 
-            {mounted && open && createPortal(
-                <div
-                    className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md animate-in fade-in duration-200"
-                    role="dialog"
-                    aria-modal="true"
-                    aria-label="Podgląd zdjęcia"
-                >
-                    {/* Top bar with controls */}
-                    <div className="absolute top-0 left-0 right-0 flex items-center justify-between p-4 bg-gradient-to-b from-black/50 to-transparent z-10">
-                        <div className="flex items-center gap-2">
-                            {/* Zoom controls */}
-                            <div className="flex items-center gap-1 bg-black/70 backdrop-blur-sm rounded-lg p-1 border border-white/10">
-                                <button
-                                    onClick={handleZoomOut}
-                                    disabled={scale <= 1}
-                                    className="w-10 h-10 flex items-center justify-center rounded-md text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                                    aria-label="Pomniejsz"
-                                >
-                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-                                    </svg>
-                                </button>
-                                <div className="px-3 text-sm font-medium text-white/80 min-w-[3rem] text-center">
-                                    {Math.round(scale * 100)}%
+            {mounted &&
+                open &&
+                createPortal(
+                    <div
+                        className="animate-in fade-in fixed inset-0 z-[100] bg-black/95 backdrop-blur-md duration-200"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Podgląd zdjęcia"
+                    >
+                        {/* Top bar with controls */}
+                        <div className="absolute top-0 right-0 left-0 z-10 flex items-center justify-between bg-gradient-to-b from-black/50 to-transparent p-4">
+                            <div className="flex items-center gap-2">
+                                {/* Zoom controls */}
+                                <div className="flex items-center gap-1 rounded-lg border border-white/10 bg-black/70 p-1 backdrop-blur-sm">
+                                    <button
+                                        onClick={handleZoomOut}
+                                        disabled={scale <= 1}
+                                        className="flex h-10 w-10 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-30"
+                                        aria-label="Pomniejsz"
+                                    >
+                                        <svg
+                                            className="h-5 w-5"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M20 12H4"
+                                            />
+                                        </svg>
+                                    </button>
+                                    <div className="min-w-[3rem] px-3 text-center text-sm font-medium text-white/80">
+                                        {Math.round(scale * 100)}%
+                                    </div>
+                                    <button
+                                        onClick={handleZoomIn}
+                                        disabled={scale >= 4}
+                                        className="flex h-10 w-10 items-center justify-center rounded-md text-white transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-30"
+                                        aria-label="Powiększ"
+                                    >
+                                        <svg
+                                            className="h-5 w-5"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M12 4v16m8-8H4"
+                                            />
+                                        </svg>
+                                    </button>
                                 </div>
+
+                                {/* Reset button */}
                                 <button
-                                    onClick={handleZoomIn}
-                                    disabled={scale >= 4}
-                                    className="w-10 h-10 flex items-center justify-center rounded-md text-white hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                                    aria-label="Powiększ"
+                                    onClick={handleReset}
+                                    disabled={scale === 1}
+                                    className="flex h-10 items-center gap-2 rounded-lg border border-white/10 bg-black/70 px-4 text-sm font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-30"
+                                    aria-label="Resetuj"
                                 >
-                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                    <svg
+                                        className="h-4 w-4"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                                        />
                                     </svg>
+                                    Reset
                                 </button>
                             </div>
 
-                            {/* Reset button */}
+                            {/* Close button */}
                             <button
-                                onClick={handleReset}
-                                disabled={scale === 1}
-                                className="h-10 px-4 flex items-center gap-2 bg-black/70 backdrop-blur-sm rounded-lg border border-white/10 text-white text-sm font-medium hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                                aria-label="Resetuj"
+                                onClick={handleClose}
+                                className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400 text-black shadow-lg transition-all hover:scale-105 hover:bg-yellow-300 active:scale-95"
+                                aria-label="Zamknij"
                             >
-                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                <svg
+                                    className="h-6 w-6"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={2.5}
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
                                 </svg>
-                                Reset
                             </button>
                         </div>
 
-                        {/* Close button */}
-                        <button
-                            onClick={handleClose}
-                            className="w-12 h-12 flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-300 text-black transition-all hover:scale-105 active:scale-95 shadow-lg"
-                            aria-label="Zamknij"
-                        >
-                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    {/* Image container */}
-                    <div
-                        ref={containerRef}
-                        className="absolute inset-0 flex items-center justify-center p-4 pt-20 pb-8"
-                        onClick={(e) => {
-                            if (e.target === e.currentTarget && scale === 1) {
-                                handleClose();
-                            }
-                        }}
-                    >
+                        {/* Image container */}
                         <div
-                            className={`relative w-full h-full ${scale > 1 ? 'cursor-grab active:cursor-grabbing' : 'cursor-default'}`}
-                            onMouseDown={handleMouseDown}
-                            onMouseMove={handleMouseMove}
-                            onMouseUp={handleMouseUp}
-                            onMouseLeave={handleMouseUp}
-                            onWheel={handleWheel}
-                            onTouchStart={handleTouchStart}
-                            onTouchMove={handleTouchMove}
-                            onTouchEnd={handleTouchEnd}
-                            onDoubleClick={() => {
-                                if (scale === 1) {
-                                    handleZoomIn();
-                                } else {
-                                    handleReset();
+                            ref={containerRef}
+                            className="absolute inset-0 flex items-center justify-center p-4 pt-20 pb-8"
+                            onClick={(e) => {
+                                if (e.target === e.currentTarget && scale === 1) {
+                                    handleClose();
                                 }
                             }}
                         >
                             <div
-                                className="relative w-full h-full flex items-center justify-center"
-                                style={{
-                                    transform: `translate3d(${position.x}px, ${position.y}px, 0) scale(${scale})`,
-                                    transition: isDragging ? 'none' : 'transform 0.15s cubic-bezier(0.33, 1, 0.68, 1)',
-                                    transformOrigin: 'center center',
-                                    willChange: 'transform',
-                                    backfaceVisibility: 'hidden',
-                                    perspective: 1000
+                                className={`relative h-full w-full ${scale > 1 ? "cursor-grab active:cursor-grabbing" : "cursor-default"}`}
+                                onMouseDown={handleMouseDown}
+                                onMouseMove={handleMouseMove}
+                                onMouseUp={handleMouseUp}
+                                onMouseLeave={handleMouseUp}
+                                onWheel={handleWheel}
+                                onTouchStart={handleTouchStart}
+                                onTouchMove={handleTouchMove}
+                                onTouchEnd={handleTouchEnd}
+                                onDoubleClick={() => {
+                                    if (scale === 1) {
+                                        handleZoomIn();
+                                    } else {
+                                        handleReset();
+                                    }
                                 }}
                             >
-                                {imageLoaded ? (
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    <img
-                                        ref={imageRef}
-                                        src={currentSrc}
-                                        alt={alt}
-                                        className={`max-w-full max-h-full w-auto h-auto object-contain select-none pointer-events-none ${rounded ? 'rounded-lg' : ''}`}
-                                        style={{
-                                            imageRendering: scale > 1 ? 'crisp-edges' : 'auto'
-                                        }}
-                                        draggable={false}
-                                        onError={() => {
-                                            if (fallbackSrc && currentSrc !== fallbackSrc) setCurrentSrc(fallbackSrc);
-                                        }}
-                                    />
-                                ) : (
-                                    <div className="flex items-center justify-center">
-                                        <div className="w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin"></div>
-                                    </div>
-                                )}
+                                <div
+                                    className="relative flex h-full w-full items-center justify-center"
+                                    style={{
+                                        transform: `translate3d(${position.x}px, ${position.y}px, 0) scale(${scale})`,
+                                        transition: isDragging
+                                            ? "none"
+                                            : "transform 0.15s cubic-bezier(0.33, 1, 0.68, 1)",
+                                        transformOrigin: "center center",
+                                        willChange: "transform",
+                                        backfaceVisibility: "hidden",
+                                        perspective: 1000,
+                                    }}
+                                >
+                                    {imageLoaded ? (
+                                        // eslint-disable-next-line @next/next/no-img-element
+                                        <img
+                                            ref={imageRef}
+                                            src={currentSrc}
+                                            alt={alt}
+                                            className={`pointer-events-none h-auto max-h-full w-auto max-w-full object-contain select-none ${rounded ? "rounded-lg" : ""}`}
+                                            style={{
+                                                imageRendering: scale > 1 ? "crisp-edges" : "auto",
+                                            }}
+                                            draggable={false}
+                                            onError={() => {
+                                                if (fallbackSrc && currentSrc !== fallbackSrc)
+                                                    setCurrentSrc(fallbackSrc);
+                                            }}
+                                        />
+                                    ) : (
+                                        <div className="flex items-center justify-center">
+                                            <div className="h-12 w-12 animate-spin rounded-full border-4 border-yellow-400 border-t-transparent"></div>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Bottom hint */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-black/70 backdrop-blur-sm rounded-full text-white/60 text-sm border border-white/10">
-                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span className="hidden sm:inline">Scroll aby powiększyć • Przeciągnij aby przesunąć • Kliknij ESC aby zamknąć</span>
-                            <span className="sm:hidden">Dotknij 2x aby powiększyć</span>
+                        {/* Bottom hint */}
+                        <div className="absolute right-0 bottom-0 left-0 p-4 text-center">
+                            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/70 px-4 py-2 text-sm text-white/60 backdrop-blur-sm">
+                                <svg
+                                    className="h-4 w-4"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
+                                </svg>
+                                <span className="hidden sm:inline">
+                                    Scroll aby powiększyć • Przeciągnij aby przesunąć • Kliknij ESC
+                                    aby zamknąć
+                                </span>
+                                <span className="sm:hidden">Dotknij 2x aby powiększyć</span>
+                            </div>
                         </div>
-                    </div>
-                </div>,
-                document.body
-            )}
+                    </div>,
+                    document.body,
+                )}
         </>
     );
 }

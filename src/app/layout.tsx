@@ -4,82 +4,99 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import Script from "next/script";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
+    variable: "--font-geist-sans",
+    subsets: ["latin"],
+    display: "swap",
+    preload: true,
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
+    variable: "--font-geist-mono",
+    subsets: ["latin"],
+    display: "swap",
+    preload: true,
 });
 
 export const metadata: Metadata = {
-  title: "Bezawaryjni AutoSerwis – mechanika, diagnostyka, samoobsługa",
-  description: "Serwis mechaniczny i warsztat samoobsługowy. Uczciwa wycena, szybkie terminy, jakość premium.",
+    metadataBase: new URL("https://bezawaryjni.pl"),
+    title: {
+        default: "Bezawaryjni AutoSerwis – mechanika, diagnostyka, samoobsługa",
+        template: "%s | Bezawaryjni AutoSerwis",
+    },
+    description:
+        "Serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Uczciwa wycena, szybkie terminy, jakość premium.",
+    alternates: {
+        canonical: "https://bezawaryjni.pl",
+    },
+    openGraph: {
+        type: "website",
+        locale: "pl_PL",
+        url: "https://bezawaryjni.pl",
+        siteName: "Bezawaryjni AutoSerwis",
+        title: "Bezawaryjni AutoSerwis – mechanika, diagnostyka, samoobsługa",
+        description:
+            "Serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Uczciwa wycena, szybkie terminy, jakość premium.",
+        images: [
+            {
+                url: "/images/og-image.png",
+                width: 1200,
+                height: 630,
+                alt: "Bezawaryjni AutoSerwis – serwis mechaniczny Kobylnica / Słupsk",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Bezawaryjni AutoSerwis – mechanika, diagnostyka, samoobsługa",
+        description:
+            "Serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Uczciwa wycena, szybkie terminy, jakość premium.",
+        images: ["/images/og-image.png"],
+    },
+    manifest: "/site.webmanifest",
+    icons: {
+        icon: [
+            { url: "/favicon.svg", type: "image/svg+xml" },
+            { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+            { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+        ],
+        apple: [{ url: "/apple-touch-icon.png" }],
+    },
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="pl">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Upgrade any http subresource URLs to https in supporting browsers */}
-        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    return (
+        <html lang="pl">
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                {/* Upgrade any http subresource URLs to https in supporting browsers */}
+                <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 
-        {/* Inline critical styles for fastest first paint */}
-        <style dangerouslySetInnerHTML={{
-          __html: `
-          body{background:#0a0a0a;color:#ededed;margin:0;font-family:system-ui,-apple-system,sans-serif}
-        `}} />
+                {/* Preconnect to Google Maps used in Contact section */}
+                <link rel="preconnect" href="https://maps.google.com" />
+                <link rel="dns-prefetch" href="https://maps.google.com" />
+                <link rel="preconnect" href="https://maps.googleapis.com" />
+                <link rel="dns-prefetch" href="https://maps.googleapis.com" />
 
-        {/* Preload hero image to improve LCP */}
-        <link
-          rel="preload"
-          as="image"
-          href="/yellow-car.avif"
-          imageSrcSet="/yellow-car.avif"
-          imageSizes="100vw"
-          fetchPriority="high"
-        />
-        <link rel="preload" as="image" href="/hero-garage.jpg" imageSizes="100vw" />
-
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* TinaCMS iframe bridge - enables visual editing */}
-        <Script
-          id="tina-iframe"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(){
-                if (window.parent !== window) {
-                  window.parent.postMessage({ type: 'loaded' }, '*');
-                  window.__TINA_IFRAME__ = true;
-                }
-              })();
-            `,
-          }}
-        />
-        <Header />
-        <main>
-          {children}
-        </main>
-        <Footer />
-        <WhatsAppButton />
-      </body>
-    </html>
-  );
+                {/* Preload hero image to improve LCP */}
+                <link
+                    rel="preload"
+                    as="image"
+                    href="/images/yellow-car.avif"
+                    fetchPriority="high"
+                />
+            </head>
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+                <Header />
+                <main>{children}</main>
+                <Footer />
+                <WhatsAppButton />
+            </body>
+        </html>
+    );
 }

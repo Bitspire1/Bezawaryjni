@@ -1,5 +1,6 @@
 "use client";
 
+import { tinaField } from "tinacms/dist/react";
 import CountUp from "../features/CountUp";
 
 interface AboutUsProps {
@@ -22,26 +23,26 @@ interface AboutUsProps {
 
 export default function AboutUs({ data }: AboutUsProps) {
     return (
-        <section id="nasza-firma" className="py-20 bg-black text-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <section id="nasza-firma" className="bg-black py-20 text-white">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="grid items-start gap-12 lg:grid-cols-2">
                     {/* Left: Text */}
                     <div className="space-y-6">
-                        <h2 
-                            className="text-4xl md:text-5xl font-bold text-yellow-400"
-                            data-tina-field={data.aboutUs.heading}
+                        <h2
+                            className="text-4xl font-bold text-yellow-400 md:text-5xl"
+                            data-tina-field={tinaField(data.aboutUs, "heading")}
                         >
                             {data.aboutUs.heading}
                         </h2>
-                        <p 
-                            className="text-lg text-white/80 leading-relaxed"
-                            data-tina-field={data.aboutUs.description}
+                        <p
+                            className="text-lg leading-relaxed text-white/80"
+                            data-tina-field={tinaField(data.aboutUs, "description")}
                         >
                             {data.aboutUs.description}
                         </p>
-                        <p 
-                            className="text-lg text-white/80 leading-relaxed"
-                            data-tina-field={data.aboutUs.descriptionSecondary}
+                        <p
+                            className="text-lg leading-relaxed text-white/80"
+                            data-tina-field={tinaField(data.aboutUs, "descriptionSecondary")}
                         >
                             {data.aboutUs.descriptionSecondary}
                         </p>
@@ -49,32 +50,46 @@ export default function AboutUs({ data }: AboutUsProps) {
                         {/* Stats */}
                         <div className="grid grid-cols-3 gap-6 pt-6">
                             {data.aboutUs.stats.map((stat, idx) => (
-                                <div 
-                                    key={idx} 
-                                    className="bg-white/5 rounded-lg p-6 text-center border border-white/10"
+                                <div
+                                    key={idx}
+                                    className="rounded-lg border border-white/10 bg-white/5 p-6 text-center"
+                                    data-tina-field={tinaField(data.aboutUs.stats[idx], "value")}
                                 >
-                                    <div className="text-3xl md:text-4xl font-bold text-yellow-400">
+                                    <div className="text-3xl font-bold text-yellow-400 md:text-4xl">
                                         <CountUp end={stat.value} duration={2} />
                                     </div>
-                                    <p className="text-sm text-white/60 mt-2">{stat.label}</p>
+                                    <p
+                                        className="mt-2 text-sm text-white/60"
+                                        data-tina-field={tinaField(
+                                            data.aboutUs.stats[idx],
+                                            "label",
+                                        )}
+                                    >
+                                        {stat.label}
+                                    </p>
                                 </div>
                             ))}
                         </div>
                     </div>
 
                     {/* Right: Benefits */}
-                    <div className="bg-[#111] rounded-xl p-8 border border-white/10">
-                        <h3 className="text-2xl font-semibold text-yellow-400 mb-6">
+                    <div className="rounded-xl border border-white/10 bg-[#111] p-8">
+                        <h3 className="mb-6 text-2xl font-semibold text-yellow-400">
                             Co nas wyróżnia
                         </h3>
                         <ul className="space-y-4">
                             {data.aboutUs.benefits.map((benefit, idx) => (
-                                <li 
-                                    key={idx} 
-                                    className="flex items-start gap-3"
-                                >
-                                    <span className="text-yellow-400 text-xl mt-0.5">•</span>
-                                    <span className="text-white/90">{benefit.text}</span>
+                                <li key={idx} className="flex items-start gap-3">
+                                    <span className="mt-0.5 text-xl text-yellow-400">•</span>
+                                    <span
+                                        className="text-white/90"
+                                        data-tina-field={tinaField(
+                                            data.aboutUs.benefits[idx],
+                                            "text",
+                                        )}
+                                    >
+                                        {benefit.text}
+                                    </span>
                                 </li>
                             ))}
                         </ul>

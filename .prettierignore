@@ -1,0 +1,6 @@
+.next/
+node_modules/
+public/admin/
+tina/__generated__/
+pnpm-lock.yaml
+*.md

@@ -24,13 +24,13 @@ var config_default = defineConfig({
         name: "pages",
         label: "Pages",
         path: "content/pages",
-        format: "mdx",
+        format: "md",
         ui: {
           router: ({ document }) => {
             if (document._sys.filename === "home") {
-              return `/admin/home`;
+              return `/preview/home`;
             }
-            return `/admin/${document._sys.filename}`;
+            return `/preview/${document._sys.filename}`;
           }
         },
         fields: [
@@ -338,7 +338,16 @@ var config_default = defineConfig({
                     name: "icon",
                     label: "Icon",
                     type: "string",
-                    options: ["clock", "wrench", "cart", "calendar", "shield", "payment", "bag", "support"]
+                    options: [
+                      "clock",
+                      "wrench",
+                      "cart",
+                      "calendar",
+                      "shield",
+                      "payment",
+                      "bag",
+                      "support"
+                    ]
                   }
                 ]
               }

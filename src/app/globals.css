@@ -1,141 +1,145 @@
 @import "tailwindcss";
 
+/* Critical body styles */
+body {
+    background: #0a0a0a;
+    color: #ededed;
+    margin: 0;
+    font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
+}
+
 /* Smooth scrolling */
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
 }
 
 /* TinaCMS Visual Editing Styles */
 .__tina-quick-editing-enabled [data-tina-field] {
-  outline: 2px dashed rgba(34, 150, 254, 0.5);
-  transition: outline 150ms ease-out, box-shadow 150ms ease-out;
-  cursor: pointer;
+    outline: 2px dashed rgba(34, 150, 254, 0.5);
+    transition:
+        outline 150ms ease-out,
+        box-shadow 150ms ease-out;
+    cursor: pointer;
 }
 
 .__tina-quick-editing-enabled [data-tina-field]:hover {
-  outline: 2px dashed rgba(34, 150, 254, 1);
-  box-shadow: 0 0 0 4px rgba(34, 150, 254, 0.1);
+    outline: 2px dashed rgba(34, 150, 254, 1);
+    box-shadow: 0 0 0 4px rgba(34, 150, 254, 0.1);
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --brand-yellow: #facc15;
-  /* tailwind yellow-400 */
-  --brand-black: #0b0b0b;
+    --background: #ffffff;
+    --foreground: #171717;
+    --brand-yellow: #facc15;
+    /* tailwind yellow-400 */
+    --brand-black: #0b0b0b;
 }
 
 :root {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
 
 /* Accessible inline links: add a non-color cue and clear focus style */
 .link-visible {
-  text-decoration-line: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 2px;
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
 }
 
 .link-visible:focus-visible {
-  outline: 2px dashed var(--brand-yellow);
-  outline-offset: 2px;
+    outline: 2px dashed var(--brand-yellow);
+    outline-offset: 2px;
 }
 
 /* Hide scrollbars for overflowed nav on some platforms */
 .no-scrollbar {
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .no-scrollbar::-webkit-scrollbar {
-  display: none;
-  /* Safari and Chrome */
+    display: none;
+    /* Safari and Chrome */
 }
 
 /* Layout helpers */
 .container-x {
-  max-width: 80rem;
-  margin-inline: auto;
+    max-width: 80rem;
+    margin-inline: auto;
 }
 
 /* Dot-matrix style text for the EKG logo */
 .dot-logo {
-  background: radial-gradient(var(--brand-yellow) 1.2px, transparent 1.2px) 0 0/7px 7px,
-    radial-gradient(var(--brand-yellow) 1.2px, transparent 1.2px) 3.5px 3.5px/7px 7px;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 0 1px rgba(250, 204, 21, 0.6));
-}
-
-html {
-  scroll-behavior: smooth;
+    background:
+        radial-gradient(var(--brand-yellow) 1.2px, transparent 1.2px) 0 0/7px 7px,
+        radial-gradient(var(--brand-yellow) 1.2px, transparent 1.2px) 3.5px 3.5px/7px 7px;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 1px rgba(250, 204, 21, 0.6));
 }
 
 /* Offset scroll for sticky header - adjust scroll target position */
 section[id],
 div[id] {
-  scroll-margin-top: 5rem; /* 80px for mobile header */
+    scroll-margin-top: 5rem; /* 80px for mobile header */
 }
 
 @media (min-width: 640px) {
-  section[id],
-  div[id] {
-    scroll-margin-top: 6rem; /* 96px for desktop header */
-  }
+    section[id],
+    div[id] {
+        scroll-margin-top: 6rem; /* 96px for desktop header */
+    }
 }
 
 /* Better word wrapping for long labels on small screens */
 .wrap-balance {
-  text-wrap: balance;
+    text-wrap: balance;
 }
 
 /* Larger tap targets on mobile when needed */
 .tap-44 {
-  min-height: 44px;
-  min-width: 44px;
+    min-height: 44px;
+    min-width: 44px;
 }
 
 /* Hexagon shape utility (pointy-top hex - rotated for honeycomb) */
 .hex {
-  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+    clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
 }
 
 /* Decorative hex helper with soft edges */
 .hex-deco {
-  clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
-  filter: drop-shadow(0 10px 22px rgba(250, 204, 21, 0.08));
+    clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+    filter: drop-shadow(0 10px 22px rgba(250, 204, 21, 0.08));
 }
 
 /* Subtle dotted overlay for sections */
 .deco-dots {
-  background-image: radial-gradient(rgba(250, 204, 21, 0.08) 1px, transparent 1px);
-  background-size: 14px 14px;
-  opacity: 0.05;
+    background-image: radial-gradient(rgba(250, 204, 21, 0.08) 1px, transparent 1px);
+    background-size: 14px 14px;
+    opacity: 0.05;
 }
 
 /* Soft vignette glows (top/bottom) */
 .deco-vignette {
-  background:
-    radial-gradient(60rem 20rem at 50% 0%, rgba(250, 204, 21, 0.06), transparent 60%),
-    radial-gradient(60rem 20rem at 50% 100%, rgba(250, 204, 21, 0.04), transparent 60%);
+    background:
+        radial-gradient(60rem 20rem at 50% 0%, rgba(250, 204, 21, 0.06), transparent 60%),
+        radial-gradient(60rem 20rem at 50% 100%, rgba(250, 204, 21, 0.04), transparent 60%);
 }
