@@ -16,7 +16,10 @@ vi.mock("tinacms/dist/react", () => ({
     tinaField: () => undefined,
 }));
 vi.mock("next/image", () => ({
-    default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => <img {...props} />,
+    default: ({ alt = "", ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img alt={alt} {...props} />
+    ),
 }));
 vi.mock("@/components/features/CountUp", () => ({
     default: ({ end }: { end: number }) => <span>{end}</span>,

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { FaWhatsapp, FaTimes, FaPaperPlane } from "react-icons/fa";
 
 const POPUP_DELAY_MS = 5000;
@@ -139,7 +140,7 @@ export default function WhatsAppButton() {
                         </button>
 
                         <div style={{ position: "relative" }}>
-                            <img
+                            <Image
                                 src="/images/Kacper.avif"
                                 alt="Kacper Nowosielski"
                                 width={50}

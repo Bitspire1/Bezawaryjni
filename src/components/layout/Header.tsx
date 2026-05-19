@@ -49,7 +49,7 @@ export default function Header() {
                 }
             }, 100);
         }
-    }, [pathname]);
+    }, [pathname, homePathname]);
 
     const resolveHref = (href: string): string => {
         if (href === "/") return homePathname;
