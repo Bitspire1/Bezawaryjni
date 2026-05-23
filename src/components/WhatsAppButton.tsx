@@ -76,191 +76,64 @@ export default function WhatsAppButton() {
         <>
             {/* ── CHAT WINDOW ── */}
             {isChatOpen && (
-                <div
-                    className="wa-chat-container"
-                    style={{
-                        backgroundColor: "#fff",
-                        display: "flex",
-                        flexDirection: "column",
-                    }}
-                >
+                <div className="wa-chat-container wa-chat-layout">
                     {/* Header */}
-                    <div
-                        style={{
-                            backgroundColor: "#128C7E",
-                            color: "#fff",
-                            padding: "16px",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 12,
-                            position: "relative",
-                        }}
-                    >
+                    <div className="wa-chat-header">
                         <button
                             onClick={() => setIsChatOpen(false)}
                             aria-label="Zamknij czat"
-                            style={{
-                                position: "absolute",
-                                top: 12,
-                                right: 12,
-                                background: "none",
-                                border: "none",
-                                color: "rgba(255,255,255,0.8)",
-                                fontSize: 20,
-                                cursor: "pointer",
-                            }}
+                            className="wa-chat-close"
                         >
                             <FaTimes />
                         </button>
 
-                        <div style={{ position: "relative" }}>
+                        <div className="wa-avatar-wrapper">
                             <Image
-                                src="/images/Kacper.avif"
+                                src="/images/Kacper.png"
                                 alt="Kacper Nowosielski"
                                 width={50}
                                 height={50}
-                                style={{
-                                    borderRadius: "50%",
-                                    objectFit: "cover",
-                                    display: "block",
-                                    border: "2px solid rgba(255,255,255,0.2)",
-                                }}
+                                className="wa-avatar"
                             />
-                            <span
-                                style={{
-                                    position: "absolute",
-                                    bottom: 2,
-                                    right: 2,
-                                    width: 12,
-                                    height: 12,
-                                    backgroundColor: "#25D366",
-                                    borderRadius: "50%",
-                                    border: "2px solid #128C7E",
-                                }}
-                            />
+                            <span className="wa-status-dot" />
                         </div>
 
                         <div>
-                            <div style={{ fontWeight: 600, fontSize: 16 }}>Kacper Nowosielski</div>
-                            <div
-                                style={{
-                                    fontSize: 13,
-                                    color: "rgba(255,255,255,0.8)",
-                                    marginTop: 2,
-                                }}
-                            >
+                            <div className="wa-chat-name">Kacper Nowosielski</div>
+                            <div className="wa-chat-status">
                                 Zwykle odpowiadam w parę minut
                             </div>
                         </div>
                     </div>
 
                     {/* Chat Body */}
-                    <div
-                        className="wa-chat-bg"
-                        style={{
-                            padding: "20px",
-                            minHeight: 220,
-                            maxHeight: "50vh",
-                            overflowY: "auto",
-                            display: "flex",
-                            flexDirection: "column",
-                        }}
-                    >
+                    <div className="wa-chat-bg wa-chat-body">
                         {/* Message Bubble */}
-                        <div
-                            style={{
-                                backgroundColor: "#fff",
-                                color: "#111",
-                                padding: "8px 12px",
-                                borderRadius: "0 8px 8px 8px",
-                                maxWidth: "85%",
-                                boxShadow: "0 1px 1px rgba(0,0,0,0.1)",
-                                position: "relative",
-                                alignSelf: "flex-start",
-                            }}
-                        >
-                            <div
-                                style={{
-                                    position: "absolute",
-                                    top: 0,
-                                    left: -8,
-                                    width: 0,
-                                    height: 0,
-                                    borderLeft: "8px solid transparent",
-                                    borderTop: "8px solid #fff",
-                                    borderBottom: "8px solid transparent",
-                                }}
-                            />
-                            <div
-                                style={{
-                                    fontSize: 13,
-                                    fontWeight: 600,
-                                    color: "rgba(0,0,0,0.4)",
-                                    marginBottom: 4,
-                                }}
-                            >
-                                Kacper Nowosielski
-                            </div>
-                            <div style={{ fontSize: 14, lineHeight: 1.4, wordBreak: "break-word" }}>
-                                Cześć! 👋 W czym mogę Ci pomóc?
-                            </div>
-                            <div
-                                style={{
-                                    fontSize: 11,
-                                    color: "rgba(0,0,0,0.45)",
-                                    textAlign: "right",
-                                    marginTop: 4,
-                                }}
-                            >
-                                {currentTime}
-                            </div>
+                        <div className="wa-message-bubble">
+                            <div className="wa-message-arrow" />
+                            <div className="wa-message-sender">Kacper Nowosielski</div>
+                            <div className="wa-message-text">Cześć! 👋 W czym mogę Ci pomóc?</div>
+                            <div className="wa-message-time">{currentTime}</div>
                         </div>
                     </div>
 
                     {/* Footer Input */}
-                    <div
-                        style={{
-                            padding: "12px",
-                            backgroundColor: "#f0f0f0",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 8,
-                        }}
-                    >
+                    <div className="wa-chat-input wa-chat-input-custom">
                         <input
                             ref={inputRef}
                             type="text"
                             placeholder="Napisz wiadomość..."
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
-                            style={{
-                                flex: 1,
-                                padding: "12px 16px",
-                                borderRadius: 24,
-                                border: "none",
-                                outline: "none",
-                                fontSize: 15,
-                                color: "#111", // fixed contrast
-                                backgroundColor: "#fff",
-                                boxShadow: "inset 0 1px 3px rgba(0,0,0,0.05)",
-                            }}
+                            className="wa-input-field"
                         />
                         <button
                             onClick={handleSend}
                             disabled={!message.trim()}
+                            className="wa-send-btn"
                             style={{
-                                width: 44,
-                                height: 44,
-                                borderRadius: "50%",
                                 backgroundColor: message.trim() ? "#128C7E" : "#999",
-                                color: "#fff",
-                                border: "none",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
                                 cursor: message.trim() ? "pointer" : "default",
-                                transition: "background-color 0.2s",
-                                paddingLeft: 4, // optical centering for send icon
                             }}
                             aria-label="Wyślij"
                         >
@@ -274,112 +147,36 @@ export default function WhatsAppButton() {
             {showPopup && !dismissed && !isChatOpen && (
                 <div
                     onClick={handleToggleChat}
-                    className="wa-popup"
-                    style={{
-                        cursor: "pointer",
-                    }}
+                    className="wa-popup wa-popup-cursor"
                 >
-                    <div
-                        style={{
-                            background: "#fff",
-                            borderRadius: 12,
-                            boxShadow: "0 6px 24px rgba(0,0,0,0.15)",
-                            padding: "14px 16px",
-                            position: "relative",
-                            display: "flex",
-                            alignItems: "flex-start",
-                            gap: 12,
-                            transition: "transform 0.2s",
-                        }}
-                        onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-4px)")}
-                        onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
-                    >
+                    <div className="wa-popup-inner">
                         <button
                             onClick={handleDismissPopup}
                             aria-label="Zamknij powiadomienie"
-                            style={{
-                                position: "absolute",
-                                top: 6,
-                                right: 8,
-                                background: "none",
-                                border: "none",
-                                color: "#999",
-                                fontSize: 18,
-                                cursor: "pointer",
-                                lineHeight: 1,
-                                padding: 4,
-                            }}
+                            className="wa-popup-close"
                         >
                             ✕
                         </button>
 
-                        <div style={{ position: "relative", flexShrink: 0 }}>
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                                src="/images/Kacper.avif"
+                        <div className="wa-popup-avatar">
+                            <Image
+                                src="/images/Kacper.png"
                                 alt="Kacper Nowosielski"
                                 width={48}
                                 height={48}
-                                style={{
-                                    borderRadius: "50%",
-                                    objectFit: "cover",
-                                    display: "block",
-                                }}
+                                className="wa-popup-avatar-img"
                             />
-                            <span
-                                style={{
-                                    position: "absolute",
-                                    bottom: 1,
-                                    right: 1,
-                                    width: 12,
-                                    height: 12,
-                                    backgroundColor: "#25D366",
-                                    borderRadius: "50%",
-                                    border: "2px solid #fff",
-                                }}
-                            />
+                            <span className="wa-popup-status" />
                         </div>
 
-                        <div style={{ paddingRight: 16 }}>
-                            <div
-                                style={{
-                                    fontWeight: 700,
-                                    fontSize: 15,
-                                    color: "#1a1a1a",
-                                    lineHeight: 1.3,
-                                }}
-                            >
-                                Kacper Nowosielski
-                            </div>
-                            <div style={{ fontSize: 12, color: "#888", marginTop: 1 }}>
-                                Właściciel
-                            </div>
-                            <div
-                                style={{
-                                    fontSize: 14,
-                                    color: "#444",
-                                    marginTop: 6,
-                                    lineHeight: 1.4,
-                                }}
-                            >
-                                Cześć! Zapraszam do kontaktu.
-                            </div>
+                        <div className="wa-popup-content">
+                            <div className="wa-popup-title">Kacper Nowosielski</div>
+                            <div className="wa-popup-role">Właściciel</div>
+                            <div className="wa-popup-msg">Cześć! Zapraszam do kontaktu.</div>
                         </div>
                     </div>
 
-                    <div
-                        style={{
-                            position: "absolute",
-                            bottom: -8,
-                            right: 28,
-                            width: 0,
-                            height: 0,
-                            borderLeft: "8px solid transparent",
-                            borderRight: "8px solid transparent",
-                            borderTop: "8px solid #fff",
-                            filter: "drop-shadow(0 2px 2px rgba(0,0,0,0.08))",
-                        }}
-                    />
+                    <div className="wa-popup-arrow-custom" />
                 </div>
             )}
 
@@ -402,18 +199,7 @@ export default function WhatsAppButton() {
 
                 {/* Powiadomienie (czerwona kropka) jeśli odrzucono popup i czat jest zamknięty */}
                 {dismissed && !isChatOpen && (
-                    <span
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            right: 0,
-                            width: 14,
-                            height: 14,
-                            backgroundColor: "#e53e3e",
-                            borderRadius: "50%",
-                            border: "2px solid #fff",
-                        }}
-                    />
+                    <span className="wa-notification" />
                 )}
             </button>
         </>

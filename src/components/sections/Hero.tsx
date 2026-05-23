@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { tinaField } from "tinacms/dist/react";
 
 interface HeroProps {
@@ -22,18 +23,15 @@ interface HeroProps {
 export default function Hero({ data }: HeroProps) {
     return (
         <section id="home" className="relative isolate" data-tina-field={tinaField(data, "hero")}>
-            <picture>
-                <source srcSet="/images/yellow-car.avif" type="image/avif" />
-                <img
-                    src="/images/yellow-car.avif"
-                    alt=""
-                    aria-hidden
-                    decoding="async"
-                    loading="eager"
-                    fetchPriority="high"
-                    className="absolute inset-0 -z-10 h-full w-full object-cover"
-                />
-            </picture>
+            <Image
+                src="/images/yellow-car.png"
+                alt=""
+                aria-hidden
+                priority
+                fill
+                className="absolute inset-0 -z-10 object-cover"
+                sizes="100vw"
+            />
             <div className="pointer-events-none absolute inset-0 -z-10 bg-black/65" />
             <div className="mx-auto flex min-h-[60vh] max-w-7xl flex-col justify-center px-4 py-16 text-center text-white sm:min-h-[70vh] sm:px-6 sm:py-24 md:py-36 md:text-left lg:px-8">
                 <p

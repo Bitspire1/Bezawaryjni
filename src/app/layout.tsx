@@ -88,7 +88,7 @@ export default function RootLayout({
                 <link
                     rel="preload"
                     as="image"
-                    href="/images/yellow-car.avif"
+                    href="/images/yellow-car.png"
                     fetchPriority="high"
                 />
             </head>
