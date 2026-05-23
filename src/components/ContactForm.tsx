@@ -131,39 +131,26 @@ export default function ContactForm() {
 }
 
 export function MapEmbed() {
-    const mapUrl = "https://maps.google.com/?q=54.453815228948436,16.980683571041087";
-    const mapImage = "/images/map-static.avif";
+    const [isLoaded, setIsLoaded] = useState(false);
+    const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2321.6208396577733!2d16.97810777692425!3d54.45381997234147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4701a1234567890%3A0xabcdef1234567890!2sSzczeci%C5%84ska%201A%2C%2076-251%20Kobylnica!5e0!3m2!1spl!2spl!4v1699900000000";
 
     return (
-        <a
-            href={mapUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative block overflow-hidden rounded-lg bg-[#0e0e0e] ring-1 ring-white/10 transition-all hover:ring-yellow-400/30"
-            aria-label="Otwórz lokalizację w Google Maps"
-        >
-            <div className="relative h-[260px] w-full sm:h-[300px] md:h-[340px]">
-                {/* Static map image */}
-                <Image
-                    src={mapImage}
-                    alt="Lokalizacja warsztatu Bezawaryjni - Szczecińska 1A, Kobylnica"
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 400px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                {/* Overlay with CTA */}
-                <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/60 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <span className="rounded-full bg-yellow-400 px-4 py-2 text-sm font-semibold text-black shadow-lg">
-                        Otwórz w Google Maps →
-                    </span>
+        <div className="relative overflow-hidden rounded-lg bg-[#0e0e0e] ring-1 ring-white/10">
+            {!isLoaded && (
+                <div className="flex h-[260px] w-full items-center justify-center sm:h-[300px] md:h-[340px]">
+                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-white/20 border-t-yellow-400" />
                 </div>
-                {/* Pin indicator always visible */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400 text-2xl shadow-lg">
-                        📍
-                    </div>
-                </div>
-            </div>
-        </a>
+            )}
+            <iframe
+                src={mapUrl}
+                title="Mapa dojazdu - Bezawaryjni AutoSerwis"
+                className={`h-[260px] w-full rounded-lg sm:h-[300px] md:h-[340px] ${isLoaded ? "opacity-100" : "opacity-0"}`}
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                onLoad={() => setIsLoaded(true)}
+            />
+        </div>
     );
 }

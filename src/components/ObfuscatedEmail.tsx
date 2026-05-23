@@ -6,6 +6,11 @@ interface ObfuscatedEmailProps {
 }
 
 export default function ObfuscatedEmail({ email, className = "" }: ObfuscatedEmailProps) {
+    // Handle null/undefined email during SSR/build
+    if (!email || !email.includes("@")) {
+        return <span className={className}>{email || ""}</span>;
+    }
+
     // Obfuscate email by splitting and using HTML entities
     const [user, domain] = email.split("@");
     const [domainName, tld] = domain.split(".");
