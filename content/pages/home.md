@@ -111,6 +111,21 @@ suppliers:
 contact:
   heading: Skontaktuj się z nami
   description: Wybierz wygodną formę kontaktu – odpowiemy tego samego dnia.
+whyUs:
+  heading: Dlaczego warto wybrać Bezawaryjni?
+  description: >-
+    Jesteśmy nowoczesnym warsztatem samochodowym łączącym tradycyjne rzemiosło z nowoczesną technologią. 
+    Nasz serwis w Kobylnicy koło Słupska oferuje kompleksową obsługę pojazdów – od diagnostyki komputerowej, 
+    przez mechanikę pojazdową, po wynajem stanowisk samoobsługowych.
+  points:
+    - title: Doświadczenie i profesjonalizm
+      description: Nasi mechanicy posiadają wieloletnie doświadczenie w branży motoryzacyjnej. Regularnie szkolimy się z nowych technologii samochodowych.
+    - title: Nowoczesny sprzęt
+      description: Inwestujemy w najlepszy sprzęt diagnostyczny. Precyzyjnie wykrywamy usterki, oszczędzając Twój czas i pieniądze.
+    - title: Transparentność cen
+      description: Znasz koszt naprawy przed jej rozpoczęciem. Brak ukrytych opłat i niespodzianek. Uczciwa wycena to nasza zasada.
+    - title: Dogodna lokalizacja
+      description: Warsztat znajduje się w Kobylnicy, zaledwie 5 minut od centrum Słupska. Łatwy dojazd drogą krajową nr 6.
   phone: +48 784 669 601
   email: kontakt@bezawaryjni.pl
 faq:

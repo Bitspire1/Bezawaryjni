@@ -2,6 +2,7 @@ import Hero from "@/components/sections/Hero";
 import Offer from "@/components/sections/Offer";
 import LiftsSection from "@/components/sections/LiftsSection";
 import AboutUs from "@/components/sections/AboutUs";
+import WhyUsSection from "@/components/sections/WhyUsSection";
 import Suppliers from "@/components/sections/Suppliers";
 import Contact from "@/components/sections/Contact";
 import FAQ from "@/components/sections/FAQ";
@@ -137,6 +138,7 @@ export default function HomePageWrapper({ data }: HomePageWrapperProps) {
             <Offer data={data} />
             <LiftsSection data={data} />
             <AboutUs data={data} />
+            <WhyUsSection data={data} />
             <Suppliers data={data} />
             <Contact data={data} />
             <FAQ data={data} />

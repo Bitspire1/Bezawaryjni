@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         template: "%s | Bezawaryjni AutoSerwis",
     },
     description:
-        "Bezawaryjni AutoSerwis – profesjonalny serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka, mechanika, zawieszenie. Uczciwa wycena, szybkie terminy.",
+        "Bezawaryjni AutoSerwis – serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka, mechanika, zawieszenie. Uczciwa wycena, szybkie terminy.",
     alternates: {
         canonical: "https://bezawaryjni.pl",
     },
@@ -38,10 +38,10 @@ export const metadata: Metadata = {
         siteName: "Bezawaryjni AutoSerwis",
         title: "Bezawaryjni AutoSerwis – mechanika, diagnostyka, samoobsługa",
         description:
-            "Bezawaryjni AutoSerwis – profesjonalny serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka, mechanika, zawieszenie. Uczciwa wycena, szybkie terminy.",
+            "Bezawaryjni AutoSerwis – serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka, mechanika, zawieszenie.",
         images: [
             {
-                url: "/images/og-image.png",
+                url: "https://bezawaryjni.pl/images/og-image.png",
                 width: 1200,
                 height: 630,
                 alt: "Bezawaryjni AutoSerwis – serwis mechaniczny Kobylnica / Słupsk",
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Bezawaryjni AutoSerwis – mechanika, diagnostyka, samoobsługa",
         description:
-            "Bezawaryjni AutoSerwis – profesjonalny serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka, mechanika, zawieszenie. Uczciwa wycena, szybkie terminy.",
-        images: ["/images/og-image.png"],
+            "Bezawaryjni AutoSerwis – serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka, mechanika, zawieszenie.",
+        images: ["https://bezawaryjni.pl/images/og-image.png"],
     },
     manifest: "/site.webmanifest",
     icons: {
