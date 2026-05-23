@@ -74,40 +74,14 @@ export default function WhatsAppButton() {
 
     return (
         <>
-            <style>{`
-        @keyframes waSlideUp {
-          from { opacity: 0; transform: translateY(20px) scale(0.95); }
-          to   { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes waPulse {
-          0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-          70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-        .wa-chat-bg {
-          background-color: #e5ddd5;
-          background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
-          background-size: cover;
-        }
-      `}</style>
-
             {/* ── CHAT WINDOW ── */}
             {isChatOpen && (
                 <div
+                    className="wa-chat-container"
                     style={{
-                        position: "fixed",
-                        bottom: 90,
-                        right: 20,
-                        zIndex: 10001,
-                        width: 360,
-                        maxWidth: "calc(100vw - 40px)",
                         backgroundColor: "#fff",
-                        borderRadius: 16,
-                        boxShadow: "0 12px 28px rgba(0,0,0,0.22)",
                         display: "flex",
                         flexDirection: "column",
-                        overflow: "hidden",
-                        animation: "waSlideUp 250ms cubic-bezier(0.16, 1, 0.3, 1) both",
                     }}
                 >
                     {/* Header */}
@@ -300,14 +274,8 @@ export default function WhatsAppButton() {
             {showPopup && !dismissed && !isChatOpen && (
                 <div
                     onClick={handleToggleChat}
+                    className="wa-popup"
                     style={{
-                        position: "fixed",
-                        bottom: 90,
-                        right: 20,
-                        zIndex: 10000,
-                        animation: "waSlideUp 400ms ease-out both",
-                        maxWidth: 320,
-                        width: "calc(100vw - 40px)",
                         cursor: "pointer",
                     }}
                 >
@@ -418,25 +386,8 @@ export default function WhatsAppButton() {
             {/* ── GŁÓWNY GUZIK FLOATING ── */}
             <button
                 onClick={handleToggleChat}
+                className={`wa-button ${!isChatOpen && !showPopup && !dismissed ? "wa-pulse" : ""}`}
                 style={{
-                    position: "fixed",
-                    bottom: 20,
-                    right: 20,
-                    zIndex: 10000,
-                    width: 60,
-                    height: 60,
-                    backgroundColor: "#25D366",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    boxShadow: "0 4px 14px rgba(37,211,102,0.4)",
-                    transition: "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
-                    animation:
-                        !isChatOpen && !showPopup && !dismissed ? "waPulse 2s infinite" : "none",
                     transform: isChatOpen ? "scale(0.9)" : "scale(1)",
                 }}
                 onMouseEnter={(e) => {
