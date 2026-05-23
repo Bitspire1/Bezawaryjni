@@ -1,5 +1,6 @@
 import { tinaField } from "tinacms/dist/react";
 import ContactForm, { MapEmbed } from "../ContactForm";
+import ObfuscatedEmail from "../ObfuscatedEmail";
 
 interface ContactProps {
     data: {
@@ -82,7 +83,7 @@ export default function Contact({ data }: ContactProps) {
                                         className="text-lg font-semibold tracking-tight text-white"
                                         data-tina-field={tinaField(data.contact, "email")}
                                     >
-                                        {data.contact.email}
+                                        <ObfuscatedEmail email={data.contact.email} />
                                     </div>
                                 </div>
                             </div>

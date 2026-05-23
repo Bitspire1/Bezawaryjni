@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 export default function ContactForm() {
     const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -130,33 +131,39 @@ export default function ContactForm() {
 }
 
 export function MapEmbed() {
-    const [interactive, setInteractive] = useState(false);
+    const mapUrl = "https://maps.google.com/?q=54.453815228948436,16.980683571041087";
+    const mapImage = "/images/map-static.avif";
+
     return (
-        <div className="relative overflow-hidden rounded-lg bg-[#0e0e0e] ring-1 ring-white/10">
-            {!interactive && (
-                <button
-                    type="button"
-                    onClick={() => setInteractive(true)}
-                    className="absolute inset-0 z-10 grid place-items-center bg-black/30 text-white/80 backdrop-blur-sm"
-                    aria-label="Włącz interakcję z mapą"
-                >
-                    <span className="rounded-full bg-black/40 px-4 py-2 text-sm ring-1 ring-white/20">
-                        Kliknij, aby włączyć mapę
+        <a
+            href={mapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative block overflow-hidden rounded-lg bg-[#0e0e0e] ring-1 ring-white/10 transition-all hover:ring-yellow-400/30"
+            aria-label="Otwórz lokalizację w Google Maps"
+        >
+            <div className="relative h-[260px] w-full sm:h-[300px] md:h-[340px]">
+                {/* Static map image */}
+                <Image
+                    src={mapImage}
+                    alt="Lokalizacja warsztatu Bezawaryjni - Szczecińska 1A, Kobylnica"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 400px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                {/* Overlay with CTA */}
+                <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/60 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <span className="rounded-full bg-yellow-400 px-4 py-2 text-sm font-semibold text-black shadow-lg">
+                        Otwórz w Google Maps →
                     </span>
-                </button>
-            )}
-            <iframe
-                title="Mapa dojazdu"
-                className="h-[260px] w-full sm:h-[300px] md:h-[340px]"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps?q=Szczeci%C5%84ska+1A,+76-251+Kobylnica&output=embed"
-                style={{
-                    border: 0,
-                    pointerEvents: interactive ? ("auto" as const) : ("none" as const),
-                }}
-                allowFullScreen
-            />
-        </div>
+                </div>
+                {/* Pin indicator always visible */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400 text-2xl shadow-lg">
+                        📍
+                    </div>
+                </div>
+            </div>
+        </a>
     );
 }

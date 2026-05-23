@@ -2,7 +2,7 @@
 title: Strona główna
 hero:
   tagline: CAR SERVICE - Serwis mechaniczny - wynajem stanowiska
-  heading: bezawaryjni.com
+  heading: Bezawaryjni – Serwis Samochodowy Słupsk
   description: >-
     Skorzystaj z usług naszego serwisu mechanicznego, bądź wynajmij nowoczesne
     stanowisko samoobsługowe.
@@ -13,7 +13,7 @@ hero:
     text: Nasza firma
     url: '#nasza-firma'
 services:
-  heading: Nasze usługi
+  heading: Nasze usługi – Warsztat Mechaniczny Kobylnica
   items:
     - title: Diagnostyka komputerowa
       image: /offer/diagnostyka.svg

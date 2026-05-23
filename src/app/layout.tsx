@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Analytics from "@/components/Analytics";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
         template: "%s | Bezawaryjni AutoSerwis",
     },
     description:
-        "Serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Uczciwa wycena, szybkie terminy, jakość premium.",
+        "Bezawaryjni AutoSerwis – profesjonalny serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka, mechanika, zawieszenie. Uczciwa wycena, szybkie terminy.",
     alternates: {
         canonical: "https://bezawaryjni.pl",
     },
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
         siteName: "Bezawaryjni AutoSerwis",
         title: "Bezawaryjni AutoSerwis – mechanika, diagnostyka, samoobsługa",
         description:
-            "Serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Uczciwa wycena, szybkie terminy, jakość premium.",
+            "Bezawaryjni AutoSerwis – profesjonalny serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka, mechanika, zawieszenie. Uczciwa wycena, szybkie terminy.",
         images: [
             {
                 url: "/images/og-image.png",
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Bezawaryjni AutoSerwis – mechanika, diagnostyka, samoobsługa",
         description:
-            "Serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Uczciwa wycena, szybkie terminy, jakość premium.",
+            "Bezawaryjni AutoSerwis – profesjonalny serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka, mechanika, zawieszenie. Uczciwa wycena, szybkie terminy.",
         images: ["/images/og-image.png"],
     },
     manifest: "/site.webmanifest",
@@ -96,6 +97,7 @@ export default function RootLayout({
                 <main>{children}</main>
                 <Footer />
                 <WhatsAppButton />
+                <Analytics />
             </body>
         </html>
     );
