@@ -35,6 +35,8 @@ interface HomePageData {
         badge: string;
         heading: string;
         description: string;
+        image: string;
+        imageAlt: string;
     };
     aboutUs: {
         heading: string;

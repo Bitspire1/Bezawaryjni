@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
  */
 export function useIsPreview(): boolean {
     const pathname = usePathname();
-    return pathname.startsWith("/preview");
+    return typeof pathname === "string" && pathname.startsWith("/preview");
 }
 
 /**

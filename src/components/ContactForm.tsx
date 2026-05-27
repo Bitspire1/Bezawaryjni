@@ -9,6 +9,7 @@ export default function ContactForm() {
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        const form = e.currentTarget;
         setError("");
         setStatus("sending");
 
@@ -45,7 +46,7 @@ export default function ContactForm() {
             });
             if (!res.ok) throw new Error("Błąd serwera");
             setStatus("success");
-            e.currentTarget.reset();
+            form.reset();
         } catch {
             setStatus("error");
             setError("Nie udało się wysłać formularza. Spróbuj ponownie.");

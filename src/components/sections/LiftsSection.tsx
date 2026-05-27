@@ -16,6 +16,8 @@ interface LiftsSectionProps {
             badge: string;
             heading: string;
             description: string;
+            image: string;
+            imageAlt: string;
         };
         [key: string]: unknown;
     };
@@ -81,8 +83,8 @@ export default function LiftsSection({ data }: LiftsSectionProps) {
                             <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] shadow-2xl ring-1 ring-white/10">
                                 <div className="flex aspect-[16/10] w-full items-center justify-center p-4 sm:p-6 lg:p-8">
                                     <LightboxImage
-                                        src="/images/podnosnik.png"
-                                        alt="Podnosniki w warsztacie Bezawaryjni"
+                                        src={data.lifts.image}
+                                        alt={data.lifts.imageAlt}
                                         width={800}
                                         height={450}
                                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
