@@ -47,7 +47,7 @@ export const mockHomeData = {
         heading: "Skontaktuj się",
         description: "Opis kontaktu",
         phone: "+48 784 669 601",
-        email: "kontakt@bezawaryjni.pl",
+        email: "kontakt@bezawaryjni.com",
     },
     faq: {
         heading: "FAQ",
@@ -72,7 +72,7 @@ export const mockHomeData = {
     footer: {
         description: "Mechanika pojazdowa i diagnostyka komputerowa.",
         phone: "+48 784 669 601",
-        email: "kontakt@bezawaryjni.pl",
+        email: "kontakt@bezawaryjni.com",
         hoursWeekday: "Pon – Pt: 7:00 – 19:00",
         hoursWeekend: "Sob – Niedz: nieczynne",
     },

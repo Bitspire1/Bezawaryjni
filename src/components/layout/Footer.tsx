@@ -31,7 +31,7 @@ export default function Footer({ footerData, page, field }: FooterProps) {
         footerData?.description ||
         "Mechanika pojazdowa, diagnostyka komputerowa i serwis eksploatacyjny. Jakość, terminowość, przejrzysta wycena.";
     const phone = footerData?.phone || "+48 784 669 601";
-    const email = footerData?.email || "kontakt@bezawaryjni.pl";
+    const email = footerData?.email || "kontakt@bezawaryjni.com";
     const hoursWeekday = footerData?.hoursWeekday || "Pon – Pt: 7:00 – 19:00";
     const hoursWeekend = footerData?.hoursWeekend || "Sob – Niedz: nieczynne";
 

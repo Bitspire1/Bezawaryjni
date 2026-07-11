@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: "/",
             disallow: ["/admin/", "/preview/", "/api/"],
         },
-        sitemap: "https://bezawaryjni.pl/sitemap.xml",
+        sitemap: "https://bezawaryjni.com/sitemap.xml",
     };
 }

@@ -112,7 +112,7 @@ contact:
   heading: Skontaktuj się z nami
   description: Wybierz wygodną formę kontaktu – odpowiemy tego samego dnia.
   phone: +48 784 669 601
-  email: kontakt@bezawaryjni.pl
+  email: kontakt@bezawaryjni.com
 whyUs:
   heading: Dlaczego warto wybrać Bezawaryjni?
   description: >-

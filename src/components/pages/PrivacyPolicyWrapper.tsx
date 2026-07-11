@@ -38,13 +38,13 @@ const breadcrumbJsonLd = {
             "@type": "ListItem",
             position: 1,
             name: "Strona główna",
-            item: "https://bezawaryjni.pl",
+            item: "https://bezawaryjni.com",
         },
         {
             "@type": "ListItem",
             position: 2,
             name: "Polityka prywatności",
-            item: "https://bezawaryjni.pl/polityka-prywatnosci",
+            item: "https://bezawaryjni.com/polityka-prywatnosci",
         },
     ],
 };

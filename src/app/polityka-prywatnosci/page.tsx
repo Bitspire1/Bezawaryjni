@@ -12,12 +12,12 @@ export async function generateMetadata(): Promise<Metadata> {
     const title = data.metaTitle ?? "Polityka prywatności – Bezawaryjni AutoSerwis";
     const description =
         data.metaDescription ??
-        "Polityka prywatności serwisu bezawaryjni.pl – informacje o przetwarzaniu danych osobowych.";
+        "Polityka prywatności serwisu bezawaryjni.com – informacje o przetwarzaniu danych osobowych.";
     return {
         title,
         description,
         alternates: {
-            canonical: "https://bezawaryjni.pl/polityka-prywatnosci",
+            canonical: "https://bezawaryjni.com/polityka-prywatnosci",
         },
         robots: {
             index: false,
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
         openGraph: {
             type: "website",
             locale: "pl_PL",
-            url: "https://bezawaryjni.pl/polityka-prywatnosci",
+            url: "https://bezawaryjni.com/polityka-prywatnosci",
             siteName: "Bezawaryjni AutoSerwis",
             title,
             description,

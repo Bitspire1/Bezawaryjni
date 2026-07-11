@@ -91,13 +91,13 @@ const localBusinessJsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
     name: "bezawaryjni.com – Serwis Samochodowy & Warsztat Mechaniczny Słupsk",
-    url: "https://bezawaryjni.pl",
-    logo: "https://bezawaryjni.pl/favicon.svg",
-    image: "https://bezawaryjni.pl/images/og-image.png",
+    url: "https://bezawaryjni.com",
+    logo: "https://bezawaryjni.com/favicon.svg",
+    image: "https://bezawaryjni.com/images/og-image.png",
     description:
         "Serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka komputerowa, mechanika pojazdowa, serwis zawieszenia i układu hamulcowego.",
     telephone: "+48784669601",
-    email: "kontakt@bezawaryjni.pl",
+    email: "kontakt@bezawaryjni.com",
     address: {
         "@type": "PostalAddress",
         streetAddress: "Szczecińska 1A",
@@ -126,7 +126,7 @@ const localBusinessJsonLd = {
         { "@type": "City", name: "Słupsk" },
         { "@type": "City", name: "Kobylnica" },
     ],
-    sameAs: ["https://bezawaryjni.pl"],
+    sameAs: ["https://bezawaryjni.com"],
 };
 
 export default function HomePageWrapper({ data }: HomePageWrapperProps) {

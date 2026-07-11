@@ -162,7 +162,7 @@ policySections:
     title: Kontakt
     content: >
       W sprawach dotyczących prywatności napisz do nas:
-      [kontakt@bezawaryjni.pl](mailto:kontakt@bezawaryjni.pl) lub zadzwoń: [+48
+      [kontakt@bezawaryjni.com](mailto:kontakt@bezawaryjni.com) lub zadzwoń: [+48
       784 669 601](tel:+48784669601).
   - id: data
     'n': 16

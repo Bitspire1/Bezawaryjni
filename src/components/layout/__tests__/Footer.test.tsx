@@ -85,6 +85,6 @@ describe("Footer", () => {
     it("uses default values when footerData is not provided", () => {
         render(<Footer />);
         expect(screen.getByText("+48 784 669 601")).toBeInTheDocument();
-        expect(screen.getByText("kontakt@bezawaryjni.pl")).toBeInTheDocument();
+        expect(screen.getByText("kontakt@bezawaryjni.com")).toBeInTheDocument();
     });
 });

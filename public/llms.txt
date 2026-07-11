@@ -7,7 +7,7 @@
 - **Nazwa:** bezawaryjni.com – Serwis Samochodowy & Warsztat Mechaniczny Słupsk
 - **Adres:** Szczecińska 1A, 76-251 Kobylnica (gmina Słupsk, województwo pomorskie)
 - **Telefon:** 784 669 601
-- **Email:** kontakt@bezawaryjni.pl
+- **Email:** kontakt@bezawaryjni.com
 - **Godziny otwarcia:** Poniedziałek – Piątek: 9:00 – 17:00, Sobota – Niedziela: zamknięte
 - **Współrzędne GPS:** 54.453815228948436, 16.980683571041087
 
@@ -42,6 +42,6 @@ Serwis obsługuje klientów z: Słupska, Kobylnicy, gminy Słupsk oraz okoliczny
 
 Warsztat znajduje się w Kobylnicy przy ul. Szczecińskiej 1A, zaledwie 5 km od centrum Słupska. Dogodny dojazd drogą krajową nr 6 (E28).
 
-- [Strona główna](https://bezawaryjni.pl)
-- [Polityka prywatności](https://bezawaryjni.pl/polityka-prywatnosci)
+- [Strona główna](https://bezawaryjni.com)
+- [Polityka prywatności](https://bezawaryjni.com/polityka-prywatnosci)
 - [Mapa dojazdu](https://maps.google.com/?q=54.453815228948436,16.980683571041087)

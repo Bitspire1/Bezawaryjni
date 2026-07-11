@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://bezawaryjni.pl"),
+    metadataBase: new URL("https://bezawaryjni.com"),
     title: {
         default: "Bezawaryjni AutoSerwis – mechanika, diagnostyka, samoobsługa",
         template: "%s | Bezawaryjni AutoSerwis",
@@ -29,19 +29,19 @@ export const metadata: Metadata = {
     description:
         "Bezawaryjni AutoSerwis – serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka, mechanika, zawieszenie. Uczciwa wycena, szybkie terminy.",
     alternates: {
-        canonical: "https://bezawaryjni.pl",
+        canonical: "https://bezawaryjni.com",
     },
     openGraph: {
         type: "website",
         locale: "pl_PL",
-        url: "https://bezawaryjni.pl",
+        url: "https://bezawaryjni.com",
         siteName: "Bezawaryjni AutoSerwis",
         title: "Bezawaryjni AutoSerwis – mechanika, diagnostyka, samoobsługa",
         description:
             "Bezawaryjni AutoSerwis – serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka, mechanika, zawieszenie.",
         images: [
             {
-                url: "https://bezawaryjni.pl/images/og-image.png",
+                url: "https://bezawaryjni.com/images/og-image.png",
                 width: 1200,
                 height: 630,
                 alt: "Bezawaryjni AutoSerwis – serwis mechaniczny Kobylnica / Słupsk",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
         title: "Bezawaryjni AutoSerwis – mechanika, diagnostyka, samoobsługa",
         description:
             "Bezawaryjni AutoSerwis – serwis mechaniczny i warsztat samoobsługowy w Kobylnicy koło Słupska. Diagnostyka, mechanika, zawieszenie.",
-        images: ["https://bezawaryjni.pl/images/og-image.png"],
+        images: ["https://bezawaryjni.com/images/og-image.png"],
     },
     manifest: "/site.webmanifest",
     icons: {

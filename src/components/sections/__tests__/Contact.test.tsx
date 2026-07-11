@@ -22,8 +22,8 @@ describe("Contact", () => {
 
     it("renders email link", () => {
         render(<Contact data={mockHomeData} />);
-        const link = screen.getByRole("link", { name: /kontakt@bezawaryjni\.pl/ });
-        expect(link).toHaveAttribute("href", "mailto:kontakt@bezawaryjni.pl");
+        const link = screen.getByRole("link", { name: /kontakt@bezawaryjni\.com/ });
+        expect(link).toHaveAttribute("href", "mailto:kontakt@bezawaryjni.com");
     });
 
     it("renders contact form", () => {
