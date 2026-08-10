@@ -227,7 +227,7 @@ export default function Header() {
                             ? "max-h-96 translate-y-0 py-2 opacity-100 ease-out"
                             : "pointer-events-none max-h-0 -translate-y-2 py-0 opacity-0 ease-in"
                     }`}
-                    aria-hidden={!mobileOpen || undefined}
+                    inert={!mobileOpen || undefined}
                 >
                     {navItems.map((item) => (
                         <div key={item.label}>
