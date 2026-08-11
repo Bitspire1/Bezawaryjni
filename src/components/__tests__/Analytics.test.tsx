@@ -3,7 +3,16 @@ import { describe, it, expect, vi } from "vitest";
 import Analytics from "@/components/Analytics";
 
 vi.mock("next/script", () => ({
-    default: ({ id, children, strategy, ...props }: { id?: string; children?: React.ReactNode; strategy?: string }) => (
+    default: ({
+        id,
+        children,
+        strategy,
+        ...props
+    }: {
+        id?: string;
+        children?: React.ReactNode;
+        strategy?: string;
+    }) => (
         <script id={id} {...props}>
             {children}
         </script>

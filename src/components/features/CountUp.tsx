@@ -32,9 +32,10 @@ export default function CountUp({
     const ref = useRef<HTMLSpanElement | null>(null);
     const rafRef = useRef<number | null>(null);
     const startTimeRef = useRef<number | null>(null);
-    const [display, setDisplay] = useState<string>(format(start, decimals, prefix, suffix));
     const [active, setActive] = useState(false);
     const [done, setDone] = useState(false);
+
+    const initialDisplay = format(start, decimals, prefix, suffix);
 
     useEffect(() => {
         const el = ref.current;
@@ -47,7 +48,6 @@ export default function CountUp({
                         if (once && done) return;
                         startAnim();
                     } else if (!once) {
-                        // optionally reset to allow re-animating
                         cancel();
                         setDisplay(format(start, decimals, prefix, suffix));
                         setActive(false);
@@ -63,6 +63,11 @@ export default function CountUp({
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [end, start, duration, decimals, prefix, suffix, easing, once, done]);
+
+    function setDisplay(value: string) {
+        const el = ref.current;
+        if (el) el.textContent = value;
+    }
 
     function cancel() {
         if (rafRef.current != null) {
@@ -85,7 +90,6 @@ export default function CountUp({
             setActive(false);
             setDone(true);
             cancel();
-            // ensure final value is exact
             setDisplay(format(end, decimals, prefix, suffix));
         }
     }
@@ -106,7 +110,7 @@ export default function CountUp({
                 className ?? "",
             ].join(" ")}
         >
-            {display}
+            {initialDisplay}
         </span>
     );
 }

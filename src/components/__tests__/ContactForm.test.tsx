@@ -1,7 +1,8 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, afterEach } from "vitest";
-import ContactForm, { MapEmbed } from "@/components/ContactForm";
+import ContactForm from "@/components/ContactForm";
+import MapEmbed from "@/components/MapEmbed";
 
 afterEach(() => {
     vi.restoreAllMocks();
@@ -90,15 +91,14 @@ describe("ContactForm", () => {
 });
 
 describe("MapEmbed", () => {
-    it("shows spinner until iframe load", async () => {
-        const { container } = render(<MapEmbed />);
-        expect(container.querySelector(".animate-spin")).toBeInTheDocument();
+    it("shows placeholder and loads map on click", async () => {
+        const user = userEvent.setup();
+        render(<MapEmbed />);
+        expect(screen.getByText(/Kliknij, aby załadować mapę Google/)).toBeInTheDocument();
 
-        const iframe = screen.getByTitle(/Mapa/);
-        fireEvent.load(iframe);
+        const button = screen.getByRole("button", { name: /Pokaż mapę/ });
+        await user.click(button);
 
-        await waitFor(() =>
-            expect(container.querySelector(".animate-spin")).not.toBeInTheDocument(),
-        );
+        await waitFor(() => expect(screen.getByTitle(/Mapa/)).toBeInTheDocument());
     });
 });

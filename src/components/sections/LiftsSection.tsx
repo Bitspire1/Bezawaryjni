@@ -1,6 +1,6 @@
 "use client";
 
-import { tinaField } from "tinacms/dist/react";
+import { tinaField } from "@/lib/tinaField";
 import dynamic from "next/dynamic";
 import { useIsPreview } from "@/hooks/usePreviewHref";
 
@@ -26,6 +26,9 @@ interface LiftsSectionProps {
 export default function LiftsSection({ data }: LiftsSectionProps) {
     const isPreview = useIsPreview();
     const kontaktHref = isPreview ? "/preview#kontakt" : "#kontakt";
+    const liftsImage = data.lifts.image ?? "/images/podnosnik.webp";
+    const liftsImageAlt = data.lifts.imageAlt ?? "Podnośniki w warsztacie";
+    const liftsSrc = liftsImage.replace(/\.png$/, ".webp");
     return (
         <>
             {/* Gradient transition */}
@@ -83,8 +86,9 @@ export default function LiftsSection({ data }: LiftsSectionProps) {
                             <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] shadow-2xl ring-1 ring-white/10">
                                 <div className="flex aspect-[16/10] w-full items-center justify-center p-4 sm:p-6 lg:p-8">
                                     <LightboxImage
-                                        src={data.lifts.image}
-                                        alt={data.lifts.imageAlt}
+                                        src={liftsSrc}
+                                        fallbackSrc={liftsImage}
+                                        alt={liftsImageAlt}
                                         width={800}
                                         height={450}
                                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"

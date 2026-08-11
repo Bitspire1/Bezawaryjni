@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
+import WhatsAppButtonLazy from "@/components/WhatsAppButtonLazy";
 import Analytics from "@/components/Analytics";
 
 const geistSans = Geist({
@@ -84,19 +84,13 @@ export default function RootLayout({
                 <link rel="preconnect" href="https://maps.googleapis.com" />
                 <link rel="dns-prefetch" href="https://maps.googleapis.com" />
 
-                {/* Preload hero image to improve LCP */}
-                <link
-                    rel="preload"
-                    as="image"
-                    href="/images/yellow-car.png"
-                    fetchPriority="high"
-                />
+                {/* Hero image is preloaded automatically by next/image priority */}
             </head>
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <Header />
                 <main>{children}</main>
                 <Footer />
-                <WhatsAppButton />
+                <WhatsAppButtonLazy />
                 <Analytics />
             </body>
         </html>

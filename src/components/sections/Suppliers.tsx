@@ -1,7 +1,6 @@
-"use client";
-
-import { tinaField } from "tinacms/dist/react";
+import { tinaField } from "@/lib/tinaField";
 import Image from "next/image";
+import ScaleDiv from "@/components/ui/ScaleDiv";
 
 function Logo({ src, alt }: { src: string; alt: string }) {
     return (
@@ -52,9 +51,9 @@ export default function Suppliers({ data }: SuppliersProps) {
 
                 <div className="mx-auto mt-8 grid max-w-4xl grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 sm:gap-8">
                     {data.suppliers.logos.map((logo, index) => (
-                        <div
+                        <ScaleDiv
                             key={index}
-                            className="group relative overflow-hidden rounded-xl bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_-12px_rgba(250,204,21,0.4)] sm:p-8"
+                            className="group relative overflow-hidden rounded-xl bg-white p-6 transition-all duration-300 hover:shadow-[0_12px_32px_-12px_rgba(250,204,21,0.4)] sm:p-8"
                             data-tina-field={tinaField(data.suppliers.logos[index], "image")}
                         >
                             <div
@@ -69,7 +68,7 @@ export default function Suppliers({ data }: SuppliersProps) {
                                     <Logo src={logo.image} alt={logo.alt} />
                                 </div>
                             </div>
-                        </div>
+                        </ScaleDiv>
                     ))}
                 </div>
             </div>

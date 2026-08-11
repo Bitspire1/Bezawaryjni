@@ -56,11 +56,7 @@ describe("usePreviewHref", () => {
 
     it("keeps external links unchanged inside preview", () => {
         pathname = "/preview";
-        const cases = [
-            "https://example.com",
-            "mailto:test@example.com",
-            "tel:+48111222333",
-        ];
+        const cases = ["https://example.com", "mailto:test@example.com", "tel:+48111222333"];
 
         cases.forEach((href) => {
             const { result } = renderHook(() => usePreviewHref(href));

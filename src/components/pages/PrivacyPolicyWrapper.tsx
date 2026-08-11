@@ -1,4 +1,4 @@
-import { tinaField } from "tinacms/dist/react";
+import { tinaField } from "@/lib/tinaField";
 import PolicySection from "@/components/sections/PolicySection";
 
 interface TableOfContentsItem {

@@ -1,5 +1,6 @@
-import { tinaField } from "tinacms/dist/react";
-import ContactForm, { MapEmbed } from "../ContactForm";
+import { tinaField } from "@/lib/tinaField";
+import ContactForm from "@/components/ContactForm";
+import MapEmbed from "@/components/MapEmbed";
 
 interface ContactProps {
     data: {

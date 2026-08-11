@@ -1,6 +1,4 @@
-"use client";
-
-import { tinaField } from "tinacms/dist/react";
+import { tinaField } from "@/lib/tinaField";
 import CountUp from "../features/CountUp";
 
 interface AboutUsProps {

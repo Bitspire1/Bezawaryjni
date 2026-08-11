@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { FaWhatsapp, FaTimes, FaPaperPlane } from "react-icons/fa";
 
 const POPUP_DELAY_MS = 5000;
@@ -89,7 +90,7 @@ export default function WhatsAppButton() {
 
                         <div className="wa-avatar-wrapper">
                             <Image
-                                src="/images/Kacper.png"
+                                src="/images/Kacper.webp"
                                 alt="Kacper Nowosielski"
                                 width={50}
                                 height={50}
@@ -100,9 +101,7 @@ export default function WhatsAppButton() {
 
                         <div>
                             <div className="wa-chat-name">Kacper Nowosielski</div>
-                            <div className="wa-chat-status">
-                                Zwykle odpowiadam w parę minut
-                            </div>
+                            <div className="wa-chat-status">Zwykle odpowiadam w parę minut</div>
                         </div>
                     </div>
 
@@ -145,10 +144,7 @@ export default function WhatsAppButton() {
 
             {/* ── POPUP (DYMEK) ── */}
             {showPopup && !dismissed && !isChatOpen && (
-                <div
-                    onClick={handleToggleChat}
-                    className="wa-popup wa-popup-cursor"
-                >
+                <div onClick={handleToggleChat} className="wa-popup wa-popup-cursor">
                     <div className="wa-popup-inner">
                         <button
                             onClick={handleDismissPopup}
@@ -160,7 +156,7 @@ export default function WhatsAppButton() {
 
                         <div className="wa-popup-avatar">
                             <Image
-                                src="/images/Kacper.png"
+                                src="/images/Kacper.webp"
                                 alt="Kacper Nowosielski"
                                 width={48}
                                 height={48}
@@ -181,27 +177,20 @@ export default function WhatsAppButton() {
             )}
 
             {/* ── GŁÓWNY GUZIK FLOATING ── */}
-            <button
+            <motion.button
                 onClick={handleToggleChat}
                 className={`wa-button ${!isChatOpen && !showPopup && !dismissed ? "wa-pulse" : ""}`}
-                style={{
-                    transform: isChatOpen ? "scale(0.9)" : "scale(1)",
-                }}
-                onMouseEnter={(e) => {
-                    if (!isChatOpen) e.currentTarget.style.transform = "scale(1.1)";
-                }}
-                onMouseLeave={(e) => {
-                    if (!isChatOpen) e.currentTarget.style.transform = "scale(1)";
-                }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.92 }}
+                animate={{ scale: isChatOpen ? 0.9 : 1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 aria-label={isChatOpen ? "Zamknij czat" : "Otwórz czat"}
             >
                 {isChatOpen ? <FaTimes size={28} /> : <FaWhatsapp size={32} />}
 
                 {/* Powiadomienie (czerwona kropka) jeśli odrzucono popup i czat jest zamknięty */}
-                {dismissed && !isChatOpen && (
-                    <span className="wa-notification" />
-                )}
-            </button>
+                {dismissed && !isChatOpen && <span className="wa-notification" />}
+            </motion.button>
         </>
     );
 }

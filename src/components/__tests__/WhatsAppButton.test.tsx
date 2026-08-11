@@ -55,9 +55,6 @@ describe("WhatsAppButton", () => {
         expect(sendButton).not.toBeDisabled();
         fireEvent.click(sendButton);
 
-        expect(openSpy).toHaveBeenCalledWith(
-            "https://wa.me/48111222333?text=Hello",
-            "_blank",
-        );
+        expect(openSpy).toHaveBeenCalledWith("https://wa.me/48111222333?text=Hello", "_blank");
     });
 });

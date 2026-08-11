@@ -1,4 +1,4 @@
-import { tinaField } from "tinacms/dist/react";
+import { tinaField } from "@/lib/tinaField";
 
 type IconName = "clock" | "wrench" | "cart" | "calendar" | "shield" | "payment" | "bag" | "support";
 

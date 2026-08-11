@@ -30,7 +30,10 @@ class MockIntersectionObserver {
 
 beforeEach(() => {
     rafTime = 0;
-    vi.stubGlobal("IntersectionObserver", MockIntersectionObserver as unknown as typeof IntersectionObserver);
+    vi.stubGlobal(
+        "IntersectionObserver",
+        MockIntersectionObserver as unknown as typeof IntersectionObserver,
+    );
     vi.stubGlobal("requestAnimationFrame", (cb: FrameRequestCallback) => {
         rafTime += 1000;
         cb(rafTime);

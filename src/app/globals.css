@@ -146,14 +146,26 @@ div[id] {
 
 /* WhatsApp Button Animations */
 @keyframes waSlideUp {
-    from { opacity: 0; transform: translateY(20px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 @keyframes waPulse {
-    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
 }
 
 .wa-chat-bg {
@@ -256,7 +268,7 @@ div[id] {
 
 /* WhatsApp Chat Internal Styles */
 .wa-chat-header {
-    background-color: #128C7E;
+    background-color: #128c7e;
     color: #fff;
     padding: 16px;
     display: flex;
@@ -294,7 +306,7 @@ div[id] {
     width: 12px;
     height: 12px;
     background-color: #25d366;
-    border: 2px solid #128C7E;
+    border: 2px solid #128c7e;
     border-radius: 50%;
 }
 
@@ -384,7 +396,7 @@ div[id] {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #128C7E;
+    background-color: #128c7e;
     color: white;
     border: none;
     display: flex;

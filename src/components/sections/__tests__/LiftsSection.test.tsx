@@ -18,7 +18,8 @@ vi.mock("next/image", () => ({
     ),
 }));
 vi.mock("next/dynamic", () => ({
-    default: () =>
+    default:
+        () =>
         ({
             alt = "",
             priority,

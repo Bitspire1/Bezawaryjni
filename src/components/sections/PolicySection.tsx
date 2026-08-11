@@ -1,4 +1,4 @@
-import { tinaField } from "tinacms/dist/react";
+import { tinaField } from "@/lib/tinaField";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 
 interface PolicySectionProps {

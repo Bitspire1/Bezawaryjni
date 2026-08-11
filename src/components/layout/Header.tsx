@@ -4,22 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useIsPreview } from "@/hooks/usePreviewHref";
-
-type NavItem = {
-    label: string;
-    href?: string;
-    children?: { label: string; href: string }[];
-};
-
-const navItems: NavItem[] = [
-    { label: "Strona Główna", href: "/" },
-    { label: "Usługi", href: "/#uslugi" },
-    { label: "Dlaczego my", href: "/#nasza-firma" },
-    { label: "FAQ", href: "/#faq" },
-    { label: "Kontakt", href: "/#kontakt" },
-    { label: "Polityka prywatności", href: "/polityka-prywatnosci" },
-];
+import { useIsPreview, usePreviewHref } from "@/hooks/usePreviewHref";
+import { navItems } from "@/lib/navItems";
 
 export default function Header() {
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -29,6 +15,7 @@ export default function Header() {
     const router = useRouter();
     const isPreview = useIsPreview();
     const homePathname = isPreview ? "/preview" : "/";
+    const resolveHref = usePreviewHref;
 
     // Obsługa scrollowania do sekcji po załadowaniu strony
     useEffect(() => {
@@ -50,13 +37,6 @@ export default function Header() {
             }, 100);
         }
     }, [pathname, homePathname]);
-
-    const resolveHref = (href: string): string => {
-        if (href === "/") return homePathname;
-        if (href.startsWith("/#")) return isPreview ? `/preview#${href.slice(2)}` : href;
-        if (href.startsWith("/")) return isPreview ? `/preview${href}` : href;
-        return href;
-    };
 
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         if (href === "/" || href.startsWith("/#")) {

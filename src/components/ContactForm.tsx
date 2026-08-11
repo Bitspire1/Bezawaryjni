@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 
 export default function ContactForm() {
     const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -128,30 +127,5 @@ export default function ContactForm() {
                 </a>
             </div>
         </form>
-    );
-}
-
-export function MapEmbed() {
-    const [isLoaded, setIsLoaded] = useState(false);
-    const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2321.6208396577733!2d16.97810777692425!3d54.45381997234147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4701a1234567890%3A0xabcdef1234567890!2sSzczeci%C5%84ska%201A%2C%2076-251%20Kobylnica!5e0!3m2!1spl!2spl!4v1699900000000";
-
-    return (
-        <div className="relative overflow-hidden rounded-lg bg-[#0e0e0e] ring-1 ring-white/10">
-            {!isLoaded && (
-                <div className="flex h-[260px] w-full items-center justify-center sm:h-[300px] md:h-[340px]">
-                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-white/20 border-t-yellow-400" />
-                </div>
-            )}
-            <iframe
-                src={mapUrl}
-                title="Mapa dojazdu - Bezawaryjni AutoSerwis"
-                className={`h-[260px] w-full rounded-lg sm:h-[300px] md:h-[340px] ${isLoaded ? "opacity-100" : "opacity-0"}`}
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                onLoad={() => setIsLoaded(true)}
-            />
-        </div>
     );
 }

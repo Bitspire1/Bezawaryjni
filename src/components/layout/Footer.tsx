@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useIsPreview } from "@/hooks/usePreviewHref";
+import { usePreviewHref } from "@/hooks/usePreviewHref";
+import { navItems } from "@/lib/navItems";
+import { tinaField } from "@/lib/tinaField";
 
 interface FooterProps {
     footerData?: {
@@ -12,21 +14,10 @@ interface FooterProps {
         hoursWeekday?: string;
         hoursWeekend?: string;
     };
-
-    page?: any;
-
-    field?: (page: any, section: string, fieldName: string) => string | undefined;
 }
 
-export default function Footer({ footerData, page, field }: FooterProps) {
-    const isPreview = useIsPreview();
-    const resolveHref = (href: string): string => {
-        if (!isPreview) return href;
-        if (href === "/") return "/preview";
-        if (href.startsWith("/#")) return `/preview#${href.slice(2)}`;
-        if (href.startsWith("/")) return `/preview${href}`;
-        return href;
-    };
+export default function Footer({ footerData }: FooterProps) {
+    const resolveHref = usePreviewHref;
     const description =
         footerData?.description ||
         "Mechanika pojazdowa, diagnostyka komputerowa i serwis eksploatacyjny. Jakość, terminowość, przejrzysta wycena.";
@@ -57,7 +48,7 @@ export default function Footer({ footerData, page, field }: FooterProps) {
                         </Link>
                         <p
                             className="max-w-xs text-sm text-white/70"
-                            data-tina-field={field?.(page, "footer", "description")}
+                            data-tina-field={tinaField(footerData, "description")}
                         >
                             {description}
                         </p>
@@ -66,22 +57,18 @@ export default function Footer({ footerData, page, field }: FooterProps) {
                     <nav aria-label="Nawigacja">
                         <p className="text-sm font-semibold text-yellow-400">Nawigacja</p>
                         <ul className="mt-3 space-y-2 text-sm">
-                            {[
-                                { label: "Strona Główna", href: "/" },
-                                { label: "Usługi", href: "/#uslugi" },
-                                { label: "Dlaczego my", href: "/#nasza-firma" },
-                                { label: "FAQ", href: "/#faq" },
-                                { label: "Kontakt", href: "/#kontakt" },
-                            ].map((i) => (
-                                <li key={i.label}>
-                                    <Link
-                                        href={resolveHref(i.href)}
-                                        className="hover:text-yellow-400"
-                                    >
-                                        {i.label}
-                                    </Link>
-                                </li>
-                            ))}
+                            {navItems
+                                .filter((i) => i.href !== "/polityka-prywatnosci")
+                                .map((i) => (
+                                    <li key={i.label}>
+                                        <Link
+                                            href={resolveHref(i.href)}
+                                            className="hover:text-yellow-400"
+                                        >
+                                            {i.label}
+                                        </Link>
+                                    </li>
+                                ))}
                         </ul>
                     </nav>
 
@@ -92,7 +79,7 @@ export default function Footer({ footerData, page, field }: FooterProps) {
                                 <a
                                     className="hover:text-yellow-400"
                                     href={`tel:${phone.replace(/\s/g, "")}`}
-                                    data-tina-field={field?.(page, "footer", "phone")}
+                                    data-tina-field={tinaField(footerData, "phone")}
                                 >
                                     {phone}
                                 </a>
@@ -101,7 +88,7 @@ export default function Footer({ footerData, page, field }: FooterProps) {
                                 <a
                                     className="hover:text-yellow-400"
                                     href={`mailto:${email}`}
-                                    data-tina-field={field?.(page, "footer", "email")}
+                                    data-tina-field={tinaField(footerData, "email")}
                                 >
                                     {email}
                                 </a>
@@ -112,10 +99,10 @@ export default function Footer({ footerData, page, field }: FooterProps) {
                     <div>
                         <p className="text-sm font-semibold text-yellow-400">Godziny otwarcia</p>
                         <ul className="mt-3 space-y-2 text-sm text-white/80">
-                            <li data-tina-field={field?.(page, "footer", "hoursWeekday")}>
+                            <li data-tina-field={tinaField(footerData, "hoursWeekday")}>
                                 {hoursWeekday}
                             </li>
-                            <li data-tina-field={field?.(page, "footer", "hoursWeekend")}>
+                            <li data-tina-field={tinaField(footerData, "hoursWeekend")}>
                                 {hoursWeekend}
                             </li>
                         </ul>

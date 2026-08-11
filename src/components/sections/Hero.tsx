@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { tinaField } from "tinacms/dist/react";
+import { tinaField } from "@/lib/tinaField";
+import ScaleLink from "@/components/ui/ScaleLink";
 
 interface HeroProps {
     data: {
@@ -24,10 +25,11 @@ export default function Hero({ data }: HeroProps) {
     return (
         <section id="home" className="relative isolate" data-tina-field={tinaField(data, "hero")}>
             <Image
-                src="/images/yellow-car.png"
+                src="/images/yellow-car.webp"
                 alt=""
                 aria-hidden
                 priority
+                fetchPriority="high"
                 fill
                 className="absolute inset-0 -z-10 object-cover"
                 sizes="100vw"
@@ -53,7 +55,7 @@ export default function Hero({ data }: HeroProps) {
                     {data.hero.description}
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-                    <a
+                    <ScaleLink
                         href={data.hero.ctaPrimary.url}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -61,14 +63,14 @@ export default function Hero({ data }: HeroProps) {
                         data-tina-field={tinaField(data.hero.ctaPrimary, "text")}
                     >
                         {data.hero.ctaPrimary.text}
-                    </a>
-                    <a
+                    </ScaleLink>
+                    <ScaleLink
                         href={data.hero.ctaSecondary.url}
                         className="inline-flex w-full items-center justify-center gap-2 rounded-md px-5 py-3 ring-1 ring-white/40 transition hover:bg-white/10 sm:w-auto"
                         data-tina-field={tinaField(data.hero.ctaSecondary, "text")}
                     >
                         {data.hero.ctaSecondary.text}
-                    </a>
+                    </ScaleLink>
                 </div>
             </div>
         </section>

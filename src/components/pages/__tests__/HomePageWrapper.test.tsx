@@ -31,7 +31,9 @@ vi.mock("@/components/features/CountUp", () => ({
 }));
 vi.mock("@/components/ContactForm", () => ({
     default: () => <div data-testid="contact-form" />,
-    MapEmbed: () => <div data-testid="map-embed" />,
+}));
+vi.mock("@/components/MapEmbed", () => ({
+    default: () => <div data-testid="map-embed" />,
 }));
 
 describe("HomePageWrapper", () => {

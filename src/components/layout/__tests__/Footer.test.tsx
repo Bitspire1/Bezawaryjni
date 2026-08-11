@@ -31,6 +31,7 @@ vi.mock("next/link", () => ({
 }));
 vi.mock("@/hooks/usePreviewHref", () => ({
     useIsPreview: () => false,
+    usePreviewHref: (href: string) => href,
 }));
 
 describe("Footer", () => {
@@ -55,7 +56,10 @@ describe("Footer", () => {
     it("renders contact phone with correct href", () => {
         render(<Footer footerData={mockHomeData.footer} />);
         const phoneLink = screen.getByText(mockHomeData.footer.phone).closest("a");
-        expect(phoneLink).toHaveAttribute("href", `tel:${mockHomeData.footer.phone.replace(/\s/g, "")}`);
+        expect(phoneLink).toHaveAttribute(
+            "href",
+            `tel:${mockHomeData.footer.phone.replace(/\s/g, "")}`,
+        );
     });
 
     it("renders contact email with correct href", () => {

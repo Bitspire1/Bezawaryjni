@@ -1,7 +1,6 @@
-"use client";
-
-import { tinaField } from "tinacms/dist/react";
+import { tinaField } from "@/lib/tinaField";
 import { CheckCircle } from "lucide-react";
+import ScaleDiv from "@/components/ui/ScaleDiv";
 
 interface WhyUsSectionProps {
     data: {
@@ -42,9 +41,9 @@ export default function WhyUsSection({ data }: WhyUsSectionProps) {
 
                 <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {whyUs.points.map((point, index) => (
-                        <div
+                        <ScaleDiv
                             key={index}
-                            className="group relative overflow-hidden rounded-xl bg-gradient-to-b from-[#121212] to-[#0e0e0e] p-6 ring-1 ring-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_-12px_rgba(250,204,21,0.35)] hover:ring-yellow-400/30"
+                            className="group relative overflow-hidden rounded-xl bg-gradient-to-b from-[#121212] to-[#0e0e0e] p-6 ring-1 ring-white/10 transition-all duration-300 hover:shadow-[0_12px_32px_-12px_rgba(250,204,21,0.35)] hover:ring-yellow-400/30"
                             data-tina-field={tinaField(whyUs.points[index], "title")}
                         >
                             <div
@@ -63,7 +62,7 @@ export default function WhyUsSection({ data }: WhyUsSectionProps) {
                                 </h3>
                                 <p className="text-sm text-white/70">{point.description}</p>
                             </div>
-                        </div>
+                        </ScaleDiv>
                     ))}
                 </div>
             </div>

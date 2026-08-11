@@ -65,7 +65,10 @@ export const mockHomeData = {
         points: [
             { title: "Doświadczenie", description: "Wieloletnie doświadczenie w branży." },
             { title: "Nowoczesny sprzęt", description: "Najlepszy sprzęt diagnostyczny." },
-            { title: "Transparentność", description: "Znasz koszt naprawy przed jej rozpoczęciem." },
+            {
+                title: "Transparentność",
+                description: "Znasz koszt naprawy przed jej rozpoczęciem.",
+            },
             { title: "Lokalizacja", description: "5 minut od centrum Słupska." },
         ],
     },

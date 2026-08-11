@@ -1,8 +1,9 @@
 "use client";
 
-import { tinaField } from "tinacms/dist/react";
+import { tinaField } from "@/lib/tinaField";
 import { useIsPreview } from "@/hooks/usePreviewHref";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { useState } from "react";
 
 type ServiceItem = {
@@ -48,10 +49,13 @@ export default function Offer({ data }: OfferProps) {
 
     const renderHex = (item: ServiceItem, idx: number, globalIndex: number) => (
         <div key={idx} className="relative w-56 sm:w-60 lg:w-64">
-            <button
+            <motion.button
                 onClick={() => setSelectedService(globalIndex)}
-                className="hex group relative w-full cursor-pointer transition-transform duration-300 ease-out will-change-transform hover:-translate-y-1.5 active:-translate-y-1"
+                className="hex group relative w-full cursor-pointer will-change-transform"
                 style={{ aspectRatio: "1 / 1" }}
+                whileHover={{ y: -6, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 300, damping: 18 }}
                 aria-label={`Zobacz szczegóły: ${item.title}`}
                 data-tina-field={tinaField(data.services.items[globalIndex], "title")}
             >
@@ -72,7 +76,7 @@ export default function Offer({ data }: OfferProps) {
                         </div>
                     </div>
                 </div>
-            </button>
+            </motion.button>
         </div>
     );
 
