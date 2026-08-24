@@ -33,6 +33,8 @@ fragment PagesParts on Pages {
     badge
     heading
     description
+    image
+    imageAlt
   }
   aboutUs {
     __typename
@@ -47,6 +49,16 @@ fragment PagesParts on Pages {
     benefits {
       __typename
       text
+    }
+  }
+  whyUs {
+    __typename
+    heading
+    description
+    points {
+      __typename
+      title
+      description
     }
   }
   suppliers {

@@ -28,7 +28,7 @@ var config_default = defineConfig({
         ui: {
           router: ({ document }) => {
             if (document._sys.filename === "home") {
-              return `/preview/home`;
+              return `/preview`;
             }
             return `/preview/${document._sys.filename}`;
           }
@@ -165,6 +165,16 @@ var config_default = defineConfig({
                 ui: {
                   component: "textarea"
                 }
+              },
+              {
+                name: "image",
+                label: "Image",
+                type: "image"
+              },
+              {
+                name: "imageAlt",
+                label: "Image Alt Text",
+                type: "string"
               }
             ]
           },
@@ -225,6 +235,48 @@ var config_default = defineConfig({
                     label: "Benefit Text",
                     type: "string",
                     required: true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            name: "whyUs",
+            label: "Why Us Section",
+            type: "object",
+            fields: [
+              {
+                name: "heading",
+                label: "Heading",
+                type: "string"
+              },
+              {
+                name: "description",
+                label: "Description",
+                type: "string",
+                ui: {
+                  component: "textarea"
+                }
+              },
+              {
+                name: "points",
+                label: "Points",
+                type: "object",
+                list: true,
+                fields: [
+                  {
+                    name: "title",
+                    label: "Title",
+                    type: "string",
+                    required: true
+                  },
+                  {
+                    name: "description",
+                    label: "Description",
+                    type: "string",
+                    ui: {
+                      component: "textarea"
+                    }
                   }
                 ]
               }

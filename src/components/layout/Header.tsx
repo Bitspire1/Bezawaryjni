@@ -125,7 +125,7 @@ export default function Header() {
                                             {item.children.map((c) => (
                                                 <Link
                                                     key={c.label}
-                                                    href={c.href}
+                                                    href={resolveHref(c.href)}
                                                     className="block rounded-md px-3.5 py-2.5 hover:bg-white/10"
                                                 >
                                                     {c.label}
@@ -223,7 +223,7 @@ export default function Header() {
                                         {item.children.map((c) => (
                                             <Link
                                                 key={c.label}
-                                                href={c.href}
+                                                href={resolveHref(c.href)}
                                                 className="block rounded px-2.5 py-2.5 hover:bg-white/10"
                                                 onClick={() => setMobileOpen(false)}
                                             >

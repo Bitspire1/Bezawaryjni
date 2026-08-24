@@ -121,6 +121,8 @@ type PagesLifts {
   badge: String
   heading: String
   description: String
+  image: String
+  imageAlt: String
 }
 
 type PagesAboutUsStats {
@@ -138,6 +140,17 @@ type PagesAboutUs {
   descriptionSecondary: String
   stats: [PagesAboutUsStats]
   benefits: [PagesAboutUsBenefits]
+}
+
+type PagesWhyUsPoints {
+  title: String!
+  description: String
+}
+
+type PagesWhyUs {
+  heading: String
+  description: String
+  points: [PagesWhyUsPoints]
 }
 
 type PagesSuppliersLogos {
@@ -188,6 +201,7 @@ type Pages implements Node & Document {
   services: PagesServices
   lifts: PagesLifts
   aboutUs: PagesAboutUs
+  whyUs: PagesWhyUs
   suppliers: PagesSuppliers
   contact: PagesContact
   faq: PagesFaq
@@ -250,6 +264,8 @@ input PagesLiftsFilter {
   badge: StringFilter
   heading: StringFilter
   description: StringFilter
+  image: ImageFilter
+  imageAlt: StringFilter
 }
 
 input NumberFilter {
@@ -277,6 +293,17 @@ input PagesAboutUsFilter {
   descriptionSecondary: StringFilter
   stats: PagesAboutUsStatsFilter
   benefits: PagesAboutUsBenefitsFilter
+}
+
+input PagesWhyUsPointsFilter {
+  title: StringFilter
+  description: StringFilter
+}
+
+input PagesWhyUsFilter {
+  heading: StringFilter
+  description: StringFilter
+  points: PagesWhyUsPointsFilter
 }
 
 input PagesSuppliersLogosFilter {
@@ -333,6 +360,7 @@ input PagesFilter {
   services: PagesServicesFilter
   lifts: PagesLiftsFilter
   aboutUs: PagesAboutUsFilter
+  whyUs: PagesWhyUsFilter
   suppliers: PagesSuppliersFilter
   contact: PagesContactFilter
   faq: PagesFaqFilter
@@ -408,6 +436,8 @@ input PagesLiftsMutation {
   badge: String
   heading: String
   description: String
+  image: String
+  imageAlt: String
 }
 
 input PagesAboutUsStatsMutation {
@@ -425,6 +455,17 @@ input PagesAboutUsMutation {
   descriptionSecondary: String
   stats: [PagesAboutUsStatsMutation]
   benefits: [PagesAboutUsBenefitsMutation]
+}
+
+input PagesWhyUsPointsMutation {
+  title: String
+  description: String
+}
+
+input PagesWhyUsMutation {
+  heading: String
+  description: String
+  points: [PagesWhyUsPointsMutation]
 }
 
 input PagesSuppliersLogosMutation {
@@ -475,6 +516,7 @@ input PagesMutation {
   services: PagesServicesMutation
   lifts: PagesLiftsMutation
   aboutUs: PagesAboutUsMutation
+  whyUs: PagesWhyUsMutation
   suppliers: PagesSuppliersMutation
   contact: PagesContactMutation
   faq: PagesFaqMutation

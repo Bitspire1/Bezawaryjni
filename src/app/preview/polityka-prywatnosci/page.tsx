@@ -11,6 +11,10 @@ export default function PreviewPolitykaPrywatnosci() {
     const [data, setData] = useState<QueryResult | null>(null);
 
     useEffect(() => {
+        if (window.parent !== window) {
+            (window as Window & { __TINA_IFRAME__?: boolean }).__TINA_IFRAME__ = true;
+            window.parent.postMessage({ type: "loaded" }, "*");
+        }
         client.queries
             .pages({ relativePath: "polityka-prywatnosci.md" })
             .then(setData)

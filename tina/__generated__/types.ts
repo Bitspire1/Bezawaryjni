@@ -205,6 +205,8 @@ export type PagesLifts = {
   badge?: Maybe<Scalars['String']['output']>;
   heading?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+  imageAlt?: Maybe<Scalars['String']['output']>;
 };
 
 export type PagesAboutUsStats = {
@@ -225,6 +227,19 @@ export type PagesAboutUs = {
   descriptionSecondary?: Maybe<Scalars['String']['output']>;
   stats?: Maybe<Array<Maybe<PagesAboutUsStats>>>;
   benefits?: Maybe<Array<Maybe<PagesAboutUsBenefits>>>;
+};
+
+export type PagesWhyUsPoints = {
+  __typename?: 'PagesWhyUsPoints';
+  title: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+};
+
+export type PagesWhyUs = {
+  __typename?: 'PagesWhyUs';
+  heading?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  points?: Maybe<Array<Maybe<PagesWhyUsPoints>>>;
 };
 
 export type PagesSuppliersLogos = {
@@ -283,6 +298,7 @@ export type Pages = Node & Document & {
   services?: Maybe<PagesServices>;
   lifts?: Maybe<PagesLifts>;
   aboutUs?: Maybe<PagesAboutUs>;
+  whyUs?: Maybe<PagesWhyUs>;
   suppliers?: Maybe<PagesSuppliers>;
   contact?: Maybe<PagesContact>;
   faq?: Maybe<PagesFaq>;
@@ -345,6 +361,8 @@ export type PagesLiftsFilter = {
   badge?: InputMaybe<StringFilter>;
   heading?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
+  imageAlt?: InputMaybe<StringFilter>;
 };
 
 export type NumberFilter = {
@@ -372,6 +390,17 @@ export type PagesAboutUsFilter = {
   descriptionSecondary?: InputMaybe<StringFilter>;
   stats?: InputMaybe<PagesAboutUsStatsFilter>;
   benefits?: InputMaybe<PagesAboutUsBenefitsFilter>;
+};
+
+export type PagesWhyUsPointsFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type PagesWhyUsFilter = {
+  heading?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  points?: InputMaybe<PagesWhyUsPointsFilter>;
 };
 
 export type PagesSuppliersLogosFilter = {
@@ -428,6 +457,7 @@ export type PagesFilter = {
   services?: InputMaybe<PagesServicesFilter>;
   lifts?: InputMaybe<PagesLiftsFilter>;
   aboutUs?: InputMaybe<PagesAboutUsFilter>;
+  whyUs?: InputMaybe<PagesWhyUsFilter>;
   suppliers?: InputMaybe<PagesSuppliersFilter>;
   contact?: InputMaybe<PagesContactFilter>;
   faq?: InputMaybe<PagesFaqFilter>;
@@ -551,6 +581,8 @@ export type PagesLiftsMutation = {
   badge?: InputMaybe<Scalars['String']['input']>;
   heading?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  imageAlt?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type PagesAboutUsStatsMutation = {
@@ -568,6 +600,17 @@ export type PagesAboutUsMutation = {
   descriptionSecondary?: InputMaybe<Scalars['String']['input']>;
   stats?: InputMaybe<Array<InputMaybe<PagesAboutUsStatsMutation>>>;
   benefits?: InputMaybe<Array<InputMaybe<PagesAboutUsBenefitsMutation>>>;
+};
+
+export type PagesWhyUsPointsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PagesWhyUsMutation = {
+  heading?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  points?: InputMaybe<Array<InputMaybe<PagesWhyUsPointsMutation>>>;
 };
 
 export type PagesSuppliersLogosMutation = {
@@ -618,6 +661,7 @@ export type PagesMutation = {
   services?: InputMaybe<PagesServicesMutation>;
   lifts?: InputMaybe<PagesLiftsMutation>;
   aboutUs?: InputMaybe<PagesAboutUsMutation>;
+  whyUs?: InputMaybe<PagesWhyUsMutation>;
   suppliers?: InputMaybe<PagesSuppliersMutation>;
   contact?: InputMaybe<PagesContactMutation>;
   faq?: InputMaybe<PagesFaqMutation>;
@@ -629,14 +673,14 @@ export type PagesMutation = {
   policySections?: InputMaybe<Array<InputMaybe<PagesPolicySectionsMutation>>>;
 };
 
-export type PagesPartsFragment = { __typename: 'Pages', title: string, metaTitle?: string | null, metaDescription?: string | null, lastUpdate?: string | null, heading?: string | null, hero?: { __typename: 'PagesHero', tagline?: string | null, heading?: string | null, description?: string | null, ctaPrimary?: { __typename: 'PagesHeroCtaPrimary', text?: string | null, url?: string | null } | null, ctaSecondary?: { __typename: 'PagesHeroCtaSecondary', text?: string | null, url?: string | null } | null } | null, services?: { __typename: 'PagesServices', heading?: string | null, items?: Array<{ __typename: 'PagesServicesItems', title: string, image?: string | null, alt?: string | null, description?: string | null } | null> | null } | null, lifts?: { __typename: 'PagesLifts', badge?: string | null, heading?: string | null, description?: string | null } | null, aboutUs?: { __typename: 'PagesAboutUs', heading?: string | null, description?: string | null, descriptionSecondary?: string | null, stats?: Array<{ __typename: 'PagesAboutUsStats', value: number, label: string } | null> | null, benefits?: Array<{ __typename: 'PagesAboutUsBenefits', text: string } | null> | null } | null, suppliers?: { __typename: 'PagesSuppliers', heading?: string | null, description?: string | null, logos?: Array<{ __typename: 'PagesSuppliersLogos', name?: string | null, image?: string | null, alt?: string | null } | null> | null } | null, contact?: { __typename: 'PagesContact', heading?: string | null, description?: string | null, phone?: string | null, email?: string | null } | null, faq?: { __typename: 'PagesFaq', heading?: string | null, items?: Array<{ __typename: 'PagesFaqItems', question: string, answer: string, icon?: string | null } | null> | null } | null, tableOfContents?: Array<{ __typename: 'PagesTableOfContents', label?: string | null, href?: string | null } | null> | null, policySections?: Array<{ __typename: 'PagesPolicySections', id: string, n: number, title: string, content: any } | null> | null };
+export type PagesPartsFragment = { __typename: 'Pages', title: string, metaTitle?: string | null, metaDescription?: string | null, lastUpdate?: string | null, heading?: string | null, hero?: { __typename: 'PagesHero', tagline?: string | null, heading?: string | null, description?: string | null, ctaPrimary?: { __typename: 'PagesHeroCtaPrimary', text?: string | null, url?: string | null } | null, ctaSecondary?: { __typename: 'PagesHeroCtaSecondary', text?: string | null, url?: string | null } | null } | null, services?: { __typename: 'PagesServices', heading?: string | null, items?: Array<{ __typename: 'PagesServicesItems', title: string, image?: string | null, alt?: string | null, description?: string | null } | null> | null } | null, lifts?: { __typename: 'PagesLifts', badge?: string | null, heading?: string | null, description?: string | null, image?: string | null, imageAlt?: string | null } | null, aboutUs?: { __typename: 'PagesAboutUs', heading?: string | null, description?: string | null, descriptionSecondary?: string | null, stats?: Array<{ __typename: 'PagesAboutUsStats', value: number, label: string } | null> | null, benefits?: Array<{ __typename: 'PagesAboutUsBenefits', text: string } | null> | null } | null, whyUs?: { __typename: 'PagesWhyUs', heading?: string | null, description?: string | null, points?: Array<{ __typename: 'PagesWhyUsPoints', title: string, description?: string | null } | null> | null } | null, suppliers?: { __typename: 'PagesSuppliers', heading?: string | null, description?: string | null, logos?: Array<{ __typename: 'PagesSuppliersLogos', name?: string | null, image?: string | null, alt?: string | null } | null> | null } | null, contact?: { __typename: 'PagesContact', heading?: string | null, description?: string | null, phone?: string | null, email?: string | null } | null, faq?: { __typename: 'PagesFaq', heading?: string | null, items?: Array<{ __typename: 'PagesFaqItems', question: string, answer: string, icon?: string | null } | null> | null } | null, tableOfContents?: Array<{ __typename: 'PagesTableOfContents', label?: string | null, href?: string | null } | null> | null, policySections?: Array<{ __typename: 'PagesPolicySections', id: string, n: number, title: string, content: any } | null> | null };
 
 export type PagesQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type PagesQuery = { __typename?: 'Query', pages: { __typename: 'Pages', id: string, title: string, metaTitle?: string | null, metaDescription?: string | null, lastUpdate?: string | null, heading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'PagesHero', tagline?: string | null, heading?: string | null, description?: string | null, ctaPrimary?: { __typename: 'PagesHeroCtaPrimary', text?: string | null, url?: string | null } | null, ctaSecondary?: { __typename: 'PagesHeroCtaSecondary', text?: string | null, url?: string | null } | null } | null, services?: { __typename: 'PagesServices', heading?: string | null, items?: Array<{ __typename: 'PagesServicesItems', title: string, image?: string | null, alt?: string | null, description?: string | null } | null> | null } | null, lifts?: { __typename: 'PagesLifts', badge?: string | null, heading?: string | null, description?: string | null } | null, aboutUs?: { __typename: 'PagesAboutUs', heading?: string | null, description?: string | null, descriptionSecondary?: string | null, stats?: Array<{ __typename: 'PagesAboutUsStats', value: number, label: string } | null> | null, benefits?: Array<{ __typename: 'PagesAboutUsBenefits', text: string } | null> | null } | null, suppliers?: { __typename: 'PagesSuppliers', heading?: string | null, description?: string | null, logos?: Array<{ __typename: 'PagesSuppliersLogos', name?: string | null, image?: string | null, alt?: string | null } | null> | null } | null, contact?: { __typename: 'PagesContact', heading?: string | null, description?: string | null, phone?: string | null, email?: string | null } | null, faq?: { __typename: 'PagesFaq', heading?: string | null, items?: Array<{ __typename: 'PagesFaqItems', question: string, answer: string, icon?: string | null } | null> | null } | null, tableOfContents?: Array<{ __typename: 'PagesTableOfContents', label?: string | null, href?: string | null } | null> | null, policySections?: Array<{ __typename: 'PagesPolicySections', id: string, n: number, title: string, content: any } | null> | null } };
+export type PagesQuery = { __typename?: 'Query', pages: { __typename: 'Pages', id: string, title: string, metaTitle?: string | null, metaDescription?: string | null, lastUpdate?: string | null, heading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'PagesHero', tagline?: string | null, heading?: string | null, description?: string | null, ctaPrimary?: { __typename: 'PagesHeroCtaPrimary', text?: string | null, url?: string | null } | null, ctaSecondary?: { __typename: 'PagesHeroCtaSecondary', text?: string | null, url?: string | null } | null } | null, services?: { __typename: 'PagesServices', heading?: string | null, items?: Array<{ __typename: 'PagesServicesItems', title: string, image?: string | null, alt?: string | null, description?: string | null } | null> | null } | null, lifts?: { __typename: 'PagesLifts', badge?: string | null, heading?: string | null, description?: string | null, image?: string | null, imageAlt?: string | null } | null, aboutUs?: { __typename: 'PagesAboutUs', heading?: string | null, description?: string | null, descriptionSecondary?: string | null, stats?: Array<{ __typename: 'PagesAboutUsStats', value: number, label: string } | null> | null, benefits?: Array<{ __typename: 'PagesAboutUsBenefits', text: string } | null> | null } | null, whyUs?: { __typename: 'PagesWhyUs', heading?: string | null, description?: string | null, points?: Array<{ __typename: 'PagesWhyUsPoints', title: string, description?: string | null } | null> | null } | null, suppliers?: { __typename: 'PagesSuppliers', heading?: string | null, description?: string | null, logos?: Array<{ __typename: 'PagesSuppliersLogos', name?: string | null, image?: string | null, alt?: string | null } | null> | null } | null, contact?: { __typename: 'PagesContact', heading?: string | null, description?: string | null, phone?: string | null, email?: string | null } | null, faq?: { __typename: 'PagesFaq', heading?: string | null, items?: Array<{ __typename: 'PagesFaqItems', question: string, answer: string, icon?: string | null } | null> | null } | null, tableOfContents?: Array<{ __typename: 'PagesTableOfContents', label?: string | null, href?: string | null } | null> | null, policySections?: Array<{ __typename: 'PagesPolicySections', id: string, n: number, title: string, content: any } | null> | null } };
 
 export type PagesConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -648,7 +692,7 @@ export type PagesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PagesConnectionQuery = { __typename?: 'Query', pagesConnection: { __typename?: 'PagesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PagesConnectionEdges', cursor: string, node?: { __typename: 'Pages', id: string, title: string, metaTitle?: string | null, metaDescription?: string | null, lastUpdate?: string | null, heading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'PagesHero', tagline?: string | null, heading?: string | null, description?: string | null, ctaPrimary?: { __typename: 'PagesHeroCtaPrimary', text?: string | null, url?: string | null } | null, ctaSecondary?: { __typename: 'PagesHeroCtaSecondary', text?: string | null, url?: string | null } | null } | null, services?: { __typename: 'PagesServices', heading?: string | null, items?: Array<{ __typename: 'PagesServicesItems', title: string, image?: string | null, alt?: string | null, description?: string | null } | null> | null } | null, lifts?: { __typename: 'PagesLifts', badge?: string | null, heading?: string | null, description?: string | null } | null, aboutUs?: { __typename: 'PagesAboutUs', heading?: string | null, description?: string | null, descriptionSecondary?: string | null, stats?: Array<{ __typename: 'PagesAboutUsStats', value: number, label: string } | null> | null, benefits?: Array<{ __typename: 'PagesAboutUsBenefits', text: string } | null> | null } | null, suppliers?: { __typename: 'PagesSuppliers', heading?: string | null, description?: string | null, logos?: Array<{ __typename: 'PagesSuppliersLogos', name?: string | null, image?: string | null, alt?: string | null } | null> | null } | null, contact?: { __typename: 'PagesContact', heading?: string | null, description?: string | null, phone?: string | null, email?: string | null } | null, faq?: { __typename: 'PagesFaq', heading?: string | null, items?: Array<{ __typename: 'PagesFaqItems', question: string, answer: string, icon?: string | null } | null> | null } | null, tableOfContents?: Array<{ __typename: 'PagesTableOfContents', label?: string | null, href?: string | null } | null> | null, policySections?: Array<{ __typename: 'PagesPolicySections', id: string, n: number, title: string, content: any } | null> | null } | null } | null> | null } };
+export type PagesConnectionQuery = { __typename?: 'Query', pagesConnection: { __typename?: 'PagesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PagesConnectionEdges', cursor: string, node?: { __typename: 'Pages', id: string, title: string, metaTitle?: string | null, metaDescription?: string | null, lastUpdate?: string | null, heading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'PagesHero', tagline?: string | null, heading?: string | null, description?: string | null, ctaPrimary?: { __typename: 'PagesHeroCtaPrimary', text?: string | null, url?: string | null } | null, ctaSecondary?: { __typename: 'PagesHeroCtaSecondary', text?: string | null, url?: string | null } | null } | null, services?: { __typename: 'PagesServices', heading?: string | null, items?: Array<{ __typename: 'PagesServicesItems', title: string, image?: string | null, alt?: string | null, description?: string | null } | null> | null } | null, lifts?: { __typename: 'PagesLifts', badge?: string | null, heading?: string | null, description?: string | null, image?: string | null, imageAlt?: string | null } | null, aboutUs?: { __typename: 'PagesAboutUs', heading?: string | null, description?: string | null, descriptionSecondary?: string | null, stats?: Array<{ __typename: 'PagesAboutUsStats', value: number, label: string } | null> | null, benefits?: Array<{ __typename: 'PagesAboutUsBenefits', text: string } | null> | null } | null, whyUs?: { __typename: 'PagesWhyUs', heading?: string | null, description?: string | null, points?: Array<{ __typename: 'PagesWhyUsPoints', title: string, description?: string | null } | null> | null } | null, suppliers?: { __typename: 'PagesSuppliers', heading?: string | null, description?: string | null, logos?: Array<{ __typename: 'PagesSuppliersLogos', name?: string | null, image?: string | null, alt?: string | null } | null> | null } | null, contact?: { __typename: 'PagesContact', heading?: string | null, description?: string | null, phone?: string | null, email?: string | null } | null, faq?: { __typename: 'PagesFaq', heading?: string | null, items?: Array<{ __typename: 'PagesFaqItems', question: string, answer: string, icon?: string | null } | null> | null } | null, tableOfContents?: Array<{ __typename: 'PagesTableOfContents', label?: string | null, href?: string | null } | null> | null, policySections?: Array<{ __typename: 'PagesPolicySections', id: string, n: number, title: string, content: any } | null> | null } | null } | null> | null } };
 
 export const PagesPartsFragmentDoc = gql`
     fragment PagesParts on Pages {
@@ -686,6 +730,8 @@ export const PagesPartsFragmentDoc = gql`
     badge
     heading
     description
+    image
+    imageAlt
   }
   aboutUs {
     __typename
@@ -700,6 +746,16 @@ export const PagesPartsFragmentDoc = gql`
     benefits {
       __typename
       text
+    }
+  }
+  whyUs {
+    __typename
+    heading
+    description
+    points {
+      __typename
+      title
+      description
     }
   }
   suppliers {
@@ -861,7 +917,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "http://localhost:4001/graphql",
+        url: "https://content.tinajs.io/2.4/content/a24da33c-5968-465a-be46-1051703a6232/github/main",
         queries,
       })
     )
