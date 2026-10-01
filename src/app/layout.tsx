@@ -1,24 +1,10 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import WhatsAppButtonLazy from "@/components/WhatsAppButtonLazy";
-import Analytics from "@/components/Analytics";
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-    display: "swap",
-    preload: true,
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-    display: "swap",
-    preload: true,
-});
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+};
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://bezawaryjni.com"),
@@ -74,25 +60,13 @@ export default function RootLayout({
     return (
         <html lang="pl">
             <head>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
                 {/* Upgrade any http subresource URLs to https in supporting browsers */}
                 <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-
-                {/* Preconnect to Google Maps used in Contact section */}
-                <link rel="preconnect" href="https://maps.google.com" />
-                <link rel="dns-prefetch" href="https://maps.google.com" />
-                <link rel="preconnect" href="https://maps.googleapis.com" />
-                <link rel="dns-prefetch" href="https://maps.googleapis.com" />
-
-                {/* Hero image is preloaded automatically by next/image priority */}
+                {/* Warm DNS for Tina media host — used if CMS content references
+                    images not present locally in /public */}
+                <link rel="dns-prefetch" href="https://assets.tina.io" />
             </head>
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <Header />
-                <main>{children}</main>
-                <Footer />
-                <WhatsAppButtonLazy />
-                <Analytics />
-            </body>
+            <body className="antialiased">{children}</body>
         </html>
     );
 }

@@ -1,10 +1,11 @@
 "use client";
 
 import { tinaField } from "@/lib/tinaField";
-import { useIsPreview } from "@/hooks/usePreviewHref";
+import { previewHref } from "@/lib/previewHref";
+import { localMedia } from "@/lib/localMedia";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 type ServiceItem = {
     title: string;
@@ -14,6 +15,7 @@ type ServiceItem = {
 };
 
 interface OfferProps {
+    isPreview?: boolean;
     data: {
         services: {
             heading: string;
@@ -23,11 +25,19 @@ interface OfferProps {
     };
 }
 
-export default function Offer({ data }: OfferProps) {
+export default function Offer({ data, isPreview = false }: OfferProps) {
     const [selectedService, setSelectedService] = useState<number | null>(null);
-    const isPreview = useIsPreview();
-    const kontaktHref = isPreview ? "/preview#kontakt" : "#kontakt";
+    const kontaktHref = previewHref("#kontakt", isPreview);
     const services = data.services.items;
+
+    useEffect(() => {
+        if (selectedService === null) return;
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setSelectedService(null);
+        };
+        window.addEventListener("keydown", onKeyDown);
+        return () => window.removeEventListener("keydown", onKeyDown);
+    }, [selectedService]);
 
     let rowTop: typeof services = [];
     let rowBottom: typeof services = [];
@@ -49,34 +59,32 @@ export default function Offer({ data }: OfferProps) {
 
     const renderHex = (item: ServiceItem, idx: number, globalIndex: number) => (
         <div key={idx} className="relative w-56 sm:w-60 lg:w-64">
-            <motion.button
+            <button
                 onClick={() => setSelectedService(globalIndex)}
-                className="hex group relative w-full cursor-pointer will-change-transform"
+                className="hex fx-hex group relative w-full cursor-pointer"
                 style={{ aspectRatio: "1 / 1" }}
-                whileHover={{ y: -6, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 300, damping: 18 }}
                 aria-label={`Zobacz szczegóły: ${item.title}`}
                 data-tina-field={tinaField(data.services.items[globalIndex], "title")}
             >
                 <div className="absolute inset-0 rounded-[2px] bg-yellow-400 shadow-[0_8px_26px_-12px_rgba(250,204,21,0.45)] transition-shadow duration-300 group-hover:shadow-[0_16px_44px_-14px_rgba(250,204,21,0.6)]" />
-                <div className="hex absolute inset-[8px] overflow-hidden bg-gradient-to-b from-[#151515] to-[#0e0e0e] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.55)] ring-1 ring-white/10">
+                <div className="hex absolute inset-[8px] overflow-hidden bg-linear-to-b from-[#151515] to-[#0e0e0e] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.55)] ring-1 ring-white/10">
                     <div className="flex h-full w-full items-center justify-center">
                         <div className="w-1/2 sm:w-2/5 lg:w-1/2">
                             <Image
-                                src={encodeURI(item.image)}
+                                src={encodeURI(localMedia(item.image))}
                                 alt={item.alt}
                                 width={256}
                                 height={256}
                                 sizes="(max-width: 640px) 96px, (max-width: 1024px) 128px, 160px"
                                 draggable={false}
-                                loading="lazy"
+                                loading="eager"
+                                fetchPriority={globalIndex === 0 ? "high" : "auto"}
                                 className="pointer-events-none aspect-square h-auto w-full object-contain drop-shadow-[0_8px_22px_rgba(250,204,21,0.3)] transition-transform duration-300 ease-out select-none group-hover:scale-[1.06]"
                             />
                         </div>
                     </div>
                 </div>
-            </motion.button>
+            </button>
         </div>
     );
 
@@ -98,8 +106,8 @@ export default function Offer({ data }: OfferProps) {
                     <div className="hex-deco absolute bottom-[8%] left-[8%] h-8 w-8 bg-yellow-400/10" />
                     <div className="hex-deco absolute right-[8%] bottom-[8%] h-8 w-8 bg-yellow-400/10" />
                     {/* Linie dekoracyjne */}
-                    <div className="absolute top-[15%] left-0 h-px w-20 bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent" />
-                    <div className="absolute right-0 bottom-[15%] h-px w-20 bg-gradient-to-l from-transparent via-yellow-400/20 to-transparent" />
+                    <div className="absolute top-[15%] left-0 h-px w-20 bg-linear-to-r from-transparent via-yellow-400/20 to-transparent" />
+                    <div className="absolute right-0 bottom-[15%] h-px w-20 bg-linear-to-l from-transparent via-yellow-400/20 to-transparent" />
                 </div>
 
                 {/* Heksagony dla desktop - równomierna siatka */}
@@ -129,10 +137,10 @@ export default function Offer({ data }: OfferProps) {
                     <div className="hex-deco absolute right-[8%] bottom-[10%] h-12 w-12 bg-yellow-400/8" />
 
                     {/* Linie dekoracyjne */}
-                    <div className="absolute top-[20%] left-0 h-px w-32 bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent" />
-                    <div className="absolute top-[30%] right-0 h-px w-32 bg-gradient-to-l from-transparent via-yellow-400/20 to-transparent" />
-                    <div className="absolute bottom-[20%] left-0 h-px w-32 bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent" />
-                    <div className="absolute right-0 bottom-[30%] h-px w-32 bg-gradient-to-l from-transparent via-yellow-400/20 to-transparent" />
+                    <div className="absolute top-[20%] left-0 h-px w-32 bg-linear-to-r from-transparent via-yellow-400/20 to-transparent" />
+                    <div className="absolute top-[30%] right-0 h-px w-32 bg-linear-to-l from-transparent via-yellow-400/20 to-transparent" />
+                    <div className="absolute bottom-[20%] left-0 h-px w-32 bg-linear-to-r from-transparent via-yellow-400/20 to-transparent" />
+                    <div className="absolute right-0 bottom-[30%] h-px w-32 bg-linear-to-l from-transparent via-yellow-400/20 to-transparent" />
 
                     {/* Małe punkty świetlne */}
                     <div className="absolute top-[25%] left-[12%] h-2 w-2 rounded-full bg-yellow-400/30 blur-sm" />
@@ -194,80 +202,26 @@ export default function Offer({ data }: OfferProps) {
                 </div>
             </section>
 
-            {/* Modal z opisem usługi */}
-            {selectedService !== null && (
-                <div
-                    className="animate-in fade-in fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-2 backdrop-blur-sm duration-300 sm:p-4"
-                    onClick={() => setSelectedService(null)}
-                >
+            {/* Modal z opisem usługi — portaled to <body> so it escapes
+                content-visibility containment on the section */}
+            {selectedService !== null &&
+                createPortal(
                     <div
-                        className="animate-in zoom-in-95 relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-gradient-to-b from-[#1a1a1a] to-[#0e0e0e] p-4 shadow-[0_20px_80px_-20px_rgba(250,204,21,0.3)] ring-2 ring-yellow-400/30 duration-300 sm:rounded-2xl sm:p-6 md:p-8"
-                        onClick={(e) => e.stopPropagation()}
+                        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-2 backdrop-blur-sm sm:p-4"
+                        role="dialog"
+                        aria-modal="true"
+                        onClick={() => setSelectedService(null)}
                     >
-                        {/* Przycisk zamknięcia */}
-                        <button
-                            onClick={() => setSelectedService(null)}
-                            className="sticky top-0 z-10 float-right mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white/80 transition-colors hover:bg-white/20 hover:text-white sm:h-10 sm:w-10"
-                            aria-label="Zamknij"
-                        >
-                            <svg
-                                className="h-4 w-4 sm:h-5 sm:w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
-                            </svg>
-                        </button>
-
-                        {/* Ikona usługi */}
-                        <div className="clear-both mb-4 flex justify-center sm:mb-6">
-                            <div className="relative h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24">
-                                <Image
-                                    src={encodeURI(services[selectedService].image)}
-                                    alt={services[selectedService].alt}
-                                    width={256}
-                                    height={256}
-                                    className="h-full w-full object-contain drop-shadow-[0_8px_22px_rgba(250,204,21,0.4)]"
-                                />
-                            </div>
-                        </div>
-
-                        {/* Tytuł */}
-                        <h2
-                            className="mb-3 px-2 text-center text-xl font-bold text-yellow-400 sm:mb-4 sm:text-2xl md:text-3xl"
-                            data-tina-field={tinaField(
-                                data.services.items[selectedService],
-                                "title",
-                            )}
-                        >
-                            {services[selectedService].title}
-                        </h2>
-
-                        {/* Opis */}
                         <div
-                            className="mb-6 px-2 text-left text-sm leading-relaxed whitespace-pre-line text-white/80 sm:mb-8 sm:text-center sm:text-base"
-                            data-tina-field={tinaField(
-                                data.services.items[selectedService],
-                                "description",
-                            )}
+                            className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-linear-to-b from-[#1a1a1a] to-[#0e0e0e] p-4 shadow-[0_20px_80px_-20px_rgba(250,204,21,0.3)] ring-2 ring-yellow-400/30 sm:rounded-2xl sm:p-6 md:p-8"
+                            onClick={(e) => e.stopPropagation()}
                         >
-                            {services[selectedService].description}
-                        </div>
-
-                        {/* Przycisk kontakt */}
-                        <div className="flex justify-center px-2">
-                            <a
-                                href={kontaktHref}
+                            {/* Przycisk zamknięcia */}
+                            <button
                                 onClick={() => setSelectedService(null)}
-                                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-yellow-400 px-4 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-yellow-300 sm:w-auto sm:px-6 sm:py-3 sm:text-base"
+                                className="sticky top-0 z-10 float-right mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white/80 transition-colors hover:bg-white/20 hover:text-white sm:h-10 sm:w-10"
+                                aria-label="Zamknij"
                             >
-                                Umów się na wizytę
                                 <svg
                                     className="h-4 w-4 sm:h-5 sm:w-5"
                                     fill="none"
@@ -278,14 +232,73 @@ export default function Offer({ data }: OfferProps) {
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth={2}
-                                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                                        d="M6 18L18 6M6 6l12 12"
                                     />
                                 </svg>
-                            </a>
+                            </button>
+
+                            {/* Ikona usługi */}
+                            <div className="clear-both mb-4 flex justify-center sm:mb-6">
+                                <div className="relative h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24">
+                                    <Image
+                                        src={encodeURI(localMedia(services[selectedService].image))}
+                                        alt={services[selectedService].alt}
+                                        width={256}
+                                        height={256}
+                                        className="h-full w-full object-contain drop-shadow-[0_8px_22px_rgba(250,204,21,0.4)]"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Tytuł */}
+                            <h2
+                                className="mb-3 px-2 text-center text-xl font-bold text-yellow-400 sm:mb-4 sm:text-2xl md:text-3xl"
+                                data-tina-field={tinaField(
+                                    data.services.items[selectedService],
+                                    "title",
+                                )}
+                            >
+                                {services[selectedService].title}
+                            </h2>
+
+                            {/* Opis */}
+                            <div
+                                className="mb-6 px-2 text-left text-sm leading-relaxed whitespace-pre-line text-white/80 sm:mb-8 sm:text-center sm:text-base"
+                                data-tina-field={tinaField(
+                                    data.services.items[selectedService],
+                                    "description",
+                                )}
+                            >
+                                {services[selectedService].description}
+                            </div>
+
+                            {/* Przycisk kontakt */}
+                            <div className="flex justify-center px-2">
+                                <a
+                                    href={kontaktHref}
+                                    onClick={() => setSelectedService(null)}
+                                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-yellow-400 px-4 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-yellow-300 sm:w-auto sm:px-6 sm:py-3 sm:text-base"
+                                >
+                                    Umów się na wizytę
+                                    <svg
+                                        className="h-4 w-4 sm:h-5 sm:w-5"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                                        />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            )}
+                    </div>,
+                    document.body,
+                )}
         </>
     );
 }

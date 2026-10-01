@@ -1,8 +1,8 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, afterEach } from "vitest";
-import ContactForm from "@/components/ContactForm";
-import MapEmbed from "@/components/MapEmbed";
+import ContactForm from "@/components/contact/ContactForm";
+import MapEmbed from "@/components/contact/MapEmbed";
 
 afterEach(() => {
     vi.restoreAllMocks();

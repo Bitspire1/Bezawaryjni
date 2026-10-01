@@ -3,9 +3,6 @@ import { describe, it, expect, vi } from "vitest";
 import LiftsSection from "@/components/sections/LiftsSection";
 import { mockHomeData } from "@/components/__tests__/mockData";
 
-vi.mock("tinacms/dist/react", () => ({
-    tinaField: () => undefined,
-}));
 vi.mock("next/image", () => ({
     default: ({
         alt = "",
@@ -18,17 +15,7 @@ vi.mock("next/image", () => ({
     ),
 }));
 vi.mock("next/dynamic", () => ({
-    default:
-        () =>
-        ({
-            alt = "",
-            priority,
-            fill,
-            ...props
-        }: React.ImgHTMLAttributes<HTMLImageElement> & { priority?: boolean; fill?: boolean }) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img alt={alt} {...props} />
-        ),
+    default: () => () => null,
 }));
 
 describe("LiftsSection", () => {

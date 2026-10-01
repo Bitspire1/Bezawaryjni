@@ -30,6 +30,7 @@ export default function Hero({ data }: HeroProps) {
                 aria-hidden
                 priority
                 fetchPriority="high"
+                quality={60}
                 fill
                 className="absolute inset-0 -z-10 object-cover"
                 sizes="100vw"

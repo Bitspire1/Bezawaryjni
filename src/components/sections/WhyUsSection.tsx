@@ -1,6 +1,23 @@
 import { tinaField } from "@/lib/tinaField";
-import { CheckCircle } from "lucide-react";
 import ScaleDiv from "@/components/ui/ScaleDiv";
+
+function CheckCircle({ className = "" }: { className?: string }) {
+    return (
+        <svg
+            className={className}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+        >
+            <circle cx="12" cy="12" r="10" />
+            <path d="m9 12 2 2 4-4" />
+        </svg>
+    );
+}
 
 interface WhyUsSectionProps {
     data: {
@@ -22,7 +39,7 @@ export default function WhyUsSection({ data }: WhyUsSectionProps) {
     const { whyUs } = data;
 
     return (
-        <section id="dlaczego-my" className="bg-[#0b0b0b] py-16 text-white sm:py-20">
+        <section id="dlaczego-my" className="cv-auto bg-[#0b0b0b] py-16 text-white sm:py-20">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="text-center">
                     <h2
@@ -43,7 +60,7 @@ export default function WhyUsSection({ data }: WhyUsSectionProps) {
                     {whyUs.points.map((point, index) => (
                         <ScaleDiv
                             key={index}
-                            className="group relative overflow-hidden rounded-xl bg-gradient-to-b from-[#121212] to-[#0e0e0e] p-6 ring-1 ring-white/10 transition-all duration-300 hover:shadow-[0_12px_32px_-12px_rgba(250,204,21,0.35)] hover:ring-yellow-400/30"
+                            className="group relative overflow-hidden rounded-xl bg-linear-to-b from-[#121212] to-[#0e0e0e] p-6 ring-1 ring-white/10 transition-all duration-300 hover:shadow-[0_12px_32px_-12px_rgba(250,204,21,0.35)] hover:ring-yellow-400/30"
                             data-tina-field={tinaField(whyUs.points[index], "title")}
                         >
                             <div

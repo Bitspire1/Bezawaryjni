@@ -1,16 +1,10 @@
-"use client";
-
 import { tinaField } from "@/lib/tinaField";
-import dynamic from "next/dynamic";
-import { useIsPreview } from "@/hooks/usePreviewHref";
-
-// Lazy load heavy lightbox component
-const LightboxImage = dynamic(() => import("@/components/features/LightboxImage"), {
-    ssr: false,
-    loading: () => null,
-});
+import { previewHref } from "@/lib/previewHref";
+import { localMedia } from "@/lib/localMedia";
+import LightboxImage from "@/components/features/LightboxImage";
 
 interface LiftsSectionProps {
+    isPreview?: boolean;
     data: {
         lifts: {
             badge: string;
@@ -23,21 +17,20 @@ interface LiftsSectionProps {
     };
 }
 
-export default function LiftsSection({ data }: LiftsSectionProps) {
-    const isPreview = useIsPreview();
-    const kontaktHref = isPreview ? "/preview#kontakt" : "#kontakt";
+export default function LiftsSection({ data, isPreview = false }: LiftsSectionProps) {
+    const kontaktHref = previewHref("#kontakt", isPreview);
     const liftsImage = data.lifts.image ?? "/images/podnosnik.webp";
     const liftsImageAlt = data.lifts.imageAlt ?? "Podnośniki w warsztacie";
-    const liftsSrc = liftsImage.replace(/\.png$/, ".webp");
+    const liftsSrc = localMedia(liftsImage).replace(/\.png$/, ".webp");
     return (
         <>
             {/* Gradient transition */}
-            <div className="h-16 bg-gradient-to-b from-[#0b0b0b] via-[#060606] to-[#0b0b0b] sm:h-24"></div>
+            <div className="h-16 bg-linear-to-b from-[#0b0b0b] via-[#060606] to-[#0b0b0b] sm:h-24"></div>
 
             {/* NOWE PODNOSNIKI */}
             <section
                 id="stanowiska"
-                className="overflow-hidden bg-[#0b0b0b] py-10 text-white sm:py-14 lg:py-16"
+                className="cv-auto overflow-hidden bg-[#0b0b0b] py-10 text-white sm:py-14 lg:py-16"
             >
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
@@ -83,15 +76,15 @@ export default function LiftsSection({ data }: LiftsSectionProps) {
                             </div>
                         </div>
                         <div className="relative">
-                            <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] shadow-2xl ring-1 ring-white/10">
-                                <div className="flex aspect-[16/10] w-full items-center justify-center p-4 sm:p-6 lg:p-8">
+                            <div className="relative overflow-hidden rounded-xl bg-linear-to-br from-[#1a1a1a] to-[#0a0a0a] shadow-2xl ring-1 ring-white/10">
+                                <div className="flex aspect-16/10 w-full items-center justify-center p-4 sm:p-6 lg:p-8">
                                     <LightboxImage
                                         src={liftsSrc}
                                         fallbackSrc={liftsImage}
                                         alt={liftsImageAlt}
                                         width={800}
                                         height={450}
-                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+                                        sizes="(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 600px"
                                         className="h-full w-full object-contain drop-shadow-2xl"
                                         priority={false}
                                         loading="lazy"
@@ -104,7 +97,7 @@ export default function LiftsSection({ data }: LiftsSectionProps) {
             </section>
 
             {/* Gradient transition */}
-            <div className="h-16 bg-gradient-to-b from-[#0b0b0b] via-[#050505] to-black sm:h-24"></div>
+            <div className="h-16 bg-linear-to-b from-[#0b0b0b] via-[#050505] to-black sm:h-24"></div>
         </>
     );
 }

@@ -3,9 +3,6 @@ import { describe, it, expect, vi } from "vitest";
 import PrivacyPolicyWrapper from "@/components/pages/PrivacyPolicyWrapper";
 import { mockPrivacyData } from "../../__tests__/mockData";
 
-vi.mock("tinacms/dist/react", () => ({
-    tinaField: () => undefined,
-}));
 vi.mock("@/components/sections/PolicySection", () => ({
     default: ({ data, index }: { data: typeof mockPrivacyData; index: number }) => (
         <div data-testid={`policy-section-${index}`}>{data.policySections[index].title}</div>

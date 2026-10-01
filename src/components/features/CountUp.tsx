@@ -115,11 +115,17 @@ export default function CountUp({
     );
 }
 
+const formatters = new Map<number, Intl.NumberFormat>();
+
 function format(value: number, decimals: number, prefix = "", suffix = "") {
     // Use a fixed locale to avoid server/client hydration mismatches
-    const nf = new Intl.NumberFormat("pl-PL", {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-    });
+    let nf = formatters.get(decimals);
+    if (!nf) {
+        nf = new Intl.NumberFormat("pl-PL", {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals,
+        });
+        formatters.set(decimals, nf);
+    }
     return `${prefix}${nf.format(value)}${suffix}`;
 }

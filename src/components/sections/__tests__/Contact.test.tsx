@@ -3,10 +3,10 @@ import { describe, it, expect, vi } from "vitest";
 import Contact from "@/components/sections/Contact";
 import { mockHomeData } from "../../__tests__/mockData";
 
-vi.mock("@/components/ContactForm", () => ({
+vi.mock("@/components/contact/ContactForm", () => ({
     default: () => <div data-testid="contact-form" />,
 }));
-vi.mock("@/components/MapEmbed", () => ({
+vi.mock("@/components/contact/MapEmbed", () => ({
     default: () => <div data-testid="map-embed" />,
 }));
 

@@ -1,6 +1,8 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import WhatsAppButton from "@/components/WhatsAppButton";
+import WhatsAppButton from "@/components/widgets/WhatsAppButton";
+
+vi.mock("../whatsapp.css", () => ({}));
 
 vi.mock("next/image", () => ({
     default: ({

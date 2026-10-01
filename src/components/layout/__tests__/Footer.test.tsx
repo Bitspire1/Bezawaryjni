@@ -18,6 +18,7 @@ vi.mock("next/link", () => ({
     default: ({
         href,
         children,
+        prefetch: _prefetch,
         ...rest
     }: {
         href: string;
@@ -28,10 +29,6 @@ vi.mock("next/link", () => ({
             {children}
         </a>
     ),
-}));
-vi.mock("@/hooks/usePreviewHref", () => ({
-    useIsPreview: () => false,
-    usePreviewHref: (href: string) => href,
 }));
 
 describe("Footer", () => {

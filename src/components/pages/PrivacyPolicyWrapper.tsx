@@ -51,7 +51,7 @@ const breadcrumbJsonLd = {
 
 export default function PrivacyPolicyWrapper({ data }: PrivacyPolicyWrapperProps) {
     return (
-        <main className="min-h-screen bg-black text-white">
+        <div className="min-h-screen bg-black text-white">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
@@ -118,6 +118,6 @@ export default function PrivacyPolicyWrapper({ data }: PrivacyPolicyWrapperProps
                     </div>
                 </div>
             </section>
-        </main>
+        </div>
     );
 }

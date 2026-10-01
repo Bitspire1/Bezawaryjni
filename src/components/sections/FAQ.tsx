@@ -28,7 +28,7 @@ export default function FAQ({ data }: FAQProps) {
     };
 
     return (
-        <section id="faq" className="bg-[#0b0b0b] py-16 text-white">
+        <section id="faq" className="cv-auto bg-[#0b0b0b] py-16 text-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <h2
                     className="wrap-balance text-center text-3xl font-bold"

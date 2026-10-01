@@ -18,7 +18,7 @@ class MockIntersectionObserver {
                     isIntersecting: true,
                     target: document.createElement("span"),
                     intersectionRatio: 1,
-                } as IntersectionObserverEntry,
+                } as unknown as IntersectionObserverEntry,
             ],
             this as unknown as IntersectionObserver,
         );

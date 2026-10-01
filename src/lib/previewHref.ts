@@ -1,18 +1,6 @@
-"use client";
-
-import { usePathname } from "next/navigation";
-
 /**
- * Returns true when the page is rendered inside the TinaCMS iframe.
- * We detect this by checking if the current pathname starts with /preview.
- */
-export function useIsPreview(): boolean {
-    const pathname = usePathname();
-    return typeof pathname === "string" && pathname.startsWith("/preview");
-}
-
-/**
- * Transforms a regular site href to its /preview equivalent when inside TinaCMS iframe.
+ * Transforms a regular site href to its /preview equivalent when rendered
+ * inside the TinaCMS iframe.
  *
  * Rules:
  *   "/"                → "/preview"
@@ -21,8 +9,7 @@ export function useIsPreview(): boolean {
  *   "/polityka-prywatnosci" → "/preview/polityka-prywatnosci"
  *   external URLs      → unchanged
  */
-export function usePreviewHref(href: string): string {
-    const isPreview = useIsPreview();
+export function previewHref(href: string, isPreview: boolean): string {
     if (!isPreview) return href;
     if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) {
         return href;

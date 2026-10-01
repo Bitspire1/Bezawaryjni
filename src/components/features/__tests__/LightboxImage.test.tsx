@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
+import React from "react";
 import LightboxImage from "@/components/features/LightboxImage";
 
 vi.mock("next/image", () => ({
@@ -12,6 +13,17 @@ vi.mock("next/image", () => ({
         // eslint-disable-next-line @next/next/no-img-element
         <img alt={alt} {...props} />
     ),
+}));
+
+vi.mock("next/dynamic", () => ({
+    default: (loader: () => Promise<{ default: React.ComponentType<object> }>) => {
+        const Lazy = React.lazy(loader);
+        return (props: object) => (
+            <React.Suspense fallback={null}>
+                <Lazy {...props} />
+            </React.Suspense>
+        );
+    },
 }));
 
 vi.mock("react-dom", async () => {

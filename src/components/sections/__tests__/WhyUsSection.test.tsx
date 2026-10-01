@@ -3,10 +3,6 @@ import { describe, it, expect, vi } from "vitest";
 import WhyUsSection from "@/components/sections/WhyUsSection";
 import { mockHomeData } from "@/components/__tests__/mockData";
 
-vi.mock("tinacms/dist/react", () => ({
-    tinaField: () => undefined,
-}));
-
 describe("WhyUsSection", () => {
     it("renders section heading", () => {
         render(<WhyUsSection data={mockHomeData} />);

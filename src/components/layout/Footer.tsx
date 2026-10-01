@@ -1,12 +1,11 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { usePreviewHref } from "@/hooks/usePreviewHref";
+import { previewHref } from "@/lib/previewHref";
 import { navItems } from "@/lib/navItems";
 import { tinaField } from "@/lib/tinaField";
 
 interface FooterProps {
+    isPreview?: boolean;
     footerData?: {
         description?: string;
         phone?: string;
@@ -16,8 +15,8 @@ interface FooterProps {
     };
 }
 
-export default function Footer({ footerData }: FooterProps) {
-    const resolveHref = usePreviewHref;
+export default function Footer({ footerData, isPreview = false }: FooterProps) {
+    const resolveHref = (href: string) => previewHref(href, isPreview);
     const description =
         footerData?.description ||
         "Mechanika pojazdowa, diagnostyka komputerowa i serwis eksploatacyjny. Jakość, terminowość, przejrzysta wycena.";
@@ -28,12 +27,13 @@ export default function Footer({ footerData }: FooterProps) {
 
     const year = new Date().getFullYear();
     return (
-        <footer className="bg-[#0b0b0b] text-white">
+        <footer className="cv-auto bg-[#0b0b0b] text-white">
             <div className="h-px bg-linear-to-r from-transparent via-yellow-400/20 to-transparent"></div>
             <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="space-y-3">
                         <Link
+                            prefetch={false}
                             href={resolveHref("/")}
                             aria-label="Bezawaryjni – strona główna"
                             className="inline-flex"
@@ -62,6 +62,7 @@ export default function Footer({ footerData }: FooterProps) {
                                 .map((i) => (
                                     <li key={i.label}>
                                         <Link
+                                            prefetch={false}
                                             href={resolveHref(i.href)}
                                             className="hover:text-yellow-400"
                                         >
@@ -114,6 +115,7 @@ export default function Footer({ footerData }: FooterProps) {
                     <div>© {year} Bezawaryjni AutoSerwis. Wszelkie prawa zastrzeżone.</div>
                     <div className="flex items-center gap-4">
                         <Link
+                            prefetch={false}
                             href={resolveHref("/polityka-prywatnosci")}
                             className="link-visible hover:text-yellow-400"
                         >

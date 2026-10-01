@@ -24,5 +24,5 @@ export default function PreviewHome() {
 function LiveHome({ query }: { query: QueryResult }) {
     const { data } = useTina(query);
 
-    return <HomePageWrapper data={data.pages as any} />;
+    return <HomePageWrapper data={data.pages as any} isPreview />;
 }

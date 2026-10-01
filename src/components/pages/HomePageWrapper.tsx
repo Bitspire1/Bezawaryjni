@@ -85,6 +85,7 @@ interface HomePageData {
 
 interface HomePageWrapperProps {
     data: HomePageData;
+    isPreview?: boolean;
 }
 
 const localBusinessJsonLd = {
@@ -129,7 +130,7 @@ const localBusinessJsonLd = {
     sameAs: ["https://bezawaryjni.com"],
 };
 
-export default function HomePageWrapper({ data }: HomePageWrapperProps) {
+export default function HomePageWrapper({ data, isPreview = false }: HomePageWrapperProps) {
     return (
         <>
             <script
@@ -137,8 +138,8 @@ export default function HomePageWrapper({ data }: HomePageWrapperProps) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
             />
             <Hero data={data} />
-            <Offer data={data} />
-            <LiftsSection data={data} />
+            <Offer data={data} isPreview={isPreview} />
+            <LiftsSection data={data} isPreview={isPreview} />
             <AboutUs data={data} />
             <WhyUsSection data={data} />
             <Suppliers data={data} />

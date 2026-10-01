@@ -1,6 +1,6 @@
 import { tinaField } from "@/lib/tinaField";
-import ContactForm from "@/components/ContactForm";
-import MapEmbed from "@/components/MapEmbed";
+import ContactForm from "@/components/contact/ContactForm";
+import MapEmbed from "@/components/contact/MapEmbed";
 
 interface ContactProps {
     data: {
@@ -16,7 +16,7 @@ interface ContactProps {
 
 export default function Contact({ data }: ContactProps) {
     return (
-        <section id="kontakt" className="bg-black py-16 text-white">
+        <section id="kontakt" className="cv-auto bg-black py-16 text-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <h2
                     className="wrap-balance text-center text-3xl font-bold sm:text-4xl"
@@ -32,7 +32,7 @@ export default function Contact({ data }: ContactProps) {
                 </p>
 
                 <div className="mt-8 grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3">
-                    <div className="relative overflow-hidden rounded-xl bg-gradient-to-b from-[#121212] to-[#0e0e0e] p-4 ring-1 ring-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_-12px_rgba(250,204,21,0.35)] hover:ring-yellow-400/30 sm:p-5 lg:col-span-2">
+                    <div className="relative overflow-hidden rounded-xl bg-linear-to-b from-[#121212] to-[#0e0e0e] p-4 ring-1 ring-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_-12px_rgba(250,204,21,0.35)] hover:ring-yellow-400/30 sm:p-5 lg:col-span-2">
                         <div
                             className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 hover:opacity-100"
                             style={{

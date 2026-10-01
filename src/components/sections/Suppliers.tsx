@@ -1,4 +1,5 @@
 import { tinaField } from "@/lib/tinaField";
+import { localMedia } from "@/lib/localMedia";
 import Image from "next/image";
 import ScaleDiv from "@/components/ui/ScaleDiv";
 
@@ -34,7 +35,7 @@ interface SuppliersProps {
 
 export default function Suppliers({ data }: SuppliersProps) {
     return (
-        <section id="dostawcy" className="bg-black py-12 text-white sm:py-16">
+        <section id="dostawcy" className="cv-auto bg-black py-12 text-white sm:py-16">
             <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
                 <h2
                     className="wrap-balance text-3xl font-bold text-yellow-400 sm:text-4xl"
@@ -65,7 +66,7 @@ export default function Suppliers({ data }: SuppliersProps) {
                             />
                             <div className="relative flex h-24 items-center justify-center sm:h-28">
                                 <div className="relative h-full w-full">
-                                    <Logo src={logo.image} alt={logo.alt} />
+                                    <Logo src={localMedia(logo.image)} alt={logo.alt} />
                                 </div>
                             </div>
                         </ScaleDiv>

@@ -12,9 +12,6 @@ vi.mock("@/components/features/LightboxImage", () => ({
     default: () => <div data-testid="lightbox-image" />,
 }));
 
-vi.mock("tinacms/dist/react", () => ({
-    tinaField: () => undefined,
-}));
 vi.mock("next/image", () => ({
     default: ({
         alt = "",
@@ -29,10 +26,10 @@ vi.mock("next/image", () => ({
 vi.mock("@/components/features/CountUp", () => ({
     default: ({ end }: { end: number }) => <span>{end}</span>,
 }));
-vi.mock("@/components/ContactForm", () => ({
+vi.mock("@/components/contact/ContactForm", () => ({
     default: () => <div data-testid="contact-form" />,
 }));
-vi.mock("@/components/MapEmbed", () => ({
+vi.mock("@/components/contact/MapEmbed", () => ({
     default: () => <div data-testid="map-embed" />,
 }));
 

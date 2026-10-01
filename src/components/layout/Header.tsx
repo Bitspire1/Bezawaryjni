@@ -4,18 +4,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useIsPreview, usePreviewHref } from "@/hooks/usePreviewHref";
+import { previewHref } from "@/lib/previewHref";
 import { navItems } from "@/lib/navItems";
 
-export default function Header() {
+interface HeaderProps {
+    isPreview?: boolean;
+}
+
+export default function Header({ isPreview = false }: HeaderProps) {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState<number | null>(null);
     const mobileMenuRef = useRef<HTMLDivElement | null>(null);
     const pathname = usePathname();
     const router = useRouter();
-    const isPreview = useIsPreview();
     const homePathname = isPreview ? "/preview" : "/";
-    const resolveHref = usePreviewHref;
+    const resolveHref = (href: string) => previewHref(href, isPreview);
 
     // Obsługa scrollowania do sekcji po załadowaniu strony
     useEffect(() => {
@@ -72,6 +75,7 @@ export default function Header() {
                 <div className="mx-auto grid h-16 max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-3 px-4 sm:h-20 sm:gap-4 sm:px-6 lg:px-8">
                     {/* Logo */}
                     <Link
+                        prefetch={false}
                         href={homePathname}
                         className="group flex items-center gap-3"
                         aria-label="Bezawaryjni – strona główna"
@@ -111,6 +115,7 @@ export default function Header() {
                                         </div>
                                     ) : (
                                         <Link
+                                            prefetch={false}
                                             href={resolveHref(item.href ?? "#")}
                                             className="group/nav relative font-semibold whitespace-nowrap after:absolute after:-bottom-1 after:left-0 after:h-1 after:w-0 after:bg-yellow-400 after:transition-all after:duration-300 hover:text-yellow-400 hover:after:w-full"
                                             onClick={(e) => handleNavClick(e, item.href ?? "#")}
@@ -124,6 +129,7 @@ export default function Header() {
                                         <div className="absolute left-0 z-50 mt-3 w-60 rounded-lg bg-[#111315] p-2 shadow-[0_16px_40px_-16px_rgba(0,0,0,0.6)] ring-1 ring-white/10">
                                             {item.children.map((c) => (
                                                 <Link
+                                                    prefetch={false}
                                                     key={c.label}
                                                     href={resolveHref(c.href)}
                                                     className="block rounded-md px-3.5 py-2.5 hover:bg-white/10"
@@ -222,6 +228,7 @@ export default function Header() {
                                     <div className="pl-3">
                                         {item.children.map((c) => (
                                             <Link
+                                                prefetch={false}
                                                 key={c.label}
                                                 href={resolveHref(c.href)}
                                                 className="block rounded px-2.5 py-2.5 hover:bg-white/10"
@@ -234,6 +241,7 @@ export default function Header() {
                                 </details>
                             ) : (
                                 <Link
+                                    prefetch={false}
                                     href={resolveHref(item.href ?? "#")}
                                     className="block rounded px-2.5 py-2.5 font-medium hover:bg-white/10"
                                     onClick={(e) => handleNavClick(e, item.href ?? "#")}

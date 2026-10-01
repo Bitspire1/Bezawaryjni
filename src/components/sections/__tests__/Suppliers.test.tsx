@@ -3,9 +3,6 @@ import { describe, it, expect, vi } from "vitest";
 import Suppliers from "@/components/sections/Suppliers";
 import { mockHomeData } from "@/components/__tests__/mockData";
 
-vi.mock("tinacms/dist/react", () => ({
-    tinaField: () => undefined,
-}));
 vi.mock("next/image", () => ({
     default: ({
         alt = "",

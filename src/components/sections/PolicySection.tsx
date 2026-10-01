@@ -34,7 +34,7 @@ export default function PolicySection({ data, index }: PolicySectionProps) {
                 </h2>
             </div>
             <div
-                className="prose prose-invert mt-3 max-w-none [&_a]:text-yellow-400 [&_a]:underline [&_a]:decoration-yellow-400/30 [&_a:hover]:text-yellow-300 [&_a:hover]:decoration-yellow-300 [&_strong]:font-semibold [&_strong]:text-yellow-400 [&>p]:mb-3 [&>p]:leading-relaxed [&>p]:text-white/80 [&>ul]:mt-3 [&>ul]:ml-0 [&>ul]:list-disc [&>ul]:space-y-2 [&>ul]:pl-6 [&>ul>li]:pl-2 [&>ul>li]:text-white/80 [&>ul>li]:marker:text-yellow-400"
+                className="mt-3 max-w-none [&_a]:text-yellow-400 [&_a]:underline [&_a]:decoration-yellow-400/30 [&_a:hover]:text-yellow-300 [&_a:hover]:decoration-yellow-300 [&_strong]:font-semibold [&_strong]:text-yellow-400 [&>p]:mb-3 [&>p]:leading-relaxed [&>p]:text-white/80 [&>ul]:mt-3 [&>ul]:ml-0 [&>ul]:list-disc [&>ul]:space-y-2 [&>ul]:pl-6 [&>ul>li]:pl-2 [&>ul>li]:text-white/80 [&>ul>li]:marker:text-yellow-400"
                 data-tina-field={tinaField(data.policySections[index], "content")}
             >
                 <TinaMarkdown content={section.content} />

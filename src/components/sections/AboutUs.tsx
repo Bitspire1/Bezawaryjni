@@ -21,7 +21,7 @@ interface AboutUsProps {
 
 export default function AboutUs({ data }: AboutUsProps) {
     return (
-        <section id="nasza-firma" className="bg-black py-20 text-white">
+        <section id="nasza-firma" className="cv-auto bg-black py-20 text-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="grid items-start gap-12 lg:grid-cols-2">
                     {/* Left: Text */}

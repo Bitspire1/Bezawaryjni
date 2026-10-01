@@ -3,9 +3,6 @@ import { describe, it, expect, vi } from "vitest";
 import PolicySection from "@/components/sections/PolicySection";
 import { mockPrivacyData } from "@/components/__tests__/mockData";
 
-vi.mock("tinacms/dist/react", () => ({
-    tinaField: () => undefined,
-}));
 vi.mock("tinacms/dist/rich-text", () => ({
     TinaMarkdown: ({ content }: { content: string }) => <div>{content}</div>,
 }));
@@ -13,6 +10,7 @@ vi.mock("next/link", () => ({
     default: ({
         href,
         children,
+        prefetch: _prefetch,
         ...rest
     }: {
         href: string;

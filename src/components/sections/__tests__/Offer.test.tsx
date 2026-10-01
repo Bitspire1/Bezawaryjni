@@ -3,11 +3,6 @@ import { describe, it, expect, vi } from "vitest";
 import Offer from "@/components/sections/Offer";
 import { mockHomeData } from "../../__tests__/mockData";
 
-vi.mock("next/navigation", () => ({
-    usePathname: () => "/",
-    useRouter: () => ({ push: vi.fn() }),
-}));
-
 vi.mock("next/image", () => ({
     default: ({
         alt = "",
